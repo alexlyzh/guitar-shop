@@ -1,15 +1,26 @@
+import {Link} from 'react-router-dom';
 import MainLayout from '../main-layout/main-layout';
+import {AppRoute} from '../../const';
+import {useSelector} from 'react-redux';
+import {getGuitars} from '../../store/reducer/data-reducer/selectors';
+import GuitarList from './guitar-list/guitar-list';
+import Spinner from '../common/spinner/spinner';
+import {RequestStatus} from '../../types/types';
 
 function CatalogPage(): JSX.Element {
+  const guitars = useSelector(getGuitars);
+  console.log(guitars) // eslint-disable-line
+
   return (
     <MainLayout>
-
       <div className="container">
         <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
         <ul className="breadcrumbs page-content__breadcrumbs">
-          <li className="breadcrumbs__item"><a className="link" href="./main.html">Главная</a>
+          <li className="breadcrumbs__item">
+            <Link className="link" to={AppRoute.Root}>Главная</Link>
           </li>
-          <li className="breadcrumbs__item"><a className="link">Каталог</a>
+          <li className="breadcrumbs__item">
+            <Link className="link" to={AppRoute.Root}>Каталог</Link>
           </li>
         </ul>
         <div className="catalog">
@@ -35,22 +46,22 @@ function CatalogPage(): JSX.Element {
                 <label htmlFor="acoustic">Акустические гитары</label>
               </div>
               <div className="form-checkbox catalog-filter__block-item">
-                <input className="visually-hidden" type="checkbox" id="electric" name="electric" checked/>
+                <input className="visually-hidden" type="checkbox" id="electric" name="electric"/>
                 <label htmlFor="electric">Электрогитары</label>
               </div>
               <div className="form-checkbox catalog-filter__block-item">
-                <input className="visually-hidden" type="checkbox" id="ukulele" name="ukulele" checked/>
+                <input className="visually-hidden" type="checkbox" id="ukulele" name="ukulele"/>
                 <label htmlFor="ukulele">Укулеле</label>
               </div>
             </fieldset>
             <fieldset className="catalog-filter__block">
               <legend className="catalog-filter__block-title">Количество струн</legend>
               <div className="form-checkbox catalog-filter__block-item">
-                <input className="visually-hidden" type="checkbox" id="4-strings" name="4-strings" checked/>
+                <input className="visually-hidden" type="checkbox" id="4-strings" name="4-strings"/>
                 <label htmlFor="4-strings">4</label>
               </div>
               <div className="form-checkbox catalog-filter__block-item">
-                <input className="visually-hidden" type="checkbox" id="6-strings" name="6-strings" checked/>
+                <input className="visually-hidden" type="checkbox" id="6-strings" name="6-strings"/>
                 <label htmlFor="6-strings">6</label>
               </div>
               <div className="form-checkbox catalog-filter__block-item">
@@ -58,112 +69,16 @@ function CatalogPage(): JSX.Element {
                 <label htmlFor="7-strings">7</label>
               </div>
               <div className="form-checkbox catalog-filter__block-item">
-                <input className="visually-hidden" type="checkbox" id="12-strings" name="12-strings" disabled/>
+                <input className="visually-hidden" type="checkbox" id="12-strings" name="12-strings"/>
                 <label htmlFor="12-strings">12</label>
               </div>
             </fieldset>
           </form>
-          <div className="catalog-sort">
-            <h2 className="catalog-sort__title">Сортировать:</h2>
-            <div className="catalog-sort__type">
-              <button className="catalog-sort__type-button catalog-sort__type-button--active" aria-label="по цене" tabIndex={-1}>
-                  по цене
-              </button>
-              <button className="catalog-sort__type-button" aria-label="по популярности">по популярности</button>
-            </div>
-            <div className="catalog-sort__order">
-              <button
-                className="catalog-sort__order-button catalog-sort__order-button--up catalog-sort__order-button--active"
-                aria-label="По возрастанию" tabIndex={-1}
-              >
-              </button>
-              <button className="catalog-sort__order-button catalog-sort__order-button--down"
-                aria-label="По убыванию"
-              >
-              </button>
-            </div>
-          </div>
-          <div className="cards catalog__cards">
-            <div className="product-card">
-              <img src="img/content/guitar-7.jpg" width="75" height="190" alt="СURT Z30 Plus Acoustics"/>
-              <div className="product-card__info">
-                <div className="rate product-card__rate" aria-hidden="true">
-                  <span className="visually-hidden">Рейтинг:</span>
-                  <svg width="12" height="11" aria-hidden="true">
-                    <use xlinkHref="#icon-full-star"/>
-                  </svg>
-                  <svg width="12" height="11" aria-hidden="true">
-                    <use xlinkHref="#icon-full-star"/>
-                  </svg>
-                  <svg width="12" height="11" aria-hidden="true">
-                    <use xlinkHref="#icon-full-star"/>
-                  </svg>
-                  <svg width="12" height="11" aria-hidden="true">
-                    <use xlinkHref="#icon-full-star"/>
-                  </svg>
-                  <svg width="12" height="11" aria-hidden="true">
-                    <use xlinkHref="#icon-star"/>
-                  </svg>
-                  <span className="rate__count">9</span><span className="rate__message"/>
-                </div>
-                <p className="product-card__title">СURT Z30 Plus Acoustics</p>
-                <p className="product-card__price"><span className="visually-hidden">Цена:</span>129 500 ₽
-                </p>
-              </div>
-              <div className="product-card__buttons">
-                <a className="button button--mini" href="#">Подробнее</a>
-                <a className="button button--red button--mini button--add-to-cart" href="#" >Купить</a>
-              </div>
-            </div>
-            <div className="product-card">
-              <img src="img/content/guitar-8.jpg" width="75" height="190" alt="СURT Z30 Plus"/>
-              <div className="product-card__info">
-                <div className="rate product-card__rate" aria-hidden="true">
-                  <span className="visually-hidden">Рейтинг:</span>
-                  <svg width="12" height="11" aria-hidden="true">
-                    <use xlinkHref="#icon-full-star"/>
-                  </svg>
-                  <svg width="12" height="11" aria-hidden="true">
-                    <use xlinkHref="#icon-full-star"/>
-                  </svg>
-                  <svg width="12" height="11" aria-hidden="true">
-                    <use xlinkHref="#icon-full-star"/>
-                  </svg>
-                  <svg width="12" height="11" aria-hidden="true">
-                    <use xlinkHref="#icon-full-star"/>
-                  </svg>
-                  <svg width="12" height="11" aria-hidden="true">
-                    <use xlinkHref="#icon-star"/>
-                  </svg>
-                  <span className="rate__count">76</span><span className="rate__message"/>
-                </div>
-                <p className="product-card__title">СURT Z30 Plus</p>
-                <p className="product-card__price"><span className="visually-hidden">Цена:</span>9 700 ₽
-                </p>
-              </div>
-              <div className="product-card__buttons">
-                <a className="button button--mini" href="#">Подробнее</a>
-                <a className="button button--red button--mini button--add-to-cart" href="#">Купить</a>
-              </div>
-            </div>
-          </div>
-          <div className="pagination page-content__pagination">
-            <ul className="pagination__list">
-              <li className="pagination__page pagination__page--active">
-                <a className="link pagination__page-link" href="#">1</a>
-              </li>
-              <li className="pagination__page"><a className="link pagination__page-link" href="#">2</a>
-              </li>
-              <li className="pagination__page"><a className="link pagination__page-link" href="#">3</a>
-              </li>
-              <li className="pagination__page pagination__page--next" id="next">
-                <a className="link pagination__page-link" href="#">Далее</a>
-              </li>
-            </ul>
-          </div>
+
+          {guitars.requestStatus === RequestStatus.PENDING ? <Spinner /> : <GuitarList guitars={guitars.data}/>}
+
         </div>
       </div>
-
     </MainLayout>
   );
 }

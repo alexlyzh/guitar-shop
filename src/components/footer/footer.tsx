@@ -1,28 +1,31 @@
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
+
 function Footer(): JSX.Element {
   return (
     <footer className="footer">
       <div className="footer__container container">
-        <a className="footer__logo logo">
+        <Link className="footer__logo logo" to={AppRoute.Root}>
           <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип"/>
-        </a>
+        </Link>
         <div className="socials footer__socials">
           <ul className="socials__list">
             <li className="socials-item">
-              <a className="socials__link" href="https://www.facebook.com/" aria-label="facebook">
+              <a className="socials__link" href="https://www.facebook.com/" aria-label="facebook" target="_blank" rel="noreferrer">
                 <svg className="socials__icon" width="24" height="24" aria-hidden="true">
                   <use xlinkHref="#icon-facebook"/>
                 </svg>
               </a>
             </li>
             <li className="socials-item">
-              <a className="socials__link" href="https://www.instagram.com/" aria-label="instagram">
+              <a className="socials__link" href="https://www.instagram.com/" aria-label="instagram" target="_blank" rel="noreferrer">
                 <svg className="socials__icon" width="24" height="24" aria-hidden="true">
                   <use xlinkHref="#icon-instagram"/>
                 </svg>
               </a>
             </li>
             <li className="socials-item">
-              <a className="socials__link" href="https://www.twitter.com/" aria-label="twitter">
+              <a className="socials__link" href="https://www.twitter.com/" aria-label="twitter" target="_blank" rel="noreferrer">
                 <svg className="socials__icon" width="24" height="24" aria-hidden="true">
                   <use xlinkHref="#icon-twitter"/>
                 </svg>

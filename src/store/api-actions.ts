@@ -14,7 +14,6 @@ const APIAction = {
       dispatch(ActionCreator.startLoadGuitars());
       try {
         const {data} = await api.get<Guitar[]>(ApiRoute.GetGuitars);
-        console.log(data); // eslint-disable-line
         dispatch(ActionCreator.saveGuitars(data));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());

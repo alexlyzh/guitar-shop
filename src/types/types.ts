@@ -1,5 +1,3 @@
-
-
 enum RequestStatus {
   IDLE = 'IDLE',
   PENDING = 'PENDING',
