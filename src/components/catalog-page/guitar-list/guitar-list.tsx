@@ -1,30 +1,61 @@
 import {Link} from 'react-router-dom';
 import {Guitar} from '../../../types/types';
 import StarRating from './star-rating/star-rating';
+import {useDispatch, useSelector} from 'react-redux';
+import {getCurrentSort} from '../../../store/reducer/app-reducer/selectors';
+import {SortOrder, SortType} from '../../../const';
+import {CurrentSort} from '../../../store/reducer/app-reducer/app-reducer';
+import {ActionCreator} from '../../../store/actions';
 
 type GuitarListProps = {
   guitars: Guitar[],
 }
 
+const getSortTypeBtnClassName = (
+  currentSort: CurrentSort,
+  target: SortType,
+) => currentSort.type === target ? 'catalog-sort__type-button--active' : '';
+
+const getSortOrderBtnClassName = (
+  currentSort: CurrentSort,
+  target: SortOrder,
+) => currentSort.order === target ? 'catalog-sort__order-button--active' : '';
+
 function GuitarList({guitars}: GuitarListProps): JSX.Element {
+  const dispatch = useDispatch();
+  const currentSort = useSelector(getCurrentSort);
+
   return (
     <>
       <div className="catalog-sort">
         <h2 className="catalog-sort__title">Сортировать:</h2>
         <div className="catalog-sort__type">
-          <button className="catalog-sort__type-button catalog-sort__type-button--active" aria-label="по цене" tabIndex={-1}>
+          <button
+            className={`catalog-sort__type-button ${getSortTypeBtnClassName(currentSort, SortType.PRICE)}`}
+            aria-label="по цене"
+            onClick={() => dispatch(ActionCreator.changeCatalogSort({type: SortType.PRICE}))}
+          >
             по цене
           </button>
-          <button className="catalog-sort__type-button" aria-label="по популярности">по популярности</button>
+          <button
+            className={`catalog-sort__type-button ${getSortTypeBtnClassName(currentSort, SortType.RATING)}`}
+            aria-label="по популярности"
+            onClick={() => dispatch(ActionCreator.changeCatalogSort({type: SortType.RATING}))}
+          >
+            по популярности
+          </button>
         </div>
         <div className="catalog-sort__order">
           <button
-            className="catalog-sort__order-button catalog-sort__order-button--up catalog-sort__order-button--active"
-            aria-label="По возрастанию" tabIndex={-1}
+            className={`catalog-sort__order-button catalog-sort__order-button--up ${getSortOrderBtnClassName(currentSort, SortOrder.ASCENDING)}`}
+            aria-label="По возрастанию"
+            onClick={() => dispatch(ActionCreator.changeCatalogSort({order: SortOrder.ASCENDING}))}
           >
           </button>
-          <button className="catalog-sort__order-button catalog-sort__order-button--down"
+          <button
+            className={`catalog-sort__order-button catalog-sort__order-button--down ${getSortOrderBtnClassName(currentSort, SortOrder.DESCENDING)}`}
             aria-label="По убыванию"
+            onClick={() => dispatch(ActionCreator.changeCatalogSort({order: SortOrder.DESCENDING}))}
           >
           </button>
         </div>

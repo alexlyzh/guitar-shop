@@ -2,13 +2,13 @@ import {Link} from 'react-router-dom';
 import MainLayout from '../main-layout/main-layout';
 import {AppRoute} from '../../const';
 import {useSelector} from 'react-redux';
-import {getGuitars} from '../../store/reducer/data-reducer/selectors';
 import GuitarList from './guitar-list/guitar-list';
 import Spinner from '../common/spinner/spinner';
 import {RequestStatus} from '../../types/types';
+import {getSortedGuitars} from '../../store/reducer/app-reducer/selectors';
 
 function CatalogPage(): JSX.Element {
-  const guitars = useSelector(getGuitars);
+  const guitars = useSelector(getSortedGuitars);
 
   return (
     <MainLayout>

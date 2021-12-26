@@ -4,7 +4,7 @@ import {AxiosInstance} from 'axios';
 import {Action} from '@reduxjs/toolkit';
 import {ApiRoute} from '../const';
 import {ActionCreator} from './actions';
-import {State} from './reducer/reducer';
+import {State} from './reducer/root-reducer';
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 

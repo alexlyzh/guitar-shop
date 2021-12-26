@@ -15,7 +15,7 @@ const initialState: State = {
 
 export const dataReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(ActionCreator.startLoadGuitars, (state, action) => {
+    .addCase(ActionCreator.startLoadGuitars, (state) => {
       state.guitars = {
         requestStatus: RequestStatus.PENDING,
         data: [],
@@ -27,7 +27,7 @@ export const dataReducer = createReducer(initialState, (builder) => {
         data: action.payload,
       };
     })
-    .addCase(ActionCreator.setErrorLoadGuitars, (state, action) => {
+    .addCase(ActionCreator.setErrorLoadGuitars, (state) => {
       state.guitars = {
         requestStatus: RequestStatus.ERROR,
         data: [],

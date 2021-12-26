@@ -6,14 +6,16 @@ import browserHistory from './browser-history';
 import {createApi} from './api';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
-import reducer from './store/reducer/reducer';
+import rootReducer from './store/reducer/root-reducer';
 import {APIAction} from './store/api-actions';
+import {processSortChange} from './store/reducer/middlewares/process-sort-change/process-sort-change';
 
 const api = createApi();
 
 const store = configureStore({
-  reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({thunk: {extraArgument: api}}),
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({thunk: {extraArgument: api}}).concat(processSortChange),
 });
 
 store.dispatch(APIAction.getGuitars());
