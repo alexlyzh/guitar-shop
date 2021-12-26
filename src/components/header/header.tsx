@@ -1,12 +1,8 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import SearchForm from './search-form/search-form';
-import {useSelector} from 'react-redux';
-import {getCurrentSearch} from '../../store/reducer/app-reducer/selectors';
 
 function Header(): JSX.Element {
-  const currentSearch = useSelector(getCurrentSearch);
-
   return (
     <header className="header" id="header">
       <div className="container header__wrapper">
@@ -26,7 +22,7 @@ function Header(): JSX.Element {
             </li>
           </ul>
         </nav>
-        <SearchForm currentSearch={currentSearch}/>
+        <SearchForm />
 
         <Link className="header__cart-link" to="#" aria-label="Корзина">
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">

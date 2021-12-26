@@ -17,10 +17,9 @@ enum HttpCode {
   NoContent = 204,
 }
 
-const INITIAL_SEARCH = '';
-
 const KeyCode = {
   ESC_KEY: 27,
-};
+  ENTER_KEY: 13,
+} as const;
 
-export {AppRoute, ApiRoute, HttpCode, INITIAL_SEARCH, KeyCode};
+export {AppRoute, ApiRoute, HttpCode, KeyCode};

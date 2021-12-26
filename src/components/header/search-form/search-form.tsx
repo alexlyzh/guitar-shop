@@ -1,27 +1,35 @@
-import {useDispatch} from 'react-redux';
-import {ChangeEvent} from 'react';
-import {ActionCreator} from '../../../store/actions';
-import {INITIAL_SEARCH} from '../../../const';
+import {ChangeEvent, useCallback, useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
+import {getGuitars} from '../../../store/reducer/data-reducer/selectors';
+import {onSelectItemFocus, onSelectItemBlur} from './utils';
+import {isEscKeyDown} from '../../../utils';
 
-type Props = {
-  currentSearch: string,
-}
-
-function SearchForm({currentSearch}: Props): JSX.Element {
-  const dispatch = useDispatch();
+function SearchForm(): JSX.Element {
+  const guitars = useSelector(getGuitars);
+  const [search, setSearch] = useState('');
+  const filteredGuitars = guitars.data.filter(({name}) => name.toLowerCase().includes(search.toLowerCase()));
+  const isDropdownVisible = search && filteredGuitars.length;
 
   const onInputChange = ({target}: ChangeEvent<HTMLInputElement>) => {
-    dispatch(ActionCreator.changeSearch(target.value));
+    setSearch(target.value);
   };
 
-  const onInputBlur = () => {
-    dispatch(ActionCreator.changeSearch(INITIAL_SEARCH));
-  };
+  const onDocumentEscKeydown = useCallback((evt: KeyboardEvent) => {
+    if (isEscKeyDown(evt)) {
+      setSearch('');
+      document.removeEventListener('keydown', onDocumentEscKeydown);
+    }
+  }, []);
+
+  useEffect(() => {
+    isDropdownVisible && document.addEventListener('keydown', onDocumentEscKeydown);
+    return () => document.removeEventListener('keydown', onDocumentEscKeydown);
+  }, [isDropdownVisible, onDocumentEscKeydown]);
 
   return (
     <div className="form-search">
       <form className="form-search__form">
-        <button className="form-search__submit" type="submit">
+        <button className="form-search__submit" type="button">
           <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
             <use xlinkHref="#icon-search"/>
           </svg>
@@ -31,22 +39,28 @@ function SearchForm({currentSearch}: Props): JSX.Element {
           className="form-search__input"
           id="search" type="text" autoComplete="off"
           placeholder="что вы ищите?"
-          value={currentSearch}
+          value={search}
           onChange={onInputChange}
-          onBlur={onInputBlur}
         />
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
       <ul
-        className={`form-search__select-list ${!currentSearch ? 'hidden': ''}`}
+        className={`form-search__select-list ${isDropdownVisible ? '': 'hidden'}`}
         style={{zIndex: '1'}}
       >
-        <li className="form-search__select-item" tabIndex={0}>Четстер Plus</li>
-        <li className="form-search__select-item" tabIndex={0}>Четстер UX</li>
-        <li className="form-search__select-item" tabIndex={0}>Четстер UX2</li>
-        <li className="form-search__select-item" tabIndex={0}>Четстер UX3</li>
-        <li className="form-search__select-item" tabIndex={0}>Четстер UX4</li>
-        <li className="form-search__select-item" tabIndex={0}>Четстер UX5</li>
+        {filteredGuitars.map((guitar) => (
+          <li
+            className="form-search__select-item"
+            tabIndex={0}
+            key={guitar.id}
+            data-id={guitar.id}
+            onFocus={onSelectItemFocus}
+            onBlur={onSelectItemBlur}
+          >
+            {guitar.name}
+          </li>
+        ))}
+
       </ul>
     </div>
   );

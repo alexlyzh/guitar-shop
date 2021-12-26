@@ -9,7 +9,6 @@ import {RequestStatus} from '../../types/types';
 
 function CatalogPage(): JSX.Element {
   const guitars = useSelector(getGuitars);
-  console.log(guitars) // eslint-disable-line
 
   return (
     <MainLayout>
