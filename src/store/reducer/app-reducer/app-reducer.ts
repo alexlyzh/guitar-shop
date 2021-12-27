@@ -20,7 +20,7 @@ const initialState: State = {
 
 const appReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(ActionCreator.changeCatalogSort, (state, action) => {
+    .addCase(ActionCreator.changeSort, (state, action) => {
       state.currentSort = action.payload;
     });
 });

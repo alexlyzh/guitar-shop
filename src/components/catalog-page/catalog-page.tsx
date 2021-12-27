@@ -1,27 +1,28 @@
-import {Link} from 'react-router-dom';
 import MainLayout from '../main-layout/main-layout';
-import {AppRoute} from '../../const';
 import {useSelector} from 'react-redux';
 import GuitarList from './guitar-list/guitar-list';
 import Spinner from '../common/spinner/spinner';
 import {RequestStatus} from '../../types/types';
 import {getSortedGuitars} from '../../store/reducer/app-reducer/selectors';
+import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 
 function CatalogPage(): JSX.Element {
   const guitars = useSelector(getSortedGuitars);
 
+  if (guitars.requestStatus === RequestStatus.ERROR) {
+    return (
+      <MainLayout>
+        <Breadcrumbs />
+        <div style={{display: 'flex', justifyContent: 'center'}}>Не удалось загрузить список гитар</div>
+      </MainLayout>
+    );
+  }
+
   return (
     <MainLayout>
       <div className="container">
-        <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
-        <ul className="breadcrumbs page-content__breadcrumbs">
-          <li className="breadcrumbs__item">
-            <Link className="link" to={AppRoute.Root}>Главная</Link>
-          </li>
-          <li className="breadcrumbs__item">
-            <Link className="link" to={AppRoute.Root}>Каталог</Link>
-          </li>
-        </ul>
+        <Breadcrumbs />
+
         <div className="catalog">
           <form className="catalog-filter">
             <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>

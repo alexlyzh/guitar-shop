@@ -2,13 +2,17 @@ enum AppRoute {
   Root = '/',
 }
 
-enum ApiRoute {
+enum ApiPath {
   GetGuitars = '/guitars',
   GetGuitar = '/guitars/:id',
   GetComments = '/guitars/:id/comments',
   PostComments = '/comments',
   PostCoupon = '/coupons',
   PostOrders = '/orders',
+}
+
+enum ApiSearch {
+  ByName = '?name_like=',
 }
 
 enum HttpCode {
@@ -18,23 +22,23 @@ enum HttpCode {
 }
 
 enum KeyCode {
-  ESC_KEY = 27,
-  ENTER_KEY = 13,
+  ESC = 27,
+  ENTER = 13,
 }
 
 enum SortOrder {
-  ASCENDING = 'ASCENDING',
-  DESCENDING = 'DESCENDING',
+  ASC = 'asc',
+  DESC = 'desc',
 }
 
 enum SortType {
-  PRICE = 'PRICE',
-  RATING = 'RATING',
+  PRICE = 'price',
+  RATING = 'rating',
 }
 
 const initialSort = {
   type: SortType.PRICE,
-  order: SortOrder.DESCENDING,
+  order: SortOrder.DESC,
 } as const;
 
-export {AppRoute, ApiRoute, HttpCode, KeyCode, SortType, SortOrder, initialSort};
+export {AppRoute, ApiPath, ApiSearch, HttpCode, KeyCode, SortType, SortOrder, initialSort};

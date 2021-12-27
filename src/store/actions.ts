@@ -8,17 +8,13 @@ enum ActionType {
 }
 
 const ActionCreator = {
-  saveGuitars: createAction(ActionType.SAVE_GUITARS, (guitars) => ({
-    payload: guitars,
-  })),
+  saveGuitars: createAction(ActionType.SAVE_GUITARS, (guitars) => ({payload: guitars})),
 
   startLoadGuitars: createAction(ActionType.START_LOAD_GUITARS),
 
   setErrorLoadGuitars: createAction(ActionType.ERROR_LOAD_GUITARS),
 
-  changeCatalogSort: createAction(ActionType.CHANGE_CATALOG_SORT, (sort) => ({
-    payload: sort,
-  })),
+  changeSort: createAction(ActionType.CHANGE_CATALOG_SORT, (sort) => ({payload: sort})),
 };
 
 export {ActionCreator, ActionType};

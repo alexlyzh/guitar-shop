@@ -33,29 +33,29 @@ function GuitarList({guitars}: GuitarListProps): JSX.Element {
           <button
             className={`catalog-sort__type-button ${getSortTypeBtnClassName(currentSort, SortType.PRICE)}`}
             aria-label="по цене"
-            onClick={() => dispatch(ActionCreator.changeCatalogSort({type: SortType.PRICE}))}
+            onClick={() => dispatch(ActionCreator.changeSort({type: SortType.PRICE}))}
           >
             по цене
           </button>
           <button
             className={`catalog-sort__type-button ${getSortTypeBtnClassName(currentSort, SortType.RATING)}`}
             aria-label="по популярности"
-            onClick={() => dispatch(ActionCreator.changeCatalogSort({type: SortType.RATING}))}
+            onClick={() => dispatch(ActionCreator.changeSort({type: SortType.RATING}))}
           >
             по популярности
           </button>
         </div>
         <div className="catalog-sort__order">
           <button
-            className={`catalog-sort__order-button catalog-sort__order-button--up ${getSortOrderBtnClassName(currentSort, SortOrder.ASCENDING)}`}
+            className={`catalog-sort__order-button catalog-sort__order-button--up ${getSortOrderBtnClassName(currentSort, SortOrder.ASC)}`}
             aria-label="По возрастанию"
-            onClick={() => dispatch(ActionCreator.changeCatalogSort({order: SortOrder.ASCENDING}))}
+            onClick={() => dispatch(ActionCreator.changeSort({order: SortOrder.ASC}))}
           >
           </button>
           <button
-            className={`catalog-sort__order-button catalog-sort__order-button--down ${getSortOrderBtnClassName(currentSort, SortOrder.DESCENDING)}`}
+            className={`catalog-sort__order-button catalog-sort__order-button--down ${getSortOrderBtnClassName(currentSort, SortOrder.DESC)}`}
             aria-label="По убыванию"
-            onClick={() => dispatch(ActionCreator.changeCatalogSort({order: SortOrder.DESCENDING}))}
+            onClick={() => dispatch(ActionCreator.changeSort({order: SortOrder.DESC}))}
           >
           </button>
         </div>
