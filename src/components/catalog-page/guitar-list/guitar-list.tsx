@@ -4,22 +4,12 @@ import StarRating from './star-rating/star-rating';
 import {useDispatch, useSelector} from 'react-redux';
 import {getCurrentSort} from '../../../store/reducer/app-reducer/selectors';
 import {SortOrder, SortType} from '../../../const';
-import {CurrentSort} from '../../../store/reducer/app-reducer/app-reducer';
-import {ActionCreator} from '../../../store/actions';
+import {getSortOrderBtnClassName, getSortTypeBtnClassName, preProcessSortAction} from './utils';
+import {APIAction} from '../../../store/api-actions';
 
 type GuitarListProps = {
   guitars: Guitar[],
 }
-
-const getSortTypeBtnClassName = (
-  currentSort: CurrentSort,
-  target: SortType,
-) => currentSort.type === target ? 'catalog-sort__type-button--active' : '';
-
-const getSortOrderBtnClassName = (
-  currentSort: CurrentSort,
-  target: SortOrder,
-) => currentSort.order === target ? 'catalog-sort__order-button--active' : '';
 
 function GuitarList({guitars}: GuitarListProps): JSX.Element {
   const dispatch = useDispatch();
@@ -33,14 +23,14 @@ function GuitarList({guitars}: GuitarListProps): JSX.Element {
           <button
             className={`catalog-sort__type-button ${getSortTypeBtnClassName(currentSort, SortType.PRICE)}`}
             aria-label="по цене"
-            onClick={() => dispatch(ActionCreator.changeSort({type: SortType.PRICE}))}
+            onClick={() => dispatch(APIAction.sortGuitars(preProcessSortAction(currentSort, {type: SortType.PRICE})))}
           >
             по цене
           </button>
           <button
             className={`catalog-sort__type-button ${getSortTypeBtnClassName(currentSort, SortType.RATING)}`}
             aria-label="по популярности"
-            onClick={() => dispatch(ActionCreator.changeSort({type: SortType.RATING}))}
+            onClick={() => dispatch(APIAction.sortGuitars(preProcessSortAction(currentSort, {type: SortType.RATING})))}
           >
             по популярности
           </button>
@@ -49,13 +39,13 @@ function GuitarList({guitars}: GuitarListProps): JSX.Element {
           <button
             className={`catalog-sort__order-button catalog-sort__order-button--up ${getSortOrderBtnClassName(currentSort, SortOrder.ASC)}`}
             aria-label="По возрастанию"
-            onClick={() => dispatch(ActionCreator.changeSort({order: SortOrder.ASC}))}
+            onClick={() => dispatch(APIAction.sortGuitars(preProcessSortAction(currentSort, {order: SortOrder.ASC})))}
           >
           </button>
           <button
             className={`catalog-sort__order-button catalog-sort__order-button--down ${getSortOrderBtnClassName(currentSort, SortOrder.DESC)}`}
             aria-label="По убыванию"
-            onClick={() => dispatch(ActionCreator.changeSort({order: SortOrder.DESC}))}
+            onClick={() => dispatch(APIAction.sortGuitars(preProcessSortAction(currentSort, {order: SortOrder.DESC})))}
           >
           </button>
         </div>

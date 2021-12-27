@@ -3,11 +3,11 @@ import {useSelector} from 'react-redux';
 import GuitarList from './guitar-list/guitar-list';
 import Spinner from '../common/spinner/spinner';
 import {RequestStatus} from '../../types/types';
-import {getSortedGuitars} from '../../store/reducer/app-reducer/selectors';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
+import {getGuitars} from '../../store/reducer/data-reducer/selectors';
 
 function CatalogPage(): JSX.Element {
-  const guitars = useSelector(getSortedGuitars);
+  const guitars = useSelector(getGuitars);
 
   if (guitars.requestStatus === RequestStatus.ERROR) {
     return (

@@ -47,9 +47,7 @@ type CouponPost = {
   coupon: string,
 }
 
-export {
-  RequestStatus
-};
+export {RequestStatus};
 export type {
   RequestedData,
   Guitar,
@@ -57,3 +55,5 @@ export type {
   CommentPost,
   CouponPost
 };
+
+
