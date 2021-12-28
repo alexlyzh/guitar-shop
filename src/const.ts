@@ -18,6 +18,12 @@ const apiRoute = {
   },
 };
 
+enum GuitarType {
+  acoustic = 'Акустические гитары',
+  ukulele = 'Укулеле',
+  electric = 'Электрогитары',
+}
+
 enum SortType {
   PRICE = 'price',
   RATING = 'rating',
@@ -38,4 +44,4 @@ const initialSort = {
   order: SortOrder.DESC,
 } as const;
 
-export {AppRoute, apiRoute, KeyCode, SortType, SortOrder, initialSort};
+export {AppRoute, apiRoute, KeyCode, SortType, SortOrder, GuitarType, initialSort};

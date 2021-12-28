@@ -4,7 +4,7 @@ import StarRating from './star-rating/star-rating';
 import {useDispatch, useSelector} from 'react-redux';
 import {getCurrentSort} from '../../../store/reducer/app-reducer/selectors';
 import {SortOrder, SortType} from '../../../const';
-import {getSortOrderBtnClassName, getSortTypeBtnClassName, preProcessSortAction} from './utils';
+import {getSortOrderBtnClassName, getSortTypeBtnClassName} from './utils';
 import {APIAction} from '../../../store/api-actions';
 
 type GuitarListProps = {
@@ -23,14 +23,14 @@ function GuitarList({guitars}: GuitarListProps): JSX.Element {
           <button
             className={`catalog-sort__type-button ${getSortTypeBtnClassName(currentSort, SortType.PRICE)}`}
             aria-label="по цене"
-            onClick={() => dispatch(APIAction.sortGuitars(preProcessSortAction(currentSort, {type: SortType.PRICE})))}
+            onClick={() => dispatch(APIAction.updateGuitarsSort({type: SortType.PRICE}))}
           >
             по цене
           </button>
           <button
             className={`catalog-sort__type-button ${getSortTypeBtnClassName(currentSort, SortType.RATING)}`}
             aria-label="по популярности"
-            onClick={() => dispatch(APIAction.sortGuitars(preProcessSortAction(currentSort, {type: SortType.RATING})))}
+            onClick={() => dispatch(APIAction.updateGuitarsSort({type: SortType.RATING}))}
           >
             по популярности
           </button>
@@ -39,13 +39,13 @@ function GuitarList({guitars}: GuitarListProps): JSX.Element {
           <button
             className={`catalog-sort__order-button catalog-sort__order-button--up ${getSortOrderBtnClassName(currentSort, SortOrder.ASC)}`}
             aria-label="По возрастанию"
-            onClick={() => dispatch(APIAction.sortGuitars(preProcessSortAction(currentSort, {order: SortOrder.ASC})))}
+            onClick={() => dispatch(APIAction.updateGuitarsSort({order: SortOrder.ASC}))}
           >
           </button>
           <button
             className={`catalog-sort__order-button catalog-sort__order-button--down ${getSortOrderBtnClassName(currentSort, SortOrder.DESC)}`}
             aria-label="По убыванию"
-            onClick={() => dispatch(APIAction.sortGuitars(preProcessSortAction(currentSort, {order: SortOrder.DESC})))}
+            onClick={() => dispatch(APIAction.updateGuitarsSort({order: SortOrder.DESC}))}
           >
           </button>
         </div>

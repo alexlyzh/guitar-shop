@@ -3,11 +3,11 @@ import {Guitar, RequestedData, RequestStatus} from '../../../types/types';
 import {ActionCreator} from '../../actions';
 
 type State = {
-  guitars: RequestedData<Guitar>,
+  renderGuitars: RequestedData<Guitar>,
 }
 
 const initialState: State = {
-  guitars: {
+  renderGuitars: {
     requestStatus: RequestStatus.IDLE,
     data: [],
   },
@@ -16,19 +16,19 @@ const initialState: State = {
 export const dataReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(ActionCreator.startLoadGuitars, (state) => {
-      state.guitars = {
+      state.renderGuitars = {
         requestStatus: RequestStatus.PENDING,
         data: [],
       };
     })
-    .addCase(ActionCreator.saveGuitars, (state, action) => {
-      state.guitars = {
+    .addCase(ActionCreator.saveRenderGuitars, (state, action) => {
+      state.renderGuitars = {
         requestStatus: RequestStatus.SUCCESS,
         data: action.payload,
       };
     })
     .addCase(ActionCreator.setErrorLoadGuitars, (state) => {
-      state.guitars = {
+      state.renderGuitars = {
         requestStatus: RequestStatus.ERROR,
         data: [],
       };

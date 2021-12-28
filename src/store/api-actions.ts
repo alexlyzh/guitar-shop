@@ -2,15 +2,22 @@ import {ThunkAction} from 'redux-thunk';
 import {Guitar} from '../types/types';
 import {AxiosInstance} from 'axios';
 import {Action} from '@reduxjs/toolkit';
-import {apiRoute} from '../const';
+import {apiRoute, initialSort} from '../const';
 import {ActionCreator} from './actions';
 import {State} from './reducer/root-reducer';
 import {Dispatch, SetStateAction} from 'react';
-import {Sorting} from './reducer/app-reducer/app-reducer';
+import {SortSettings} from './reducer/app-reducer/app-reducer';
 import {BASE_URL} from '../api';
 import {toast} from 'react-toastify';
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
+
+const prepareSortAction = (currentSort: SortSettings, update: SortSettings) => {
+  if (!currentSort.type && ! currentSort.order) {
+    return {...initialSort, ...update};
+  }
+  return {...currentSort, ...update};
+};
 
 const APIAction = {
   getGuitars: (): ThunkActionResult =>
@@ -18,7 +25,7 @@ const APIAction = {
       dispatch(ActionCreator.startLoadGuitars());
       try {
         const {data} = await api.get<Guitar[]>(apiRoute.path.guitars);
-        dispatch(ActionCreator.saveGuitars(data));
+        dispatch(ActionCreator.saveRenderGuitars(data));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());
         throw e;
@@ -41,20 +48,21 @@ const APIAction = {
       }
     },
 
-  sortGuitars: (sort: Sorting): ThunkActionResult =>
+  updateGuitarsSort: (update: SortSettings): ThunkActionResult =>
     async (dispatch, getState, api): Promise<void> => {
+      const newSort = prepareSortAction(getState().APP.currentSort, update);
       try {
-        if (!sort.type || !sort.order) {
+        if (!newSort.type || !newSort.order) {
           await Promise.reject(Error('Недостаточно данных для сортировки'));
           return;
         }
         const url = new URL(apiRoute.path.guitars, BASE_URL);
-        url.searchParams.append(apiRoute.search.sort, sort.type);
-        url.searchParams.append(apiRoute.search.order, sort.order);
+        url.searchParams.append(apiRoute.search.sort, newSort.type);
+        url.searchParams.append(apiRoute.search.order, newSort.order);
         const {data} = await api.get<Guitar[]>(url.href);
-        dispatch(ActionCreator.changeSort(sort));
-        dispatch(ActionCreator.saveGuitars(data));
-      } catch(e) {
+        dispatch(ActionCreator.changeSort(newSort));
+        dispatch(ActionCreator.saveRenderGuitars(data));
+      } catch (e) {
         toast.error('Сортировка сорвалась =/');
         throw e;
       }

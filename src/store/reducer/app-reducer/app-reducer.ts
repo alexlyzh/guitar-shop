@@ -1,17 +1,26 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {ActionCreator} from '../../actions';
-import {SortOrder, SortType} from '../../../const';
+import {GuitarType, SortOrder, SortType} from '../../../const';
 
-type Sorting = {
+type SortSettings = {
   type?: SortType,
   order?: SortOrder,
 }
 
+type FilterSettings = {
+  minPrice?: number,
+  maxPrice?: number,
+  stringCount?: number[],
+  type?: GuitarType,
+}
+
 type State = {
-  currentSort: Sorting,
+  currentFilter: FilterSettings,
+  currentSort: SortSettings,
 }
 
 const initialState: State = {
+  currentFilter: {},
   currentSort: {},
 };
 
@@ -23,4 +32,4 @@ const appReducer = createReducer(initialState, (builder) => {
 });
 
 export {appReducer};
-export type {Sorting};
+export type {SortSettings, FilterSettings};

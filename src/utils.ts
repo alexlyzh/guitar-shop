@@ -1,11 +1,11 @@
 import {KeyCode, SortOrder, SortType} from './const';
 import {Guitar} from './types/types';
-import {Sorting} from './store/reducer/app-reducer/app-reducer';
+import {SortSettings} from './store/reducer/app-reducer/app-reducer';
 
 export const isEscKeyDown = (evt: KeyboardEvent) => evt.keyCode === KeyCode.ESC;
 export const isEnterKeyDown = (evt: KeyboardEvent) => evt.keyCode === KeyCode.ENTER;
 
-export const sort = ({type, order}: Sorting, guitars: Guitar[]) => {
+export const sort = ({type, order}: SortSettings, guitars: Guitar[]) => {
   switch (true) {
     case (type === SortType.PRICE && order === SortOrder.ASC):
       return guitars.slice().sort((a, b) => a.price - b.price);

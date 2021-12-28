@@ -1,19 +1,12 @@
-import {initialSort, SortOrder, SortType} from '../../../const';
-import {Sorting} from '../../../store/reducer/app-reducer/app-reducer';
+import {SortOrder, SortType} from '../../../const';
+import {SortSettings} from '../../../store/reducer/app-reducer/app-reducer';
 
 export const getSortTypeBtnClassName = (
-  currentSort: Sorting,
+  currentSort: SortSettings,
   target: SortType,
 ) => currentSort.type === target ? 'catalog-sort__type-button--active' : '';
 
 export const getSortOrderBtnClassName = (
-  currentSort: Sorting,
+  currentSort: SortSettings,
   target: SortOrder,
 ) => currentSort.order === target ? 'catalog-sort__order-button--active' : '';
-
-export const preProcessSortAction = (currentSort: Sorting, update: Sorting) => {
-  if (!currentSort.type && ! currentSort.order) {
-    return {...initialSort, ...update};
-  }
-  return {...currentSort, ...update};
-};

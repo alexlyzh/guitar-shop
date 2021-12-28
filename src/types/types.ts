@@ -1,3 +1,5 @@
+import {GuitarType} from '../const';
+
 enum RequestStatus {
   IDLE = 'IDLE',
   PENDING = 'PENDING',
@@ -14,7 +16,7 @@ type Guitar = {
   id: number,
   name: string,
   vendorCode: string,
-  type: string,
+  type: GuitarType,
   description: string,
   previewImg: string,
   stringCount: number,
