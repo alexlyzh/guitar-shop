@@ -6,9 +6,9 @@ import {apiRoute, initialSort} from '../const';
 import {ActionCreator} from './actions';
 import {State} from './reducer/root-reducer';
 import {Dispatch, SetStateAction} from 'react';
-import {SortSettings} from './reducer/app-reducer/app-reducer';
 import {BASE_URL} from '../api';
 import {toast} from 'react-toastify';
+import {SortSettings} from './reducer/data-reducer/data-reducer';
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
@@ -25,7 +25,7 @@ const APIAction = {
       dispatch(ActionCreator.startLoadGuitars());
       try {
         const {data} = await api.get<Guitar[]>(apiRoute.path.guitars);
-        dispatch(ActionCreator.saveRenderGuitars(data));
+        dispatch(ActionCreator.saveGuitars(data));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());
         throw e;
@@ -50,7 +50,8 @@ const APIAction = {
 
   updateGuitarsSort: (update: SortSettings): ThunkActionResult =>
     async (dispatch, getState, api): Promise<void> => {
-      const newSort = prepareSortAction(getState().APP.currentSort, update);
+      const newSort = prepareSortAction(getState().DATA.currentSort, update);
+      dispatch(ActionCreator.startLoadGuitars());
       try {
         if (!newSort.type || !newSort.order) {
           await Promise.reject(Error('Недостаточно данных для сортировки'));
@@ -61,9 +62,10 @@ const APIAction = {
         url.searchParams.append(apiRoute.search.order, newSort.order);
         const {data} = await api.get<Guitar[]>(url.href);
         dispatch(ActionCreator.changeSort(newSort));
-        dispatch(ActionCreator.saveRenderGuitars(data));
+        dispatch(ActionCreator.saveGuitars(data));
       } catch (e) {
         toast.error('Сортировка сорвалась =/');
+        dispatch(ActionCreator.setErrorLoadGuitars());
         throw e;
       }
     },

@@ -2,7 +2,7 @@ import FilterPrice from './filter-price/filter-price';
 import FilterType from './filter-type/filter-type';
 import FilterString from './filter-string/filter-string';
 import {useSelector} from 'react-redux';
-import {getCurrentFilter} from '../../../store/reducer/app-reducer/selectors';
+import {getCurrentFilter} from '../../../store/reducer/data-reducer/selectors';
 
 type Props = {
   isFetchingData: boolean,

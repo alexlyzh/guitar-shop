@@ -15,7 +15,11 @@ function CatalogPage(): JSX.Element {
     return (
       <MainLayout>
         <Breadcrumbs />
-        <div style={{display: 'flex', justifyContent: 'center'}}>Не удалось загрузить список гитар</div>
+        <p style={{display: 'flex', justifyContent: 'center'}}>
+          Не удалось загрузить список гитар.
+          <br/>
+          Попробуйте перезагрузить страницу.
+        </p>
       </MainLayout>
     );
   }

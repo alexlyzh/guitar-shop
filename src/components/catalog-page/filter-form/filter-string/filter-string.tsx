@@ -1,4 +1,4 @@
-import {FilterSettings} from '../../../../store/reducer/app-reducer/app-reducer';
+import {FilterSettings} from '../../../../store/reducer/data-reducer/data-reducer';
 
 type Props = {
   isFetchingData: boolean,

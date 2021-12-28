@@ -2,10 +2,10 @@ import {Link} from 'react-router-dom';
 import {Guitar} from '../../../types/types';
 import StarRating from './star-rating/star-rating';
 import {useDispatch, useSelector} from 'react-redux';
-import {getCurrentSort} from '../../../store/reducer/app-reducer/selectors';
 import {SortOrder, SortType} from '../../../const';
 import {getSortOrderBtnClassName, getSortTypeBtnClassName} from './utils';
 import {APIAction} from '../../../store/api-actions';
+import {getCurrentSort} from '../../../store/reducer/data-reducer/selectors';
 
 type GuitarListProps = {
   guitars: Guitar[],

@@ -1,4 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
+import {Guitar} from '../types/types';
+import {FilterSettings, SortSettings} from './reducer/data-reducer/data-reducer';
 
 enum ActionType {
   START_LOAD_GUITARS ='DATA | START_LOAD_GUITARS',
@@ -9,15 +11,15 @@ enum ActionType {
 }
 
 const ActionCreator = {
-  saveRenderGuitars: createAction(ActionType.SAVE_GUITARS, (guitars) => ({payload: guitars})),
+  saveGuitars: createAction(ActionType.SAVE_GUITARS, (guitars: Guitar[]) => ({payload: guitars})),
 
   startLoadGuitars: createAction(ActionType.START_LOAD_GUITARS),
 
   setErrorLoadGuitars: createAction(ActionType.ERROR_LOAD_GUITARS),
 
-  changeSort: createAction(ActionType.CHANGE_SORT, (sort) => ({payload: sort})),
+  changeSort: createAction(ActionType.CHANGE_SORT, (sort: SortSettings) => ({payload: sort})),
 
-  changeFilter: createAction(ActionType.CHANGE_FILTER, (filter) => ({payload: filter})),
+  changeFilter: createAction(ActionType.CHANGE_FILTER, (filter: FilterSettings) => ({payload: filter})),
 };
 
 export {ActionCreator, ActionType};

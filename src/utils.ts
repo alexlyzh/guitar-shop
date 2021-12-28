@@ -1,6 +1,6 @@
 import {KeyCode, SortOrder, SortType} from './const';
 import {Guitar} from './types/types';
-import {SortSettings} from './store/reducer/app-reducer/app-reducer';
+import {SortSettings} from './store/reducer/data-reducer/data-reducer';
 
 export const isEscKeyDown = (evt: KeyboardEvent) => evt.keyCode === KeyCode.ESC;
 export const isEnterKeyDown = (evt: KeyboardEvent) => evt.keyCode === KeyCode.ENTER;
