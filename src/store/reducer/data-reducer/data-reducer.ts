@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {Guitar, RequestedData, RequestStatus} from '../../../types/types';
+import {Guitar, RequestedData, RequestStatus, Price} from '../../../types/types';
 import {ActionCreator} from '../../actions';
-import {GuitarType, SortOrder, SortType} from '../../../const';
+import {GuitarType, MIN_PRICE, SortOrder, SortType} from '../../../const';
 
 type SortSettings = {
   type?: SortType,
@@ -9,8 +9,8 @@ type SortSettings = {
 }
 
 type FilterSettings = {
-  priceFrom: number | null,
-  priceTo: number | null,
+  priceMin: Price,
+  priceMax: Price,
   stringCount: number[],
   type: GuitarType | null,
 }
@@ -27,8 +27,8 @@ const initialState: State = {
     data: [],
   },
   currentFilter: {
-    priceFrom: null,
-    priceTo: null,
+    priceMin: null,
+    priceMax: null,
     stringCount: [],
     type: null,
   },
@@ -58,8 +58,11 @@ export const dataReducer = createReducer(initialState, (builder) => {
     .addCase(ActionCreator.changeSort, (state, action) => {
       state.currentSort = action.payload;
     })
-    .addCase(ActionCreator.changeFilter, (state, action) => {
-      state.currentFilter = action.payload;
+    .addCase(ActionCreator.changePriceMin, (state, action) => {
+      state.currentFilter.priceMin = action.payload ? Math.max(MIN_PRICE, action.payload) : action.payload;
+    })
+    .addCase(ActionCreator.changePriceMax, (state, action) => {
+      state.currentFilter.priceMax = action.payload ? Math.max(MIN_PRICE, action.payload) : action.payload;
     });
 });
 

@@ -8,7 +8,7 @@ import {State} from './reducer/root-reducer';
 import {Dispatch, SetStateAction} from 'react';
 import {BASE_URL} from '../api';
 import {toast} from 'react-toastify';
-import {SortSettings} from './reducer/data-reducer/data-reducer';
+import {FilterSettings, SortSettings} from './reducer/data-reducer/data-reducer';
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
@@ -48,7 +48,7 @@ const APIAction = {
       }
     },
 
-  updateGuitarsSort: (update: SortSettings): ThunkActionResult =>
+  updateSort: (update: SortSettings): ThunkActionResult =>
     async (dispatch, getState, api): Promise<void> => {
       const newSort = prepareSortAction(getState().DATA.currentSort, update);
       dispatch(ActionCreator.startLoadGuitars());
@@ -69,6 +69,21 @@ const APIAction = {
         throw e;
       }
     },
+
+  updateFilter: (): ThunkActionResult =>
+    async (dispatch, getState, api): Promise<void> => {
+      const {currentFilter, currentSort} = getState().DATA;
+      const url = createUrl(currentFilter, currentSort);
+      console.log('URL: ', url.href) // eslint-disable-line
+    },
+};
+
+const createUrl = (filter: FilterSettings, sort: SortSettings) => {
+  const url = new URL(apiRoute.path.guitars, BASE_URL);
+  console.log('Filter: ', filter); // eslint-disable-line
+  console.log('Sort: ', sort); // eslint-disable-line
+
+  return url;
 };
 
 export {APIAction};

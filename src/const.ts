@@ -1,3 +1,5 @@
+const MIN_PRICE = 0;
+
 enum AppRoute {
   Root = '/',
 }
@@ -44,4 +46,4 @@ const initialSort = {
   order: SortOrder.DESC,
 } as const;
 
-export {AppRoute, apiRoute, KeyCode, SortType, SortOrder, GuitarType, initialSort};
+export {MIN_PRICE, AppRoute, apiRoute, KeyCode, SortType, SortOrder, GuitarType, initialSort};

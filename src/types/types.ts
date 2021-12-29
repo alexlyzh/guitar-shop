@@ -12,6 +12,8 @@ type RequestedData<Type> = {
   data: Type[],
 }
 
+type Price = number | null;
+
 type Guitar = {
   id: number,
   name: string,
@@ -55,7 +57,8 @@ export type {
   Guitar,
   Comment,
   CommentPost,
-  CouponPost
+  CouponPost,
+  Price
 };
 
 
