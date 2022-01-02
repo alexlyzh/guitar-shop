@@ -19,6 +19,10 @@ type State = {
   guitars: RequestedData<Guitar>,
   currentFilter: FilterSettings,
   currentSort: SortSettings,
+  priceRange: {
+    min: number | null,
+    max: number | null,
+  }
 }
 
 const initialState: State = {
@@ -33,6 +37,10 @@ const initialState: State = {
     type: null,
   },
   currentSort: {},
+  priceRange: {
+    min: null,
+    max: null,
+  },
 };
 
 export const dataReducer = createReducer(initialState, (builder) => {
@@ -54,6 +62,9 @@ export const dataReducer = createReducer(initialState, (builder) => {
         requestStatus: RequestStatus.ERROR,
         data: [],
       };
+    })
+    .addCase(ActionCreator.setPriceRange, (state, action) => {
+      state.priceRange = action.payload;
     })
     .addCase(ActionCreator.changeSort, (state, action) => {
       state.currentSort = action.payload;

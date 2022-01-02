@@ -7,7 +7,6 @@ import {ActionCreator} from './actions';
 import {State} from './reducer/root-reducer';
 import {Dispatch, SetStateAction} from 'react';
 import {BASE_URL} from '../api';
-import {toast} from 'react-toastify';
 import {FilterSettings, SortSettings} from './reducer/data-reducer/data-reducer';
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
@@ -22,10 +21,17 @@ const prepareSortAction = (currentSort: SortSettings, update: SortSettings) => {
 const APIAction = {
   getGuitars: (): ThunkActionResult =>
     async (dispatch, getState, api): Promise<void> => {
+      let minPrice = 0;
+      let maxPrice = 0;
       dispatch(ActionCreator.startLoadGuitars());
       try {
         const {data} = await api.get<Guitar[]>(apiRoute.path.guitars);
+        data.forEach((guitar) => {
+          minPrice = minPrice === 0 ? guitar.price : Math.min(minPrice, guitar.price);
+          maxPrice = Math.max(maxPrice, guitar.price);
+        });
         dispatch(ActionCreator.saveGuitars(data));
+        dispatch(ActionCreator.setPriceRange(minPrice, maxPrice));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());
         throw e;
@@ -64,7 +70,6 @@ const APIAction = {
         dispatch(ActionCreator.changeSort(newSort));
         dispatch(ActionCreator.saveGuitars(data));
       } catch (e) {
-        toast.error('Сортировка сорвалась =/');
         dispatch(ActionCreator.setErrorLoadGuitars());
         throw e;
       }
@@ -74,14 +79,21 @@ const APIAction = {
     async (dispatch, getState, api): Promise<void> => {
       const {currentFilter, currentSort} = getState().DATA;
       const url = createUrl(currentFilter, currentSort);
-      console.log('URL: ', url.href) // eslint-disable-line
+      dispatch(ActionCreator.startLoadGuitars());
+      try {
+        const {data} = await api.get<Guitar[]>(url.href);
+        dispatch(ActionCreator.saveGuitars(data));
+      } catch (e) {
+        dispatch(ActionCreator.setErrorLoadGuitars());
+        throw e;
+      }
     },
 };
 
 const createUrl = (filter: FilterSettings, sort: SortSettings) => {
   const url = new URL(apiRoute.path.guitars, BASE_URL);
-  console.log('Filter: ', filter); // eslint-disable-line
-  console.log('Sort: ', sort); // eslint-disable-line
+  filter.priceMin && url.searchParams.append(apiRoute.search.priceMin, filter.priceMin.toString());
+  filter.priceMax && url.searchParams.append(apiRoute.search.priceMax, filter.priceMax.toString());
 
   return url;
 };

@@ -1,52 +1,58 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {ChangeEvent} from 'react';
+import {debounce} from '../../../../utils';
 import {ActionCreator} from '../../../../store/actions';
 import {FilterSettings} from '../../../../store/reducer/data-reducer/data-reducer';
-import {getPricesRange} from '../../../../store/reducer/data-reducer/selectors';
+import {getCatalogPriceRange} from '../../../../store/reducer/data-reducer/selectors';
 import {APIAction} from '../../../../store/api-actions';
+import {DEBOUNCE_DELAY} from '../../../../const';
 
 type Props = {
   isFetchingData: boolean,
   currentFilter: FilterSettings
 }
 
-const limitUpdate = (value: number | string, minLimit: number, maxLimit: number) =>
-  Math.max(minLimit, Math.min(maxLimit, Number(value)));
+const limitPrice = (value: number, minLimit: number, maxLimit: number) =>
+  Math.max(minLimit, Math.min(maxLimit, value));
+
 
 function FilterPrice({isFetchingData, currentFilter}: Props): JSX.Element {
   const dispatch = useDispatch();
-  const {minPriceLimit, maxPriceLimit} = useSelector(getPricesRange);
-  const {priceMin, priceMax} = currentFilter;
+  const {min : minPriceLimit, max : maxPriceLimit} = useSelector(getCatalogPriceRange);
 
-  const onPriceMinInputChange = ({target}: ChangeEvent<HTMLInputElement>) => {
-    const update = Number(target.value);
-    dispatch(ActionCreator.changePriceMin(update));
+  const onPriceMinChange = ({target}: ChangeEvent<HTMLInputElement>) => {
+    dispatch(ActionCreator.changePriceMin(Number(target.value)));
     dispatch(APIAction.updateFilter());
   };
 
-  const onPriceMaxInputChange = ({target}: ChangeEvent<HTMLInputElement>) => {
-    const update = Number(target.value);
-    dispatch(ActionCreator.changePriceMax(update));
+  const onPriceMaxChange = ({target}: ChangeEvent<HTMLInputElement>) => {
+    dispatch(ActionCreator.changePriceMax(Number(target.value)));
     dispatch(APIAction.updateFilter());
   };
 
-  const onPriceMinInputBlur = ({target}: ChangeEvent<HTMLInputElement>) => {
-    if (target.value) {
-      dispatch(ActionCreator.changePriceMin(limitUpdate(target.value, minPriceLimit, maxPriceLimit)));
-      dispatch(APIAction.updateFilter());
+  const onPriceMinBlur = ({target}: ChangeEvent<HTMLInputElement>) => {
+    if (target.value && minPriceLimit && maxPriceLimit) {
+      const price = Number(target.value);
+      const limitedPrice = limitPrice(price, minPriceLimit, maxPriceLimit);
+      dispatch(ActionCreator.changePriceMin(limitedPrice));
+      if (price !== limitedPrice) {
+        target.value = limitedPrice.toString();
+        dispatch(APIAction.updateFilter());
+      }
     }
   };
 
-  const onPriceMaxInputBlur = ({target}: ChangeEvent<HTMLInputElement>) => {
-    if (target.value) {
-      dispatch(ActionCreator.changePriceMax(limitUpdate(target.value, minPriceLimit, maxPriceLimit)));
-      dispatch(APIAction.updateFilter());
+  const onPriceMaxBlur = ({target}: ChangeEvent<HTMLInputElement>) => {
+    if (target.value && minPriceLimit && maxPriceLimit) {
+      const price = Number(target.value);
+      const limitedPrice = limitPrice(price, minPriceLimit, maxPriceLimit);
+      dispatch(ActionCreator.changePriceMax(limitedPrice));
+      if (price !== limitedPrice) {
+        target.value = limitedPrice.toString();
+        dispatch(APIAction.updateFilter());
+      }
     }
   };
-
-  // console.log('Redux state: ', {priceMin: currentFilter.priceMin, priceMax: currentFilter.priceMax})//eslint-disable-line
-  // console.log('Limits', {minPriceLimit, maxPriceLimit})//eslint-disable-line
-  // console.log('_______________________________________________________________')//eslint-disable-line
 
   return (
     <fieldset className="catalog-filter__block">
@@ -59,10 +65,8 @@ function FilterPrice({isFetchingData, currentFilter}: Props): JSX.Element {
             placeholder={isFetchingData ? '' : minPriceLimit?.toString()}
             id="priceMin"
             name="от"
-            disabled={isFetchingData}
-            value={priceMin || ''}
-            onChange={onPriceMinInputChange}
-            onBlur={onPriceMinInputBlur}
+            onChange={debounce(onPriceMinChange, DEBOUNCE_DELAY)}
+            onBlur={onPriceMinBlur}
           />
         </div>
         <div className="form-input">
@@ -72,10 +76,8 @@ function FilterPrice({isFetchingData, currentFilter}: Props): JSX.Element {
             placeholder={isFetchingData ? '' : maxPriceLimit?.toString()}
             id="priceMax"
             name="до"
-            disabled={isFetchingData}
-            value={priceMax || ''}
-            onChange={onPriceMaxInputChange}
-            onBlur={onPriceMaxInputBlur}
+            onChange={debounce(onPriceMaxChange, DEBOUNCE_DELAY)}
+            onBlur={onPriceMaxBlur}
           />
         </div>
       </div>

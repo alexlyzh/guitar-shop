@@ -7,9 +7,10 @@ enum ActionType {
   START_LOAD_GUITARS ='DATA | START_LOAD_GUITARS',
   SAVE_GUITARS ='DATA | SAVE_GUITARS',
   ERROR_LOAD_GUITARS ='DATA | ERROR_LOAD_GUITARS',
-  CHANGE_SORT = 'APP | CHANGE_SORT',
-  CHANGE_PRICE_MIN= 'APP | CHANGE_PRICE_MIN',
-  CHANGE_PRICE_MAX = 'APP | CHANGE_PRICE_MAX',
+  SET_PRICE_RANGE = 'DATA | SET_PRICE_RANGE',
+  CHANGE_SORT = 'DATA | CHANGE_SORT',
+  FILTER_PRICE_MIN= 'DATA | FILTER_PRICE_MIN',
+  FILTER_PRICE_MAX = 'DATA | FILTER_PRICE_MAX',
 }
 
 const ActionCreator = {
@@ -17,15 +18,17 @@ const ActionCreator = {
 
   saveGuitars: createAction(ActionType.SAVE_GUITARS, (guitars: Guitar[]) => ({payload: guitars})),
 
+  setPriceRange: createAction(ActionType.SET_PRICE_RANGE, (min, max) => ({payload: {min, max}})),
+
   startLoadGuitars: createAction(ActionType.START_LOAD_GUITARS),
 
   setErrorLoadGuitars: createAction(ActionType.ERROR_LOAD_GUITARS),
 
   changeSort: createAction(ActionType.CHANGE_SORT, (sort: SortSettings) => ({payload: sort})),
 
-  changePriceMin: createAction(ActionType.CHANGE_PRICE_MIN, (price: Price) => ({payload: price})),
+  changePriceMin: createAction(ActionType.FILTER_PRICE_MIN, (price: Price) => ({payload: price})),
 
-  changePriceMax: createAction(ActionType.CHANGE_PRICE_MAX, (price: Price) => ({payload: price})),
+  changePriceMax: createAction(ActionType.FILTER_PRICE_MAX, (price: Price) => ({payload: price})),
 };
 
 export {ActionCreator, ActionType};
