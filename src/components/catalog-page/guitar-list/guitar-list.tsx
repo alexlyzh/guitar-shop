@@ -5,8 +5,8 @@ import StarRating from './star-rating/star-rating';
 import {useDispatch, useSelector} from 'react-redux';
 import {SortOrder, SortType} from '../../../const';
 import {getSortOrderBtnClassName, getSortTypeBtnClassName} from './utils';
-import {APIAction} from '../../../store/api-actions';
-import {getCurrentSort} from '../../../store/reducer/data-reducer/selectors';
+import {ActionAPI} from '../../../store/api-actions/api-actions';
+import {getCurrentSort} from '../../../store/reducer/sort-reducer/selectors';
 
 type GuitarListProps = {
   guitars: Guitar[],
@@ -24,7 +24,7 @@ function GuitarList({guitars}: GuitarListProps): JSX.Element {
           <button
             className={`catalog-sort__type-button ${getSortTypeBtnClassName(currentSort, SortType.PRICE)}`}
             aria-label="по цене"
-            onClick={() => dispatch(APIAction.updateSort({type: SortType.PRICE}))}
+            onClick={() => dispatch(ActionAPI.updateSort({type: SortType.PRICE}))}
             disabled={!guitars.length}
           >
             по цене
@@ -32,7 +32,7 @@ function GuitarList({guitars}: GuitarListProps): JSX.Element {
           <button
             className={`catalog-sort__type-button ${getSortTypeBtnClassName(currentSort, SortType.RATING)}`}
             aria-label="по популярности"
-            onClick={() => dispatch(APIAction.updateSort({type: SortType.RATING}))}
+            onClick={() => dispatch(ActionAPI.updateSort({type: SortType.RATING}))}
             disabled={!guitars.length}
           >
             по популярности
@@ -42,14 +42,14 @@ function GuitarList({guitars}: GuitarListProps): JSX.Element {
           <button
             className={`catalog-sort__order-button catalog-sort__order-button--up ${getSortOrderBtnClassName(currentSort, SortOrder.ASC)}`}
             aria-label="По возрастанию"
-            onClick={() => dispatch(APIAction.updateSort({order: SortOrder.ASC}))}
+            onClick={() => dispatch(ActionAPI.updateSort({order: SortOrder.ASC}))}
             disabled={!guitars.length}
           >
           </button>
           <button
             className={`catalog-sort__order-button catalog-sort__order-button--down ${getSortOrderBtnClassName(currentSort, SortOrder.DESC)}`}
             aria-label="По убыванию"
-            onClick={() => dispatch(APIAction.updateSort({order: SortOrder.DESC}))}
+            onClick={() => dispatch(ActionAPI.updateSort({order: SortOrder.DESC}))}
             disabled={!guitars.length}
           >
           </button>

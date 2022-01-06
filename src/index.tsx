@@ -7,7 +7,7 @@ import {createApi} from './api';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
 import rootReducer from './store/reducer/root-reducer';
-import {APIAction} from './store/api-actions';
+import {ActionAPI} from './store/api-actions/api-actions';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,7 +18,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({thunk: {extraArgument: api}}),
 });
 
-store.dispatch(APIAction.getGuitars());
+store.dispatch(ActionAPI.getAllGuitars());
 
 ReactDOM.render(
   <React.StrictMode>

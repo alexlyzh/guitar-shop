@@ -1,5 +1,5 @@
 import {SortOrder, SortType} from '../../../const';
-import {SortSettings} from '../../../store/reducer/data-reducer/data-reducer';
+import {SortSettings} from '../../../store/reducer/sort-reducer/sort-reducer';
 
 export const getSortTypeBtnClassName = (
   currentSort: SortSettings,

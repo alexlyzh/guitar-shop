@@ -16,9 +16,7 @@ function CatalogPage(): JSX.Element {
       <MainLayout>
         <Breadcrumbs />
         <p style={{display: 'flex', justifyContent: 'center'}}>
-          Не удалось загрузить список гитар.
-          <br/>
-          Попробуйте перезагрузить страницу.
+          Что-то сломалось, попробуйте перезагрузить страницу
         </p>
       </MainLayout>
     );
@@ -29,7 +27,7 @@ function CatalogPage(): JSX.Element {
       <Breadcrumbs />
 
       <div className="catalog">
-        <FilterForm isFetchingData={isFetchingData}/>
+        <FilterForm />
         {isFetchingData ? <Spinner /> : <GuitarList guitars={guitars.data}/>}
       </div>
     </MainLayout>

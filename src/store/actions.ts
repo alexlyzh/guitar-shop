@@ -1,6 +1,6 @@
 import {createAction} from '@reduxjs/toolkit';
 import {Guitar, Price} from '../types/types';
-import {SortSettings} from './reducer/data-reducer/data-reducer';
+import {SortSettings} from './reducer/sort-reducer/sort-reducer';
 
 enum ActionType {
   FAKE = 'FAKE',
@@ -8,9 +8,11 @@ enum ActionType {
   SAVE_GUITARS ='DATA | SAVE_GUITARS',
   ERROR_LOAD_GUITARS ='DATA | ERROR_LOAD_GUITARS',
   SET_PRICE_RANGE = 'DATA | SET_PRICE_RANGE',
-  CHANGE_SORT = 'DATA | CHANGE_SORT',
-  FILTER_PRICE_MIN= 'DATA | FILTER_PRICE_MIN',
-  FILTER_PRICE_MAX = 'DATA | FILTER_PRICE_MAX',
+  TOGGLE_STRING_CONDITION = 'FILTER | TOGGLE_STRING_CONDITION',
+  TOGGLE_TYPE_CONDITION = 'FILTER | TOGGLE_TYPE_CONDITION',
+  FILTER_PRICE_MIN= 'FILTER | FILTER_PRICE_MIN',
+  FILTER_PRICE_MAX = 'FILTER | FILTER_PRICE_MAX',
+  CHANGE_SORT = 'SORT | CHANGE_SORT',
 }
 
 const ActionCreator = {
@@ -19,6 +21,10 @@ const ActionCreator = {
   saveGuitars: createAction(ActionType.SAVE_GUITARS, (guitars: Guitar[]) => ({payload: guitars})),
 
   setPriceRange: createAction(ActionType.SET_PRICE_RANGE, (min, max) => ({payload: {min, max}})),
+
+  toggleStringCondition: createAction(ActionType.TOGGLE_STRING_CONDITION, (stringCount: number) => ({payload: stringCount})),
+
+  toggleTypeCondition: createAction(ActionType.TOGGLE_TYPE_CONDITION, (type: string) => ({payload: type})),
 
   startLoadGuitars: createAction(ActionType.START_LOAD_GUITARS),
 

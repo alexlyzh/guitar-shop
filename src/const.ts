@@ -1,5 +1,5 @@
 const MIN_PRICE = 0;
-const DEBOUNCE_DELAY = 500;
+const DEBOUNCE_DELAY = 700;
 
 enum AppRoute {
   Root = '/',
@@ -11,8 +11,6 @@ const apiRoute = {
     guitar: '/guitars/:id',
     guitarComments: '/guitars/:id/comments',
     comments: '/comments',
-    coupons: '/coupons',
-    orders: '/orders',
   },
   search: {
     nameLike: 'name_like',
@@ -20,7 +18,15 @@ const apiRoute = {
     order: '_order',
     priceMin: 'price_gte',
     priceMax: 'price_lte',
+    stringCount: 'stringCount',
+    type: 'type',
   },
+};
+
+const stringCount: {[key: string]: number[]} = {
+  acoustic: [6, 7, 12],
+  ukulele: [4],
+  electric: [4, 6, 7],
 };
 
 enum GuitarType {
@@ -58,5 +64,6 @@ export {
   SortType,
   SortOrder,
   GuitarType,
-  initialSort
+  initialSort,
+  stringCount
 };

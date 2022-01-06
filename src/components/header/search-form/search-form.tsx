@@ -2,7 +2,7 @@ import {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import {onSelectItemFocus, onSelectItemBlur} from './utils';
 import {isEscKeyDown} from '../../../utils';
 import {useDispatch} from 'react-redux';
-import {APIAction} from '../../../store/api-actions';
+import {ActionAPI} from '../../../store/api-actions/api-actions';
 import {Guitar} from '../../../types/types';
 
 function SearchForm(): JSX.Element {
@@ -13,7 +13,7 @@ function SearchForm(): JSX.Element {
 
   const onInputChange = ({target}: ChangeEvent<HTMLInputElement>) => {
     setSearch(target.value);
-    dispatch(APIAction.searchGuitars(target.value, setFoundGuitars));
+    dispatch(ActionAPI.searchGuitars(target.value, setFoundGuitars));
   };
 
   const onDocumentEscKeydown = useCallback((evt: KeyboardEvent) => {
@@ -25,9 +25,9 @@ function SearchForm(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    isDropdownVisible && document.addEventListener('keydown', onDocumentEscKeydown);
+    search && document.addEventListener('keydown', onDocumentEscKeydown);
     return () => document.removeEventListener('keydown', onDocumentEscKeydown);
-  }, [isDropdownVisible, onDocumentEscKeydown]);
+  }, [search, onDocumentEscKeydown]);
 
   return (
     <div className="form-search">

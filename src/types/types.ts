@@ -1,5 +1,3 @@
-import {GuitarType} from '../const';
-
 enum RequestStatus {
   IDLE = 'IDLE',
   PENDING = 'PENDING',
@@ -18,7 +16,7 @@ type Guitar = {
   id: number,
   name: string,
   vendorCode: string,
-  type: GuitarType,
+  type: string,
   description: string,
   previewImg: string,
   stringCount: number,
@@ -46,10 +44,6 @@ type CommentPost = {
   rating: number,
 }
 
-type CouponPost = {
-  guitarsIds: number[],
-  coupon: string,
-}
 
 export {RequestStatus};
 export type {
@@ -57,7 +51,6 @@ export type {
   Guitar,
   Comment,
   CommentPost,
-  CouponPost,
   Price
 };
 
