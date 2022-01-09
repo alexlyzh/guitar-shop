@@ -7,7 +7,7 @@ type SortSettings = {
   order?: SortOrder,
 }
 
-type SortState = {
+export type SortState = {
   currentSort: SortSettings,
 }
 

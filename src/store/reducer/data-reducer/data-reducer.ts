@@ -2,7 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {Guitar, Price, RequestedData, RequestStatus} from '../../../types/types';
 import {ActionCreator} from '../../actions';
 
-type DataState = {
+export type DataState = {
   guitars: RequestedData<Guitar>,
   priceRange: {
     min: Price,

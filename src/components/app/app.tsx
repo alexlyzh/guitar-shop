@@ -5,7 +5,7 @@ import CatalogPage from '../catalog-page/catalog-page';
 function App(): JSX.Element {
   return (
     <Switch>
-      <Route exact path={AppRoute.Root}>
+      <Route exact path={AppRoute.Catalog}>
         <CatalogPage />
       </Route>
     </Switch>

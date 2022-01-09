@@ -1,8 +1,9 @@
 const MIN_PRICE = 0;
 const DEBOUNCE_DELAY = 700;
+const MIN_CATALOG_HEIGHT = '745px';
 
 enum AppRoute {
-  Root = '/',
+  Catalog = '/',
 }
 
 const apiRoute = {
@@ -23,7 +24,11 @@ const apiRoute = {
   },
 };
 
-const stringCount: {[key: string]: number[]} = {
+const stringOptions = [4, 6, 7, 12];
+
+const stringCount: {
+  [key: string]: number[],
+} = {
   acoustic: [6, 7, 12],
   ukulele: [4],
   electric: [4, 6, 7],
@@ -58,6 +63,7 @@ const initialSort = {
 export {
   MIN_PRICE,
   DEBOUNCE_DELAY,
+  MIN_CATALOG_HEIGHT,
   AppRoute,
   apiRoute,
   KeyCode,
@@ -65,5 +71,6 @@ export {
   SortOrder,
   GuitarType,
   initialSort,
-  stringCount
+  stringCount,
+  stringOptions
 };

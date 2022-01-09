@@ -3,7 +3,6 @@ import {Price} from '../../../types/types';
 import {ActionCreator} from '../../actions';
 import {MIN_PRICE} from '../../../const';
 
-
 type FilterSettings = {
   priceMin: Price,
   priceMax: Price,
@@ -11,7 +10,7 @@ type FilterSettings = {
   types: string[],
 }
 
-type FilterState = {
+export type FilterState = {
   currentFilter: FilterSettings,
 }
 

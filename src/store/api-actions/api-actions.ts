@@ -8,7 +8,7 @@ import {State} from '../reducer/root-reducer';
 import {Dispatch, SetStateAction} from 'react';
 import {BASE_URL} from '../../api';
 import {SortSettings} from '../reducer/sort-reducer/sort-reducer';
-import {createGuitarsUrl, mapGuitarsData, prepareSortAction} from './utils';
+import {checkStringsFilter, createGuitarsUrl, parseGuitarsData, prepareSortAction} from './utils';
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
@@ -18,7 +18,7 @@ const ActionAPI = {
       dispatch(ActionCreator.startLoadGuitars());
       try {
         const {data} = await api.get<Guitar[]>(apiRoute.path.guitars);
-        const {minPrice, maxPrice} = mapGuitarsData(data);
+        const {minPrice, maxPrice} = parseGuitarsData(data);
         dispatch(ActionCreator.saveGuitars(data));
         dispatch(ActionCreator.setPriceRange(minPrice, maxPrice));
       } catch (e) {
@@ -49,11 +49,11 @@ const ActionAPI = {
       const {currentFilter} = state.FILTER;
       const {currentSort} = state.SORT;
       const sort = prepareSortAction(currentSort, update);
+      dispatch(ActionCreator.changeSort(sort));
       const url = createGuitarsUrl(currentFilter, sort);
       dispatch(ActionCreator.startLoadGuitars());
       try {
         const {data} = await api.get<Guitar[]>(url.href);
-        dispatch(ActionCreator.changeSort(sort));
         dispatch(ActionCreator.saveGuitars(data));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());
@@ -61,11 +61,12 @@ const ActionAPI = {
       }
     },
 
-  updateFilter: (): ThunkActionResult =>
+  updateFilter: (typeUpdate?: string): ThunkActionResult =>
     async (dispatch, getState, api): Promise<void> => {
       const state = getState();
       const {currentFilter} = state.FILTER;
       const {currentSort} = state.SORT;
+      typeUpdate && checkStringsFilter(dispatch, currentFilter, typeUpdate);
       const url = createGuitarsUrl(currentFilter, currentSort);
       dispatch(ActionCreator.startLoadGuitars());
       try {

@@ -5,10 +5,10 @@ export default function Breadcrumbs(): JSX.Element {
   return (
     <ul className="breadcrumbs page-content__breadcrumbs">
       <li className="breadcrumbs__item">
-        <Link className="link" to={AppRoute.Root}>Главная</Link>
+        <Link className="link" to={AppRoute.Catalog}>Главная</Link>
       </li>
       <li className="breadcrumbs__item">
-        <Link className="link" to={AppRoute.Root}>Каталог</Link>
+        <Link className="link" to={AppRoute.Catalog}>Каталог</Link>
       </li>
     </ul>
   );

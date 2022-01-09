@@ -5,7 +5,8 @@ import Spinner from '../common/spinner/spinner';
 import {RequestStatus} from '../../types/types';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import {getGuitars} from '../../store/reducer/data-reducer/selectors';
-import FilterForm from './filter-form/filter-form';
+import CatalogFilter from './filter-form/catalog-filter';
+import {MIN_CATALOG_HEIGHT} from '../../const';
 
 function CatalogPage(): JSX.Element {
   const guitars = useSelector(getGuitars);
@@ -26,8 +27,8 @@ function CatalogPage(): JSX.Element {
     <MainLayout>
       <Breadcrumbs />
 
-      <div className="catalog">
-        <FilterForm />
+      <div className="catalog" style={{minHeight: MIN_CATALOG_HEIGHT}}>
+        <CatalogFilter />
         {isFetchingData ? <Spinner /> : <GuitarList guitars={guitars.data}/>}
       </div>
     </MainLayout>
