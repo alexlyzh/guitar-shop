@@ -37,7 +37,7 @@ function Filter(): JSX.Element {
       <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
       <FilterPrice
         minPriceLimit={minPriceLimit}
-        maxPriceLimit={minPriceLimit}
+        maxPriceLimit={maxPriceLimit}
         onPriceMinChange={onPriceMinChange}
         onPriceMaxChange={onPriceMaxChange}
         onPriceMinBlur={onPriceMinBlur}

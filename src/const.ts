@@ -1,9 +1,12 @@
 const MIN_PRICE = 0;
 const DEBOUNCE_DELAY = 700;
 const MIN_CATALOG_HEIGHT = '745px';
+const FIRST_PAGE = 1;
+const GUITARS_PER_PAGE = 6;
 
 enum AppRoute {
-  Catalog = '/',
+  Main = '/',
+  Catalog = '/catalog',
 }
 
 const apiRoute = {
@@ -70,6 +73,8 @@ export {
   MIN_PRICE,
   DEBOUNCE_DELAY,
   MIN_CATALOG_HEIGHT,
+  FIRST_PAGE,
+  GUITARS_PER_PAGE,
   AppRoute,
   apiRoute,
   KeyCode,

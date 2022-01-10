@@ -98,7 +98,6 @@ function MainLayout({ children }: Props): JSX.Element {
         <Header />
         <main className="page-content">
           <div className="container">
-            <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
             {children}
           </div>
         </main>
