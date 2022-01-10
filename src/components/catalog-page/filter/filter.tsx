@@ -29,7 +29,7 @@ function Filter(): JSX.Element {
 
   const onGuitarTypeChange = (type: GuitarTypeNameSpace) => {
     dispatch(ActionCreator.toggleTypeCondition(type));
-    dispatch(ActionAPI.updateFilter(type));
+    dispatch(ActionAPI.updateFilter());
   };
 
   return (
