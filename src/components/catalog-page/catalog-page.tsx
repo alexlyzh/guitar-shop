@@ -25,24 +25,17 @@ function CatalogPage(): JSX.Element {
   const lastGuitarIndex = currentPage * GUITARS_PER_PAGE;
   const firstGuitarIndex = lastGuitarIndex - GUITARS_PER_PAGE;
   const renderedGuitars = guitars.data.slice(firstGuitarIndex, lastGuitarIndex);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const onSortOptionClick = (update: SortSettings) => {
     dispatch(ActionAPI.updateSort(update));
   };
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     if (shouldLoadGuitars) {
       dispatch(ActionAPI.getAllGuitars());
     }
   }, [shouldLoadGuitars, dispatch]);
-
-  useEffect(() => {
-    if (currentPage * GUITARS_PER_PAGE > guitars.data.length) {
-      setCurrentPage(FIRST_PAGE);
-    }
-  }, [currentPage, guitars.data.length]);
 
   if (guitars.requestStatus === RequestStatus.ERROR) {
     return (
