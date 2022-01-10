@@ -34,11 +34,17 @@ const stringCount: {
   electric: [4, 6, 7],
 };
 
-enum GuitarType {
-  acoustic = 'Акустические гитары',
-  ukulele = 'Укулеле',
-  electric = 'Электрогитары',
+enum GuitarTypeNameSpace {
+  acoustic = 'acoustic',
+  ukulele = 'ukulele',
+  electric = 'electric',
 }
+
+const GuitarType = {
+  [GuitarTypeNameSpace.acoustic]: 'Акустические гитары',
+  [GuitarTypeNameSpace.ukulele]: 'Укулеле',
+  [GuitarTypeNameSpace.electric]: 'Электрогитары',
+} as const;
 
 enum SortType {
   PRICE = 'price',
@@ -69,6 +75,7 @@ export {
   KeyCode,
   SortType,
   SortOrder,
+  GuitarTypeNameSpace,
   GuitarType,
   initialSort,
   stringCount,

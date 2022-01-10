@@ -1,5 +1,5 @@
-import {SortOrder, SortType} from '../../../../const';
-import {SortSettings} from '../../../../store/reducer/sort-reducer/sort-reducer';
+import {SortOrder, SortType} from '../../../const';
+import {SortSettings} from '../../../store/reducer/sort-reducer/sort-reducer';
 
 type Props = {
   isDisabled: boolean,
@@ -17,7 +17,7 @@ export const getSortOrderBtnClassName = (
   target: SortOrder,
 ) => currentSort.order === target ? 'catalog-sort__order-button--active' : '';
 
-function CatalogSort({isDisabled, currentSort, onSortOptionClick}: Props): JSX.Element {
+function Sort({isDisabled, currentSort, onSortOptionClick}: Props): JSX.Element {
   return (
     <div className="catalog-sort">
       <h2 className="catalog-sort__title">Сортировать:</h2>
@@ -59,4 +59,4 @@ function CatalogSort({isDisabled, currentSort, onSortOptionClick}: Props): JSX.E
   );
 }
 
-export default CatalogSort;
+export default Sort;

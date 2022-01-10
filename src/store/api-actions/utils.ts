@@ -51,10 +51,15 @@ export const checkStringsFilter = (
     Action<ActionType>>,
   currentFilter: FilterSettings,
   type: string,
-) => {
+): FilterSettings => {
+  const filterUpdate = {...currentFilter};
+  filterUpdate.strings = [];
   currentFilter.strings.forEach((string) => {
     if (!stringCount[type].includes(string)) {
       dispatch(ActionCreator.toggleStringCondition(string));
+      return;
     }
+    filterUpdate.strings.push(string);
   });
+  return filterUpdate;
 };

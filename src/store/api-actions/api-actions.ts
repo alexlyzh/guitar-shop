@@ -2,7 +2,7 @@ import {ThunkAction} from 'redux-thunk';
 import {Guitar} from '../../types/types';
 import {AxiosInstance} from 'axios';
 import {Action} from '@reduxjs/toolkit';
-import {apiRoute} from '../../const';
+import {apiRoute, GuitarTypeNameSpace} from '../../const';
 import {ActionCreator} from '../actions';
 import {State} from '../reducer/root-reducer';
 import {Dispatch, SetStateAction} from 'react';
@@ -61,13 +61,13 @@ const ActionAPI = {
       }
     },
 
-  updateFilter: (typeUpdate?: string): ThunkActionResult =>
+  updateFilter: (typeUpdate?: GuitarTypeNameSpace): ThunkActionResult =>
     async (dispatch, getState, api): Promise<void> => {
       const state = getState();
       const {currentFilter} = state.FILTER;
       const {currentSort} = state.SORT;
-      typeUpdate && checkStringsFilter(dispatch, currentFilter, typeUpdate);
-      const url = createGuitarsUrl(currentFilter, currentSort);
+      const filter = typeUpdate ? checkStringsFilter(dispatch, currentFilter, typeUpdate) : currentFilter;
+      const url = createGuitarsUrl(filter, currentSort);
       dispatch(ActionCreator.startLoadGuitars());
       try {
         const {data} = await api.get<Guitar[]>(url.href);

@@ -1,4 +1,4 @@
-import {Guitar} from '../../../../types/types';
+import {Guitar} from '../../../types/types';
 import StarRating from '../star-rating/star-rating';
 import {Link} from 'react-router-dom';
 
@@ -6,7 +6,7 @@ type Props = {
   guitars: Guitar[],
 }
 
-function CatalogCards({guitars}: Props): JSX.Element {
+function Cards({guitars}: Props): JSX.Element {
   return (
     <div className={`cards catalog__cards ${!guitars.length ? 'catalog__cards--empty': ''}`}>
       {guitars.length
@@ -40,4 +40,4 @@ function CatalogCards({guitars}: Props): JSX.Element {
   );
 }
 
-export default CatalogCards;
+export default Cards;
