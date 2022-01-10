@@ -12,7 +12,8 @@ import {ActionAPI} from '../../store/api-actions/api-actions';
 import Sort from './sort/sort';
 import Cards from './cards/cards';
 import Pagination from './pagination/pagination';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
+import {usePagination} from '../../hooks/use-pagination';
 
 function CatalogPage(): JSX.Element {
   const dispatch = useDispatch();
@@ -21,15 +22,23 @@ function CatalogPage(): JSX.Element {
   const shouldLoadGuitars = guitars.requestStatus === RequestStatus.IDLE;
   const isFetchingData = guitars.requestStatus === RequestStatus.PENDING;
 
-  const [currentPage, setCurrentPage] = useState(FIRST_PAGE);
-  const lastGuitarIndex = currentPage * GUITARS_PER_PAGE;
-  const firstGuitarIndex = lastGuitarIndex - GUITARS_PER_PAGE;
-  const renderedGuitars = guitars.data.slice(firstGuitarIndex, lastGuitarIndex);
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const {
+    currentPage,
+    renderGuitars,
+    shouldResetPagination,
+    resetPagination,
+    paginate,
+  } = usePagination(guitars.data, FIRST_PAGE, GUITARS_PER_PAGE);
 
   const onSortOptionClick = (update: SortSettings) => {
     dispatch(ActionAPI.updateSort(update));
   };
+
+  useEffect(() => {
+    if (shouldResetPagination) {
+      resetPagination();
+    }
+  }, [shouldResetPagination, resetPagination]);
 
   useEffect(() => {
     if (shouldLoadGuitars) {
@@ -62,7 +71,7 @@ function CatalogPage(): JSX.Element {
               currentSort={currentSort}
               onSortOptionClick={onSortOptionClick}
             />
-            <Cards guitars={renderedGuitars} />
+            <Cards guitars={renderGuitars} />
             <Pagination
               totalCards={guitars.data.length}
               currentPage={currentPage}
