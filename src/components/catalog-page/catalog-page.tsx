@@ -1,14 +1,14 @@
-import MainLayout from '../main-layout/main-layout';
 import {useDispatch, useSelector} from 'react-redux';
-import Spinner from '../common/spinner/spinner';
 import {RequestStatus} from '../../types/types';
-import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import {getGuitars} from '../../store/reducer/data-reducer/selectors';
 import Filter from './filter/filter';
 import {MIN_CATALOG_HEIGHT, FIRST_PAGE, GUITARS_PER_PAGE} from '../../const';
 import {getCurrentSort} from '../../store/reducer/sort-reducer/selectors';
 import {SortSettings} from '../../store/reducer/sort-reducer/sort-reducer';
 import {ActionAPI} from '../../store/api-actions/api-actions';
+import MainLayout from '../main-layout/main-layout';
+import Spinner from '../common/spinner/spinner';
+import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Sort from './sort/sort';
 import Cards from './cards/cards';
 import Pagination from './pagination/pagination';

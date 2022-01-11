@@ -2,11 +2,12 @@ const MIN_PRICE = 0;
 const DEBOUNCE_DELAY = 700;
 const MIN_CATALOG_HEIGHT = '745px';
 const FIRST_PAGE = 1;
-const GUITARS_PER_PAGE = 6;
+const GUITARS_PER_PAGE = 9;
 
 enum AppRoute {
   Main = '/',
   Catalog = '/catalog',
+  CatalogPage = '/catalog/:page',
 }
 
 const apiRoute = {
