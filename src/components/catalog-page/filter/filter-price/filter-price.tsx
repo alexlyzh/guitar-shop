@@ -8,12 +8,10 @@ type Props = {
   maxPriceLimit: Price,
   onPriceMinChange: (evt: ChangeEvent<HTMLInputElement>) => void,
   onPriceMaxChange: (evt: ChangeEvent<HTMLInputElement>) => void,
-  onPriceMinBlur: (evt: ChangeEvent<HTMLInputElement>) => void,
-  onPriceMaxBlur: (evt: ChangeEvent<HTMLInputElement>) => void,
 }
 
 function FilterPrice(props: Props): JSX.Element {
-  const {maxPriceLimit, minPriceLimit, onPriceMinChange, onPriceMaxChange, onPriceMinBlur, onPriceMaxBlur} = props;
+  const {maxPriceLimit, minPriceLimit, onPriceMinChange, onPriceMaxChange} = props;
   return (
     <fieldset className="catalog-filter__block">
       <legend className="catalog-filter__block-title">Цена, ₽</legend>
@@ -26,7 +24,6 @@ function FilterPrice(props: Props): JSX.Element {
             id="priceMin"
             name="от"
             onChange={debounce(onPriceMinChange, DEBOUNCE_DELAY)}
-            onBlur={onPriceMinBlur}
           />
         </div>
         <div className="form-input">
@@ -37,7 +34,6 @@ function FilterPrice(props: Props): JSX.Element {
             id="priceMax"
             name="до"
             onChange={debounce(onPriceMaxChange, DEBOUNCE_DELAY)}
-            onBlur={onPriceMaxBlur}
           />
         </div>
       </div>

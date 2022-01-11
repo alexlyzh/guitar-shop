@@ -11,16 +11,6 @@ export const usePriceFilter = (minPriceLimit: Price, maxPriceLimit: Price) => {
   const dispatch = useDispatch();
 
   const onPriceMinChange = ({target}: ChangeEvent<HTMLInputElement>) => {
-    dispatch(ActionCreator.changePriceMin(Number(target.value)));
-    dispatch(ActionAPI.updateFilter());
-  };
-
-  const onPriceMaxChange = ({target}: ChangeEvent<HTMLInputElement>) => {
-    dispatch(ActionCreator.changePriceMax(Number(target.value)));
-    dispatch(ActionAPI.updateFilter());
-  };
-
-  const onPriceMinBlur = ({target}: ChangeEvent<HTMLInputElement>) => {
     if (target.value && minPriceLimit && maxPriceLimit) {
       const price = Number(target.value);
       const limitedPrice = limitPrice(price, minPriceLimit, maxPriceLimit);
@@ -32,7 +22,7 @@ export const usePriceFilter = (minPriceLimit: Price, maxPriceLimit: Price) => {
     }
   };
 
-  const onPriceMaxBlur = ({target}: ChangeEvent<HTMLInputElement>) => {
+  const onPriceMaxChange = ({target}: ChangeEvent<HTMLInputElement>) => {
     if (target.value && minPriceLimit && maxPriceLimit) {
       const price = Number(target.value);
       const limitedPrice = limitPrice(price, minPriceLimit, maxPriceLimit);
@@ -47,7 +37,5 @@ export const usePriceFilter = (minPriceLimit: Price, maxPriceLimit: Price) => {
   return {
     onPriceMinChange,
     onPriceMaxChange,
-    onPriceMinBlur,
-    onPriceMaxBlur,
   };
 };

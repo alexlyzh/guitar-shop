@@ -15,12 +15,7 @@ function Filter(): JSX.Element {
   const availableStringsForSelectedTypes = useSelector(getAvailableStringsByFilterTypes);
   const {min : minPriceLimit, max : maxPriceLimit} = useSelector(getCatalogPriceRange);
 
-  const {
-    onPriceMinChange,
-    onPriceMaxChange,
-    onPriceMinBlur,
-    onPriceMaxBlur,
-  } = usePriceFilter(minPriceLimit, maxPriceLimit);
+  const {onPriceMinChange, onPriceMaxChange} = usePriceFilter(minPriceLimit, maxPriceLimit);
 
   const onStringsFilterChange = (stringCount: number | string) => {
     dispatch(ActionCreator.toggleStringCondition(Number(stringCount)));
@@ -40,8 +35,6 @@ function Filter(): JSX.Element {
         maxPriceLimit={maxPriceLimit}
         onPriceMinChange={onPriceMinChange}
         onPriceMaxChange={onPriceMaxChange}
-        onPriceMinBlur={onPriceMinBlur}
-        onPriceMaxBlur={onPriceMaxBlur}
       />
       <FilterType onGuitarTypeChange={onGuitarTypeChange}/>
       <FilterString
