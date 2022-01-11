@@ -22,10 +22,7 @@ export const usePagination = (
     setCurrentPage(pageNumber);
   };
 
-  const resetPagination = () => {
-    history.push(generatePath(AppRoute.CatalogPage, {id: FIRST_PAGE}));
-    setCurrentPage(FIRST_PAGE);
-  };
+  const resetPagination = () => paginate(FIRST_PAGE);
 
   return {
     currentPage,
