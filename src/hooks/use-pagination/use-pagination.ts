@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import {Guitar, RequestedData, RequestStatus} from '../../types/types';
 import {AppRoute, FIRST_PAGE} from '../../const';
 import {generatePath, useHistory} from 'react-router-dom';
@@ -17,18 +17,18 @@ export const usePagination = (
   const shouldResetPagination = guitars.requestStatus === RequestStatus.SUCCESS
     && (currentPage * guitarsPerPage) > (Math.ceil(guitars.data.length / guitarsPerPage) * guitarsPerPage);
 
-  const paginate = (pageNumber: number) => {
+  const paginate = useCallback((pageNumber: number) => {
     history.push(generatePath(AppRoute.CatalogPage, {id: pageNumber}));
     setCurrentPage(pageNumber);
-  };
+  }, [history]);
 
   const resetPagination = () => paginate(FIRST_PAGE);
 
   return {
     currentPage,
-    paginate,
     renderGuitars,
     shouldResetPagination,
     resetPagination,
+    paginate,
   };
 };

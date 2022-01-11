@@ -1,16 +1,15 @@
-import {Link} from 'react-router-dom';
-import {FIRST_PAGE, GUITARS_PER_PAGE} from '../../../const';
+import {generatePath, Link} from 'react-router-dom';
+import {FIRST_PAGE, GUITARS_PER_PAGE, AppRoute} from '../../../const';
 
 type Props = {
   totalCards: number,
   currentPage: number,
-  onPageChange: (pageNumber: number) => void,
 }
 
-function Pagination({totalCards, currentPage, onPageChange}: Props): JSX.Element | null {
+function Pagination({totalCards, currentPage}: Props): JSX.Element | null {
   const lastPage = Math.ceil(totalCards / GUITARS_PER_PAGE);
 
-  if (totalCards < GUITARS_PER_PAGE) {
+  if (totalCards <= GUITARS_PER_PAGE) {
     return null;
   }
 
@@ -24,20 +23,16 @@ function Pagination({totalCards, currentPage, onPageChange}: Props): JSX.Element
       <ul className="pagination__list">
         {currentPage > FIRST_PAGE ?
           <li className="pagination__page pagination__page--prev" id="prev">
-            <Link className="link pagination__page-link" to="#"
-              onClick={() => {
-                onPageChange(currentPage - 1);
-              }}
+            <Link className="link pagination__page-link"
+              to={generatePath(AppRoute.CatalogPage, {id: currentPage - 1})}
             >
               Назад
             </Link>
           </li> : null}
         {pages.map((page) => (
           <li className={`pagination__page ${currentPage === page ? 'pagination__page--active' : ''}`} key={page}>
-            <Link className="link pagination__page-link" to="#"
-              onClick={() => {
-                onPageChange(page);
-              }}
+            <Link className="link pagination__page-link"
+              to={generatePath(AppRoute.CatalogPage, {id: page})}
             >
               {page}
             </Link>
@@ -45,10 +40,8 @@ function Pagination({totalCards, currentPage, onPageChange}: Props): JSX.Element
         ))}
         {currentPage < lastPage ?
           <li className="pagination__page pagination__page--next" id="next">
-            <Link className="link pagination__page-link" to="#"
-              onClick={() => {
-                onPageChange(currentPage + 1);
-              }}
+            <Link className="link pagination__page-link"
+              to={generatePath(AppRoute.CatalogPage, {id: currentPage + 1})}
             >
               Далее
             </Link>

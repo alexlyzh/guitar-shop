@@ -49,6 +49,10 @@ function CatalogPage(): JSX.Element {
   }, [shouldResetPagination, resetPagination]);
 
   useEffect(() => {
+    paginate(pageNumber);
+  }, [pageNumber, paginate]);
+
+  useEffect(() => {
     if (shouldLoadGuitars) {
       dispatch(ActionAPI.getAllGuitars());
     }
@@ -83,7 +87,6 @@ function CatalogPage(): JSX.Element {
             <Pagination
               totalCards={guitars.data.length}
               currentPage={currentPage}
-              onPageChange={paginate}
             />
           </>}
       </div>
