@@ -17,8 +17,8 @@ export const usePriceFilter = (minPriceLimit: Price, maxPriceLimit: Price) => {
       dispatch(ActionCreator.changePriceMin(limitedPrice));
       if (price !== limitedPrice) {
         target.value = limitedPrice.toString();
-        dispatch(ActionAPI.updateFilter());
       }
+      dispatch(ActionAPI.updateFilter());
     }
   };
 
@@ -29,8 +29,8 @@ export const usePriceFilter = (minPriceLimit: Price, maxPriceLimit: Price) => {
       dispatch(ActionCreator.changePriceMax(limitedPrice));
       if (price !== limitedPrice) {
         target.value = limitedPrice.toString();
-        dispatch(ActionAPI.updateFilter());
       }
+      dispatch(ActionAPI.updateFilter());
     }
   };
 
