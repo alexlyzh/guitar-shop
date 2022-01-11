@@ -7,7 +7,7 @@ const GUITARS_PER_PAGE = 9;
 enum AppRoute {
   Main = '/',
   Catalog = '/catalog',
-  CatalogPage = '/catalog/:page',
+  CatalogPage = '/catalog/page_:id',
 }
 
 const apiRoute = {
