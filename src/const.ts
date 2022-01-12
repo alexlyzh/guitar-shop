@@ -15,7 +15,6 @@ const apiRoute = {
     guitars: '/guitars',
     guitar: '/guitars/:id',
     guitarComments: '/guitars/:id/comments',
-    comments: '/comments',
   },
   search: {
     nameLike: 'name_like',

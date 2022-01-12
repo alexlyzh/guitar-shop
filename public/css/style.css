@@ -1822,7 +1822,8 @@ button,
   pointer-events: none;
 }
 
-.catalog-sort__order-button:hover {
+.catalog-sort__order-button--down:hover,
+.catalog-sort__order-button--up:hover {
   border-top-color: #c90606;
 }
 

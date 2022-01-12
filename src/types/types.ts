@@ -5,9 +5,13 @@ enum RequestStatus {
   ERROR = 'ERROR',
 }
 
-type RequestedData<Type> = {
+type RemoteData<Type> = {
   requestStatus: RequestStatus,
   data: Type[],
+}
+
+type RemoteDataByID<Type> = {
+  [key: number]: RemoteData<Type>,
 }
 
 type Price = number | null;
@@ -47,7 +51,8 @@ type CommentPost = {
 
 export {RequestStatus};
 export type {
-  RequestedData,
+  RemoteData,
+  RemoteDataByID,
   Guitar,
   Comment,
   CommentPost,

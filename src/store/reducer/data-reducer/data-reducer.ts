@@ -1,9 +1,10 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {Guitar, Price, RequestedData, RequestStatus} from '../../../types/types';
+import {Comment, Guitar, Price, RemoteData, RemoteDataByID, RequestStatus} from '../../../types/types';
 import {ActionCreator} from '../../actions';
 
 export type DataState = {
-  guitars: RequestedData<Guitar>,
+  guitars: RemoteData<Guitar>,
+  comments: RemoteDataByID<Comment>,
   priceRange: {
     min: Price,
     max: Price,
@@ -15,6 +16,7 @@ const initialState: DataState = {
     requestStatus: RequestStatus.IDLE,
     data: [],
   },
+  comments: {},
   priceRange: {
     min: null,
     max: null,
@@ -37,6 +39,24 @@ export const dataReducer = createReducer(initialState, (builder) => {
     })
     .addCase(ActionCreator.setErrorLoadGuitars, (state) => {
       state.guitars = {
+        requestStatus: RequestStatus.ERROR,
+        data: [],
+      };
+    })
+    .addCase(ActionCreator.startLoadComments, (state, action) => {
+      state.comments[action.payload] = {
+        requestStatus: RequestStatus.PENDING,
+        data: [],
+      };
+    })
+    .addCase(ActionCreator.saveComments, (state, action) => {
+      state.comments[action.payload.guitarId] = {
+        requestStatus: RequestStatus.SUCCESS,
+        data: action.payload.comments,
+      };
+    })
+    .addCase(ActionCreator.setErrorLoadComments, (state, action) => {
+      state.comments[action.payload] = {
         requestStatus: RequestStatus.ERROR,
         data: [],
       };

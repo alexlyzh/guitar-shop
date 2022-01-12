@@ -1,10 +1,10 @@
 import {useCallback, useState} from 'react';
-import {Guitar, RequestedData, RequestStatus} from '../../types/types';
+import {Guitar, RemoteData, RequestStatus} from '../../types/types';
 import {AppRoute, FIRST_PAGE} from '../../const';
 import {generatePath, useHistory} from 'react-router-dom';
 
 export const usePagination = (
-  guitars: RequestedData<Guitar>,
+  guitars: RemoteData<Guitar>,
   startPage: number,
   guitarsPerPage: number,
 ) => {

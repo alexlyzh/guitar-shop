@@ -1,5 +1,5 @@
 import {ThunkAction} from 'redux-thunk';
-import {Guitar} from '../../types/types';
+import {Comment, Guitar} from '../../types/types';
 import {AxiosInstance} from 'axios';
 import {Action} from '@reduxjs/toolkit';
 import {apiRoute} from '../../const';
@@ -9,6 +9,7 @@ import {Dispatch, SetStateAction} from 'react';
 import {BASE_URL} from '../../api';
 import {SortSettings} from '../reducer/sort-reducer/sort-reducer';
 import {checkStringsFilter, createGuitarsUrl, parseGuitarsData, prepareSortAction} from './utils';
+import {generatePath} from 'react-router-dom';
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
@@ -23,6 +24,18 @@ const ActionAPI = {
         dispatch(ActionCreator.setPriceRange(minPrice, maxPrice));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());
+        throw e;
+      }
+    },
+
+  getComments: (guitarId: number): ThunkActionResult =>
+    async (dispatch, getState, api): Promise<void> => {
+      dispatch(ActionCreator.startLoadComments(guitarId));
+      try {
+        const {data} = await api.get<Comment[]>(generatePath(apiRoute.path.guitarComments, {id: guitarId}));
+        dispatch(ActionCreator.saveComments(guitarId, data));
+      } catch (e) {
+        dispatch(ActionCreator.setErrorLoadComments(guitarId));
         throw e;
       }
     },

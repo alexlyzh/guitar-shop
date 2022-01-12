@@ -1,12 +1,15 @@
 import {Guitar} from '../../../types/types';
 import StarRating from '../star-rating/star-rating';
 import {Link} from 'react-router-dom';
+import {useGuitarComments} from '../../../hooks/use-guitar-comments/use-guitar-comments';
 
 type Props = {
   guitars: Guitar[],
 }
 
 function Cards({guitars}: Props): JSX.Element {
+  const comments = useGuitarComments(guitars);
+
   return (
     <div className={`cards catalog__cards ${!guitars.length ? 'catalog__cards--empty': ''}`}>
       {guitars.length
@@ -21,7 +24,10 @@ function Cards({guitars}: Props): JSX.Element {
                   <span className="visually-hidden">Рейтинг:</span>
                   <StarRating rating={rating} />
 
-                  <span className="rate__count">9</span><span className="rate__message"/>
+                  <span className="rate__count">
+                    {comments[guitar.id] ? comments[guitar.id].data.length : null}
+                  </span>
+                  <span className="rate__message"/>
                 </div>
                 <p className="product-card__title">{name}</p>
                 <p className="product-card__price">
