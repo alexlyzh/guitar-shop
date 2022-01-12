@@ -1,4 +1,4 @@
-import {Guitar} from '../../../types/types';
+import {Comment, Guitar, RequestStatus, RemoteDataByID} from '../../../types/types';
 import StarRating from '../star-rating/star-rating';
 import {Link} from 'react-router-dom';
 import {useGuitarComments} from '../../../hooks/use-guitar-comments/use-guitar-comments';
@@ -6,6 +6,17 @@ import {useGuitarComments} from '../../../hooks/use-guitar-comments/use-guitar-c
 type Props = {
   guitars: Guitar[],
 }
+
+const getCommentsCountMessage = (id: number, comments: RemoteDataByID<Comment>) => {
+  switch (true) {
+    case (Boolean(comments[id]) && comments[id].requestStatus === RequestStatus.PENDING):
+      return 'Загрузка...';
+    case (Boolean(comments[id]) && comments[id].requestStatus === RequestStatus.SUCCESS):
+      return comments[id].data.length;
+    default:
+      return null;
+  }
+};
 
 function Cards({guitars}: Props): JSX.Element {
   const comments = useGuitarComments(guitars);
@@ -16,6 +27,7 @@ function Cards({guitars}: Props): JSX.Element {
         ?
         guitars.map((guitar) => {
           const {id, name, price, rating, previewImg} = guitar;
+          const commentsCount = getCommentsCountMessage(guitar.id, comments);
           return (
             <div className="product-card" key={id}>
               <img src={previewImg} width="75" height="190" alt={name}/>
@@ -25,7 +37,7 @@ function Cards({guitars}: Props): JSX.Element {
                   <StarRating rating={rating} />
 
                   <span className="rate__count">
-                    {comments[guitar.id] ? comments[guitar.id].data.length : null}
+                    {commentsCount}
                   </span>
                   <span className="rate__message"/>
                 </div>
