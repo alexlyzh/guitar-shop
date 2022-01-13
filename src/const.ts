@@ -18,7 +18,7 @@ const apiRoute = {
     guitarComments: '/guitars/:id/comments',
   },
   search: {
-    nameLike: 'name_like',
+    name: 'name_like',
     sort: '_sort',
     order: '_order',
     priceMin: 'price_gte',

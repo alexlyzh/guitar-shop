@@ -44,7 +44,7 @@ const ActionAPI = {
     async (dispatch, getState, api): Promise<void> => {
       try {
         const url = new URL(apiRoute.path.guitars, BASE_URL);
-        url.searchParams.append(apiRoute.search.nameLike, name);
+        url.searchParams.append(apiRoute.search.name, name);
         const {data} = await api.get<Guitar[]>(url.href);
         setFoundGuitars(data);
       } catch (e) {

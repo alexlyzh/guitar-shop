@@ -4,12 +4,14 @@ import MockAdapter from 'axios-mock-adapter';
 import thunk, {ThunkDispatch} from 'redux-thunk';
 import {State} from '../reducer/root-reducer';
 import {BASE_URL, createApi} from '../../api';
-import {apiRoute, HttpCode} from '../../const';
+import {apiRoute, HttpCode, SortOrder, SortType} from '../../const';
 import {getMockComment, getMockGuitar, Mock} from '../../utils/mock';
 import {ActionAPI} from './api-actions';
 import {ActionCreator} from '../actions';
 import {parseGuitarsData} from './utils';
 import {generatePath} from 'react-router-dom';
+import {initialSortState} from '../reducer/sort-reducer/sort-reducer';
+import {initialFilterState} from '../reducer/filter-reducer/filter-reducer';
 
 const api = createApi();
 const mockApi = new MockAdapter(api);
@@ -20,7 +22,7 @@ const mockStore = configureMockStore<State, AnyAction, ThunkDispatch<State, type
 describe('Async actions', () => {
   it('should dispatch correct actions on GET/guitars', async () => {
     const store = mockStore();
-    const guitars = Array.from({length: Mock.arrayLength}, () => getMockGuitar());
+    const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
     const {minPrice, maxPrice} = parseGuitarsData(guitars);
 
     mockApi.onGet(apiRoute.path.guitars).reply(HttpCode.OK, guitars);
@@ -58,15 +60,71 @@ describe('Async actions', () => {
     const guitars = [Mock.guitar];
 
     mockApi
-      .onGet(`${BASE_URL}${apiRoute.path.guitars}?${apiRoute.search.nameLike}=${Mock.searchParams.nameLike}`)
+      .onGet(`${BASE_URL}${Mock.searchParams.nameLikeQuery}`)
       .reply(HttpCode.OK, guitars);
 
     expect(store.getActions()).toEqual([]);
 
-    await store.dispatch(ActionAPI.searchGuitars(Mock.searchParams.nameLike, setFoundGuitars));
+    await store.dispatch(ActionAPI.searchGuitars(Mock.searchParams.name, setFoundGuitars));
 
     expect(setFoundGuitars).toBeCalledTimes(1);
     expect(setFoundGuitars).toBeCalledWith(guitars);
     expect(setFoundGuitars).not.toBeCalledWith(getMockGuitar());
+  });
+
+  it('should dispatch correct actions on sort price ascending', async () => {
+    const store = mockStore({
+      FILTER: initialFilterState,
+      SORT: initialSortState,
+    });
+    const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
+    guitars.forEach((guitar, i) => guitar.price = i);
+
+    const sortUpdate = {
+      order: SortOrder.ASC,
+      type: SortType.PRICE,
+    };
+
+    mockApi
+      .onGet(`${BASE_URL}${Mock.searchParams.sortQuery}`)
+      .reply(HttpCode.OK, guitars);
+
+    expect(store.getActions()).toEqual([]);
+
+    await store.dispatch(ActionAPI.updateSort(sortUpdate));
+
+    expect(store.getActions()).toEqual([
+      ActionCreator.changeSort(sortUpdate),
+      ActionCreator.startLoadGuitars(),
+      ActionCreator.saveGuitars(guitars),
+    ]);
+  });
+
+  it('should dispatch correct actions on filter change', async () => {
+    const store = mockStore({
+      FILTER: {
+        currentFilter: {
+          priceMin: Mock.guitar.price,
+          priceMax: Mock.guitar.price,
+          strings: [Mock.guitar.stringCount],
+          types: [Mock.guitar.type],
+        },
+      },
+      SORT: initialSortState,
+    });
+    const guitars = [Mock.guitar];
+
+    mockApi
+      .onGet(`${BASE_URL}${Mock.searchParams.filterQuery}`)
+      .reply(HttpCode.OK, guitars);
+
+    expect(store.getActions()).toEqual([]);
+
+    await store.dispatch(ActionAPI.updateFilter());
+
+    expect(store.getActions()).toEqual([
+      ActionCreator.startLoadGuitars(),
+      ActionCreator.saveGuitars(guitars),
+    ]);
   });
 });
