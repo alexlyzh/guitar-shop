@@ -1,4 +1,4 @@
-import {isEnterKeyDown} from '../../../utils';
+import {isEnterKeyDown} from '../../../utils/common';
 import {FocusEvent} from 'react';
 
 const onSelectItemEnterKeyDown = (evt: KeyboardEvent) => {

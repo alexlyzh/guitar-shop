@@ -2,7 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {Comment, Guitar, Price, RemoteData, RemoteDataByID, RequestStatus} from '../../../types/types';
 import {ActionCreator} from '../../actions';
 
-export type DataState = {
+type DataState = {
   guitars: RemoteData<Guitar>,
   comments: RemoteDataByID<Comment>,
   priceRange: {
@@ -65,3 +65,6 @@ export const dataReducer = createReducer(initialState, (builder) => {
       state.priceRange = action.payload;
     });
 });
+
+export type {DataState};
+export {initialState as initialDataState};

@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import App from './components/app/app';
-import browserHistory from './browser-history';
 import {createApi} from './api';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
@@ -20,10 +19,10 @@ const store = configureStore({
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router history={browserHistory}>
+      <BrowserRouter>
         <ToastContainer/>
         <App />
-      </Router>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

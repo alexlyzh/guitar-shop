@@ -1,4 +1,4 @@
-const STARS_COUNT = 5;
+import {STARS_COUNT} from '../../../const';
 
 const FULL_STAR_SPRITE_ID = '#icon-full-star';
 const EMPTY_STAR_SPRITE_ID = '#icon-star';

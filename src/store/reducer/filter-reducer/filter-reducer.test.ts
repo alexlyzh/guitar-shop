@@ -1,11 +1,12 @@
 import {filterReducer, FilterState, initialFilterState} from './filter-reducer';
 import {ActionCreator} from '../../actions';
 
+const FAKE_PRICE = 5000;
+const FAKE_STRING = 4;
+const FAKE_TYPE = 'ukulele';
+
 describe('Reducer: Filter', () => {
   const state = initialFilterState;
-  const FAKE_PRICE = 5000;
-  const FAKE_STRING = 4;
-  const FAKE_TYPE = 'ukulele';
 
   it('should return initial state without additional parameters', () => {
     expect(filterReducer(undefined, {type: 'UNKNOWN_ACTION'}))

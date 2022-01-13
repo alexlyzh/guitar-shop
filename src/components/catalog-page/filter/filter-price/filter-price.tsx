@@ -1,5 +1,5 @@
 import {ChangeEvent} from 'react';
-import {debounce} from '../../../../utils';
+import {debounce} from '../../../../utils/common';
 import {DEBOUNCE_DELAY} from '../../../../const';
 import {Price} from '../../../../types/types';
 

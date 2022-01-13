@@ -3,6 +3,7 @@ const DEBOUNCE_DELAY = 700;
 const MIN_CATALOG_HEIGHT = '745px';
 const FIRST_PAGE = 1;
 const GUITARS_PER_PAGE = 9;
+const STARS_COUNT = 5;
 
 enum AppRoute {
   Main = '/',
@@ -28,6 +29,7 @@ const apiRoute = {
 };
 
 const stringOptions = [4, 6, 7, 12];
+const typeOptions = ['acoustic', 'ukulele', 'electric'];
 
 const stringCount: {
   [key: string]: number[],
@@ -42,12 +44,6 @@ enum GuitarTypeNameSpace {
   ukulele = 'ukulele',
   electric = 'electric',
 }
-
-const GuitarType = {
-  [GuitarTypeNameSpace.acoustic]: 'Акустические гитары',
-  [GuitarTypeNameSpace.ukulele]: 'Укулеле',
-  [GuitarTypeNameSpace.electric]: 'Электрогитары',
-} as const;
 
 enum SortType {
   PRICE = 'price',
@@ -69,20 +65,29 @@ const initialSort = {
   order: SortOrder.DESC,
 } as const;
 
+enum Mock {
+  arrayLength = 3,
+  id = 3,
+  minPrice = 10,
+  maxPrice = 100,
+}
+
 export {
   MIN_PRICE,
   DEBOUNCE_DELAY,
   MIN_CATALOG_HEIGHT,
   FIRST_PAGE,
   GUITARS_PER_PAGE,
+  STARS_COUNT,
+  Mock,
   AppRoute,
   apiRoute,
   KeyCode,
   SortType,
   SortOrder,
   GuitarTypeNameSpace,
-  GuitarType,
   initialSort,
   stringCount,
-  stringOptions
+  stringOptions,
+  typeOptions
 };

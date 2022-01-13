@@ -1,6 +1,6 @@
 import {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import {onSelectItemFocus, onSelectItemBlur} from './utils';
-import {isEscKeyDown} from '../../../utils';
+import {isEscKeyDown} from '../../../utils/common';
 import {useDispatch} from 'react-redux';
 import {ActionAPI} from '../../../store/api-actions/api-actions';
 import {Guitar} from '../../../types/types';
