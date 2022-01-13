@@ -10,7 +10,7 @@ type FilterSettings = {
   types: string[],
 }
 
-export type FilterState = {
+type FilterState = {
   currentFilter: FilterSettings,
 }
 
@@ -48,4 +48,5 @@ export const filterReducer = createReducer(initialState, (builder) => {
 });
 
 
-export type {FilterSettings};
+export type {FilterSettings, FilterState};
+export {initialState as initialFilterState};

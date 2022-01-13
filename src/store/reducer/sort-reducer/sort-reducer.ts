@@ -7,7 +7,7 @@ type SortSettings = {
   order?: SortOrder,
 }
 
-export type SortState = {
+type SortState = {
   currentSort: SortSettings,
 }
 
@@ -22,4 +22,5 @@ export const sortReducer = createReducer(initialState, (builder) => {
     });
 });
 
-export type {SortSettings};
+export type {SortSettings, SortState};
+export {initialState as initialSortState};

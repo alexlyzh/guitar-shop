@@ -3,7 +3,6 @@ import {Comment, Guitar, Price} from '../types/types';
 import {SortSettings} from './reducer/sort-reducer/sort-reducer';
 
 enum ActionType {
-  FAKE = 'FAKE',
   START_LOAD_GUITARS = 'DATA | START_LOAD_GUITARS',
   SAVE_GUITARS = 'DATA | SAVE_GUITARS',
   ERROR_LOAD_GUITARS ='DATA | ERROR_LOAD_GUITARS',
@@ -19,8 +18,6 @@ enum ActionType {
 }
 
 const ActionCreator = {
-  fake: createAction(ActionType.FAKE),
-
   startLoadGuitars: createAction(ActionType.START_LOAD_GUITARS),
 
   saveGuitars: createAction(ActionType.SAVE_GUITARS, (guitars: Guitar[]) => ({payload: guitars})),
