@@ -37,7 +37,7 @@ export const prepareSortAction = (currentSort: SortSettings, update: SortSetting
 };
 
 
-export const createGuitarsUrl = (filter: FilterSettings, sort: SortSettings) => {
+export const createCatalogUrl = (filter: FilterSettings, sort: SortSettings) => {
   const url = new URL(apiRoute.path.guitars, BASE_URL);
 
   filter.priceMin && url.searchParams.append(apiRoute.search.priceMin, filter.priceMin.toString());

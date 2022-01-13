@@ -1,7 +1,6 @@
 import {datatype, internet} from 'faker';
-import {stringOptions, typeOptions} from '../const';
+import {STARS_COUNT, stringOptions, typeOptions} from '../const';
 import {getRandomInteger} from './common';
-import {STARS_COUNT} from '../const';
 import {Comment, Guitar} from '../types/types';
 
 export const getMockGuitar = (): Guitar => ({
@@ -26,3 +25,24 @@ export const getMockComment = (guitarId: number): Comment => ({
   createAt: new Date().toISOString(),
   guitarId,
 });
+
+export const Mock = {
+  arrayLength: 3,
+  id: 3,
+  minPrice: 10,
+  maxPrice: 100,
+  searchParams: {
+    nameLike: 'CURT',
+  },
+  guitar: {
+    id: 10,
+    description: 'Корпус электрогитары окрашен в классический цвет, гриф имеет профиль "C".  Подойдёт для исполнения композиций разных жанров.',
+    name:'CURT Classic',
+    previewImg: 'img/guitar-7.jpg',
+    price: 23000,
+    rating: 4,
+    stringCount: 4,
+    type: 'electric',
+    vendorCode: 'TK244556',
+  },
+} as const;

@@ -65,11 +65,8 @@ const initialSort = {
   order: SortOrder.DESC,
 } as const;
 
-enum Mock {
-  arrayLength = 3,
-  id = 3,
-  minPrice = 10,
-  maxPrice = 100,
+enum HttpCode {
+  OK = 200,
 }
 
 export {
@@ -79,7 +76,7 @@ export {
   FIRST_PAGE,
   GUITARS_PER_PAGE,
   STARS_COUNT,
-  Mock,
+  HttpCode,
   AppRoute,
   apiRoute,
   KeyCode,
