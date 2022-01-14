@@ -1,7 +1,7 @@
 import {datatype, internet} from 'faker';
 import {STARS_COUNT, stringOptions, typeOptions} from '../const';
 import {getRandomInteger} from './common';
-import {Comment, Guitar} from '../types/types';
+import {Comment, Guitar, RemoteDataByID, RequestStatus} from '../types/types';
 
 export const getMockGuitar = (): Guitar => ({
   id: datatype.number(),
@@ -49,3 +49,16 @@ export const Mock = {
     vendorCode: 'TK244556',
   },
 } as const;
+
+export const mockGuitarsWithComments = () => {
+  const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
+
+  const comments: RemoteDataByID<Comment> = {};
+  guitars.forEach((guitar) => {
+    comments[guitar.id] = {
+      requestStatus: RequestStatus.SUCCESS,
+      data: [getMockComment(guitar.id)],
+    };
+  });
+  return {guitars, comments};
+};

@@ -4,7 +4,7 @@ import {getComments} from '../../store/reducer/data-reducer/selectors';
 import {useEffect} from 'react';
 import {ActionAPI} from '../../store/api-actions/api-actions';
 
-export const useGuitarComments = (guitars: Guitar[]) => {
+export const useComments = (guitars: Guitar[]) => {
   const dispatch = useDispatch();
   const comments = useSelector(getComments);
 

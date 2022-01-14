@@ -3,7 +3,7 @@ import {AppRoute} from '../../const';
 
 function Footer(): JSX.Element {
   return (
-    <footer className="footer">
+    <footer className="footer" data-testid="footer">
       <div className="footer__container container">
         <Link className="footer__logo logo" to={AppRoute.Catalog}>
           <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип"/>

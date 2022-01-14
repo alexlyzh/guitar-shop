@@ -1,14 +1,14 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import SearchForm from './search-form/search-form';
+import Logo from '../common/logo/logo';
 
 function Header(): JSX.Element {
   return (
-    <header className="header" id="header">
+    <header className="header" id="header" data-testid="header">
       <div className="container header__wrapper">
-        <Link className="header__logo logo" to={AppRoute.Catalog}>
-          <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип"/>
-        </Link>
+        <Logo />
+
         <nav className="main-nav">
           <ul className="main-nav__list">
             <li>

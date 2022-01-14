@@ -67,6 +67,13 @@ const initialSort = {
 
 enum HttpCode {
   OK = 200,
+  TooManyRequests = 429,
+}
+
+enum AppMessage {
+  ErrorOnGetAllGuitars = 'Что-то сломалось, попробуйте перезагрузить страницу',
+  CatalogPageHeading = 'Каталог гитар',
+  NothingFound = 'Ничего не нашлось',
 }
 
 export {
@@ -78,6 +85,7 @@ export {
   STARS_COUNT,
   HttpCode,
   AppRoute,
+  AppMessage,
   apiRoute,
   KeyCode,
   SortType,

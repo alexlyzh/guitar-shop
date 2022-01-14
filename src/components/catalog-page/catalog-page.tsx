@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RequestStatus} from '../../types/types';
 import {getGuitars} from '../../store/reducer/data-reducer/selectors';
 import Filter from './filter/filter';
-import {MIN_CATALOG_HEIGHT, GUITARS_PER_PAGE} from '../../const';
+import {MIN_CATALOG_HEIGHT, GUITARS_PER_PAGE, AppMessage} from '../../const';
 import {getCurrentSort} from '../../store/reducer/sort-reducer/selectors';
 import {SortSettings} from '../../store/reducer/sort-reducer/sort-reducer';
 import {ActionAPI} from '../../store/api-actions/api-actions';
@@ -50,7 +50,7 @@ function CatalogPage(): JSX.Element {
       <MainLayout>
         <Breadcrumbs />
         <p style={{display: 'flex', justifyContent: 'center'}}>
-          Что-то сломалось, попробуйте перезагрузить страницу
+          {AppMessage.ErrorOnGetAllGuitars}
         </p>
       </MainLayout>
     );
@@ -58,7 +58,7 @@ function CatalogPage(): JSX.Element {
 
   return (
     <MainLayout>
-      <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
+      <h1 className="page-content__title title title--bigger">{AppMessage.CatalogPageHeading}</h1>
       <Breadcrumbs />
 
       <div className="catalog" style={{minHeight: MIN_CATALOG_HEIGHT}}>
