@@ -1,14 +1,14 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {Guitar, RemoteData, RequestStatus} from '../../types/types';
 import {AppRoute, FIRST_PAGE} from '../../const';
 import {generatePath, useHistory} from 'react-router-dom';
 
 export const usePagination = (
   guitars: RemoteData<Guitar>,
-  startPage: number,
+  pageNumber: number,
   guitarsPerPage: number,
 ) => {
-  const [currentPage, setCurrentPage] = useState(startPage);
+  const [currentPage, setCurrentPage] = useState(pageNumber);
   const history = useHistory();
 
   const lastGuitarIndex = currentPage * guitarsPerPage;
@@ -17,18 +17,25 @@ export const usePagination = (
   const shouldResetPagination = guitars.requestStatus === RequestStatus.SUCCESS
     && (currentPage * guitarsPerPage) > (Math.ceil(guitars.data.length / guitarsPerPage) * guitarsPerPage);
 
-  const paginate = useCallback((pageNumber: number) => {
-    history.push(generatePath(AppRoute.CatalogPage, {id: pageNumber}));
-    setCurrentPage(pageNumber);
+  const paginate = useCallback((page: number) => {
+    history.push(generatePath(AppRoute.CatalogPage, {id: page}));
+    setCurrentPage(page);
   }, [history]);
 
-  const resetPagination = () => paginate(FIRST_PAGE);
+  useEffect(() => {
+    if (shouldResetPagination) {
+      paginate(FIRST_PAGE);
+    }
+  }, [shouldResetPagination, paginate]);
+
+  useEffect(() => {
+    paginate(pageNumber);
+  }, [pageNumber, paginate]);
 
   return {
     currentPage,
     renderGuitars,
     shouldResetPagination,
-    resetPagination,
     paginate,
   };
 };

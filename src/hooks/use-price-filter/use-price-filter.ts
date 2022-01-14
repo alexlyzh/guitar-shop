@@ -19,7 +19,10 @@ export const usePriceFilter = (minPriceLimit: Price, maxPriceLimit: Price) => {
         target.value = limitedPrice.toString();
       }
       dispatch(ActionAPI.updateFilter());
+      return;
     }
+    dispatch(ActionCreator.changePriceMin(null));
+    dispatch(ActionAPI.updateFilter());
   };
 
   const onPriceMaxChange = ({target}: ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +34,10 @@ export const usePriceFilter = (minPriceLimit: Price, maxPriceLimit: Price) => {
         target.value = limitedPrice.toString();
       }
       dispatch(ActionAPI.updateFilter());
+      return;
     }
+    dispatch(ActionCreator.changePriceMax(null));
+    dispatch(ActionAPI.updateFilter());
   };
 
   return {

@@ -33,24 +33,11 @@ function CatalogPage(): JSX.Element {
   const {
     currentPage,
     renderGuitars,
-    shouldResetPagination,
-    resetPagination,
-    paginate,
   } = usePagination(guitars, pageNumber, GUITARS_PER_PAGE);
 
   const onSortOptionClick = (update: SortSettings) => {
     dispatch(ActionAPI.updateSort(update));
   };
-
-  useEffect(() => {
-    if (shouldResetPagination) {
-      resetPagination();
-    }
-  }, [shouldResetPagination, resetPagination]);
-
-  useEffect(() => {
-    paginate(pageNumber);
-  }, [pageNumber, paginate]);
 
   useEffect(() => {
     if (shouldLoadGuitars) {

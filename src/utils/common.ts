@@ -3,15 +3,15 @@ import {KeyCode} from '../const';
 export const isEscKeyDown = (evt: KeyboardEvent) => evt.keyCode === KeyCode.ESC;
 export const isEnterKeyDown = (evt: KeyboardEvent) => evt.keyCode === KeyCode.ENTER;
 
-export const debounce = (
-  callback: (...params: any[]) => any, // eslint-disable-line
+export const debounce = <A = unknown, R = void>(
+  callback: (params: A) => R,
   delay: number,
 ) => {
   let timeoutId: ReturnType<typeof setTimeout>;
 
-  return (...args: any[]) => { // eslint-disable-line
+  return (args: A) => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, args), delay);
+    timeoutId = setTimeout(() => callback(args), delay);
   };
 };
 
