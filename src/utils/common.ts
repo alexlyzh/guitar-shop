@@ -11,7 +11,7 @@ export const debounce = <A = unknown, R = void>(
 
   return (args: A) => {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback(args), delay);
+    timeoutId = setTimeout(() => callback.call(this, args), delay);
   };
 };
 
