@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {RequestStatus} from '../../types/types';
 import {getGuitars} from '../../store/reducer/data-reducer/selectors';
-import Filter from './filter/filter';
+import FilterContainer from './filter/filter-container';
 import {MIN_CATALOG_HEIGHT, GUITARS_PER_PAGE, AppMessage} from '../../const';
 import {getCurrentSort} from '../../store/reducer/sort-reducer/selectors';
 import {SortSettings} from '../../store/reducer/sort-reducer/sort-reducer';
@@ -62,7 +62,7 @@ function CatalogPage(): JSX.Element {
       <Breadcrumbs />
 
       <div className="catalog" style={{minHeight: MIN_CATALOG_HEIGHT}}>
-        <Filter />
+        <FilterContainer />
         {isFetchingData ? <Spinner /> :
           <>
             <Sort

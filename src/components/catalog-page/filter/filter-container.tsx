@@ -9,7 +9,7 @@ import {getAvailableStringsByFilterTypes, getCurrentFilter} from '../../../store
 import {getCatalogPriceRange} from '../../../store/reducer/data-reducer/selectors';
 import {usePriceFilter} from '../../../hooks/use-price-filter/use-price-filter';
 
-function Filter(): JSX.Element {
+function FilterContainer(): JSX.Element {
   const dispatch = useDispatch();
   const {types, strings} = useSelector(getCurrentFilter);
   const availableStringsForSelectedTypes = useSelector(getAvailableStringsByFilterTypes);
@@ -47,4 +47,4 @@ function Filter(): JSX.Element {
   );
 }
 
-export default Filter;
+export default FilterContainer;

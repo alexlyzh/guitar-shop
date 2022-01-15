@@ -5,7 +5,7 @@ const FAKE_PRICE = 5000;
 const FAKE_STRING = 4;
 const FAKE_TYPE = 'ukulele';
 
-describe('Reducer: Filter', () => {
+describe('Reducer: FilterContainer', () => {
   const state = initialFilterState;
 
   it('should return initial state without additional parameters', () => {

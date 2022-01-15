@@ -45,6 +45,12 @@ enum GuitarTypeNameSpace {
   electric = 'electric',
 }
 
+enum GuitarType {
+  acoustic = 'Акустические гитары',
+  ukulele = 'Укулеле',
+  electric = 'Электрогитары',
+}
+
 enum SortType {
   PRICE = 'price',
   RATING = 'rating',
@@ -93,6 +99,7 @@ export {
   SortType,
   SortOrder,
   GuitarTypeNameSpace,
+  GuitarType,
   initialSort,
   stringCount,
   stringOptions,

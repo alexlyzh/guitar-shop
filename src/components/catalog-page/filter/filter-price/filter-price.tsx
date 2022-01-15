@@ -13,7 +13,7 @@ type Props = {
 function FilterPrice(props: Props): JSX.Element {
   const {maxPriceLimit, minPriceLimit, onPriceMinChange, onPriceMaxChange} = props;
   return (
-    <fieldset className="catalog-filter__block">
+    <fieldset className="catalog-filter__block" aria-label="filter-price">
       <legend className="catalog-filter__block-title">Цена, ₽</legend>
       <div className="catalog-filter__price-range">
         <div className="form-input">

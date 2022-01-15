@@ -6,7 +6,7 @@ type Props = {
 
 function FilterType({onGuitarTypeChange}: Props): JSX.Element {
   return (
-    <fieldset className="catalog-filter__block">
+    <fieldset className="catalog-filter__block" aria-label="filter-type">
       <legend className="catalog-filter__block-title">Тип гитар</legend>
       <div className="form-checkbox catalog-filter__block-item">
         <input className="visually-hidden" type="checkbox" id="acoustic" name="acoustic"
