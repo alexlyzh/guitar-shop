@@ -41,7 +41,7 @@ describe('Application routing', () => {
     expect(screen.getByText(AppMessage.ErrorOnGetAllGuitars)).toBeInTheDocument();
   });
 
-  it('should correctly render CatalogPage when navigation to "/catalog"', () => {
+  it('should correctly render CatalogPage when navigating to "/catalog"', () => {
     history.push(AppRoute.Catalog);
     const {guitars, comments} = mockGuitarsWithComments();
 

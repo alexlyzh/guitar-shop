@@ -1,5 +1,5 @@
 import {datatype, internet} from 'faker';
-import {STARS_COUNT, stringOptions, typeOptions} from '../const';
+import {GUITARS_PER_PAGE, STARS_COUNT, stringOptions, typeOptions} from '../const';
 import {getRandomInteger} from './common';
 import {Comment, Guitar, RemoteDataByID, RequestStatus} from '../types/types';
 
@@ -47,6 +47,20 @@ export const Mock = {
     stringCount: 4,
     type: 'electric',
     vendorCode: 'TK244556',
+  },
+  pagination: {
+    pageNumber: {
+      one: 1,
+      two: 2,
+      three: 3,
+      four: 4,
+      five: 5,
+    },
+    cardsCount: {
+      onePage: GUITARS_PER_PAGE,
+      twoPages: GUITARS_PER_PAGE + 1,
+      threePages: (GUITARS_PER_PAGE * 2) + 1,
+    },
   },
 } as const;
 

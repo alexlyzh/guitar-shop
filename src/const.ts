@@ -73,6 +73,8 @@ enum HttpCode {
 enum AppMessage {
   ErrorOnGetAllGuitars = 'Что-то сломалось, попробуйте перезагрузить страницу',
   CatalogPageHeading = 'Каталог гитар',
+  CatalogFilterHeading = 'Фильтр',
+  CatalogSortHeading = 'Сортировать',
   NothingFound = 'Ничего не нашлось',
 }
 

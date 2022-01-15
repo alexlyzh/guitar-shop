@@ -12,7 +12,9 @@ function Cards({guitars}: Props): JSX.Element {
   const comments = useComments(guitars);
 
   return (
-    <div className={`cards catalog__cards ${!guitars.length ? 'catalog__cards--empty': ''}`}>
+    <div className={`cards catalog__cards ${!guitars.length ? 'catalog__cards--empty': ''}`}
+      data-testid="guitar-cards"
+    >
       {guitars.length
         ?
         guitars.map((guitar) => (

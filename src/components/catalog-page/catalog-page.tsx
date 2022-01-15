@@ -74,6 +74,7 @@ function CatalogPage(): JSX.Element {
             <Pagination
               totalCards={guitars.data.length}
               currentPage={currentPage}
+              guitarsPerPage={GUITARS_PER_PAGE}
             />
           </>}
       </div>
