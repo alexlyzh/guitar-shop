@@ -1,51 +1,33 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {RequestStatus} from '../../types/types';
-import {getGuitars} from '../../store/reducer/data-reducer/selectors';
 import FilterContainer from './filter/filter-container';
 import {MIN_CATALOG_HEIGHT, GUITARS_PER_PAGE, AppMessage} from '../../const';
-import {getCurrentSort} from '../../store/reducer/sort-reducer/selectors';
-import {SortSettings} from '../../store/reducer/sort-reducer/sort-reducer';
-import {ActionAPI} from '../../store/api-actions/api-actions';
 import MainLayout from '../main-layout/main-layout';
 import Spinner from '../common/spinner/spinner';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Sort from './sort/sort';
 import Cards from './cards/cards';
 import Pagination from './pagination/pagination';
-import {useEffect} from 'react';
 import {usePagination} from '../../hooks/use-pagination/use-pagination';
 import {useParams} from 'react-router-dom';
+import {useAllGuitars} from '../../hooks/use-all-guitars/use-all-guitars';
+import {useSort} from '../../hooks/use-sort/use-sort';
 
 type PageParams = {
   id: string,
 }
 
 function CatalogPage(): JSX.Element {
-  const dispatch = useDispatch();
   const params = useParams<PageParams>();
   const pageNumber = Number(params.id);
 
-  const guitars = useSelector(getGuitars);
-  const currentSort = useSelector(getCurrentSort);
-  const shouldLoadGuitars = guitars.requestStatus === RequestStatus.IDLE;
-  const isFetchingData = guitars.requestStatus === RequestStatus.PENDING;
+  const {guitars, isFetchingGuitars, isErrorLoadingGuitars} = useAllGuitars();
+  const {currentSort, changeSort} = useSort();
 
   const {
     currentPage,
     renderGuitars,
   } = usePagination(guitars, pageNumber, GUITARS_PER_PAGE);
 
-  const onSortOptionClick = (update: SortSettings) => {
-    dispatch(ActionAPI.updateSort(update));
-  };
-
-  useEffect(() => {
-    if (shouldLoadGuitars) {
-      dispatch(ActionAPI.getAllGuitars());
-    }
-  }, [shouldLoadGuitars, dispatch]);
-
-  if (guitars.requestStatus === RequestStatus.ERROR) {
+  if (isErrorLoadingGuitars) {
     return (
       <MainLayout>
         <Breadcrumbs />
@@ -63,12 +45,12 @@ function CatalogPage(): JSX.Element {
 
       <div className="catalog" style={{minHeight: MIN_CATALOG_HEIGHT}}>
         <FilterContainer />
-        {isFetchingData ? <Spinner /> :
+        {isFetchingGuitars ? <Spinner /> :
           <>
             <Sort
               isDisabled={!guitars.data.length}
               currentSort={currentSort}
-              onSortOptionClick={onSortOptionClick}
+              onSortOptionClick={changeSort}
             />
             <Cards guitars={renderGuitars} />
             <Pagination

@@ -1,5 +1,4 @@
 const MIN_PRICE = 0;
-const DEBOUNCE_DELAY = 700;
 const MIN_CATALOG_HEIGHT = '745px';
 const FIRST_PAGE = 1;
 const GUITARS_PER_PAGE = 9;
@@ -27,6 +26,11 @@ const apiRoute = {
     type: 'type',
   },
 };
+
+const debounceDelay = {
+  price: 700,
+  search: 250,
+} as const;
 
 const stringOptions = [4, 6, 7, 12];
 const typeOptions = ['acoustic', 'ukulele', 'electric'];
@@ -86,7 +90,6 @@ enum AppMessage {
 
 export {
   MIN_PRICE,
-  DEBOUNCE_DELAY,
   MIN_CATALOG_HEIGHT,
   FIRST_PAGE,
   GUITARS_PER_PAGE,
@@ -95,6 +98,7 @@ export {
   AppRoute,
   AppMessage,
   apiRoute,
+  debounceDelay,
   KeyCode,
   SortType,
   SortOrder,

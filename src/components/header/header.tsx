@@ -2,8 +2,10 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import SearchForm from './search-form/search-form';
 import Logo from '../common/logo/logo';
+import {useSearch} from '../../hooks/use-search/use-search';
 
 function Header(): JSX.Element {
+  const {search, changeSearch, isDropdownVisible, foundGuitars} = useSearch();
   return (
     <header className="header" id="header" data-testid="header">
       <div className="container header__wrapper">
@@ -22,7 +24,12 @@ function Header(): JSX.Element {
             </li>
           </ul>
         </nav>
-        <SearchForm />
+        <SearchForm
+          search={search}
+          onInputChange={changeSearch}
+          isDropdownVisible={isDropdownVisible}
+          foundGuitars={foundGuitars}
+        />
 
         <Link className="header__cart-link" to="#" aria-label="Корзина">
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">

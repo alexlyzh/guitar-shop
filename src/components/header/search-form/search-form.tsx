@@ -1,34 +1,14 @@
-import {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import {onSelectItemFocus, onSelectItemBlur} from './utils';
-import {isEscKeyDown} from '../../../utils/common';
-import {useDispatch} from 'react-redux';
-import {ActionAPI} from '../../../store/api-actions/api-actions';
 import {Guitar} from '../../../types/types';
 
-function SearchForm(): JSX.Element {
-  const dispatch = useDispatch();
-  const [search, setSearch] = useState('');
-  const [foundGuitars, setFoundGuitars] = useState<Guitar[]>([]);
-  const isDropdownVisible = foundGuitars.length;
+type Props = {
+  search: string,
+  onInputChange: (search: string) => void,
+  isDropdownVisible: boolean,
+  foundGuitars: Guitar[],
+}
 
-  const onInputChange = ({target}: ChangeEvent<HTMLInputElement>) => {
-    setSearch(target.value);
-    dispatch(ActionAPI.searchGuitars(target.value, setFoundGuitars));
-  };
-
-  const onDocumentEscKeydown = useCallback((evt: KeyboardEvent) => {
-    if (isEscKeyDown(evt)) {
-      setSearch('');
-      setFoundGuitars([]);
-      document.removeEventListener('keydown', onDocumentEscKeydown);
-    }
-  }, []);
-
-  useEffect(() => {
-    search && document.addEventListener('keydown', onDocumentEscKeydown);
-    return () => document.removeEventListener('keydown', onDocumentEscKeydown);
-  }, [search, onDocumentEscKeydown]);
-
+function SearchForm({search, onInputChange, isDropdownVisible, foundGuitars}: Props): JSX.Element {
   return (
     <div className="form-search" data-testid="form-search">
       <form className="form-search__form" onSubmit={(evt) => evt.preventDefault()}>
@@ -43,7 +23,7 @@ function SearchForm(): JSX.Element {
           id="search" type="text" autoComplete="off"
           placeholder="что вы ищите?"
           value={search}
-          onChange={onInputChange}
+          onChange={({target}) => onInputChange(target.value)}
         />
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
