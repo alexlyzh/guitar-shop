@@ -15,6 +15,10 @@ type RemoteDataByID<Type> = {
 }
 
 type Price = number | null;
+enum FilterOption {
+  STRING = 'STRING',
+  TYPE = 'TYPE',
+}
 
 type Guitar = {
   id: number,
@@ -48,8 +52,7 @@ type CommentPost = {
   rating: number,
 }
 
-
-export {RequestStatus};
+export {RequestStatus, FilterOption};
 export type {
   RemoteData,
   RemoteDataByID,
@@ -58,5 +61,3 @@ export type {
   CommentPost,
   Price
 };
-
-

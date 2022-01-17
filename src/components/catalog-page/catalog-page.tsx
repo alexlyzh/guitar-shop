@@ -20,7 +20,13 @@ function CatalogPage(): JSX.Element {
   const pageNumber = Number(params.id);
 
   const {guitars, isFetchingGuitars, isErrorLoadingGuitars} = useAllGuitars();
-  const {currentSort, changeSort} = useSort();
+  const {
+    currentSort,
+    setTypePriceSort,
+    setTypeRatingSort,
+    setDescendingOrderSort,
+    setAscendingOrderSort,
+  } = useSort();
 
   const {
     currentPage,
@@ -50,7 +56,10 @@ function CatalogPage(): JSX.Element {
             <Sort
               isDisabled={!guitars.data.length}
               currentSort={currentSort}
-              onSortOptionClick={changeSort}
+              onAscendingOrderClick={setAscendingOrderSort}
+              onDescendingOrderClick={setDescendingOrderSort}
+              onTypePriceClick={setTypePriceSort}
+              onTypeRatingClick={setTypeRatingSort}
             />
             <Cards guitars={renderGuitars} />
             <Pagination

@@ -1,13 +1,11 @@
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import Logo from '../common/logo/logo';
 
 function Footer(): JSX.Element {
   return (
     <footer className="footer" data-testid="footer">
       <div className="footer__container container">
-        <Link className="footer__logo logo" to={AppRoute.Catalog}>
-          <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип"/>
-        </Link>
+        <Logo />
+
         <div className="socials footer__socials">
           <ul className="socials__list">
             <li className="socials-item">

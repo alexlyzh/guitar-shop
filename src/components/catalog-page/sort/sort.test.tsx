@@ -1,10 +1,8 @@
 import {render, screen} from '@testing-library/react';
 import Sort from './sort';
 import userEvent from '@testing-library/user-event';
-import {SortOrder, SortType} from '../../../const';
 
 describe('Component: CatalogPage', () => {
-  const onSortOptionClick = jest.fn();
   const initialSort = {
     type: undefined,
     order: undefined,
@@ -15,7 +13,10 @@ describe('Component: CatalogPage', () => {
       <Sort
         isDisabled={false}
         currentSort={initialSort}
-        onSortOptionClick={onSortOptionClick}
+        onTypePriceClick={jest.fn}
+        onTypeRatingClick={jest.fn}
+        onDescendingOrderClick={jest.fn}
+        onAscendingOrderClick={jest.fn}
       />);
 
     expect(screen.getByText(/[Сс]ортировать/)).toBeInTheDocument();
@@ -26,36 +27,46 @@ describe('Component: CatalogPage', () => {
   });
 
   it('should call onSortOptionClick when not disabled', () => {
+    const onTypePriceClick = jest.fn();
+    const onTypeRatingClick = jest.fn();
+    const onDescendingOrderClick = jest.fn();
+    const onAscendingOrderClick = jest.fn();
     render(
       <Sort
         isDisabled={false}
         currentSort={initialSort}
-        onSortOptionClick={onSortOptionClick}
+        onTypePriceClick={onTypePriceClick}
+        onTypeRatingClick={onTypeRatingClick}
+        onDescendingOrderClick={onDescendingOrderClick}
+        onAscendingOrderClick={onAscendingOrderClick}
       />);
 
     userEvent.click(screen.getByText(/[Пп]о цене/));
-    expect(onSortOptionClick).toBeCalledTimes(1);
-    expect(onSortOptionClick).toBeCalledWith({type: SortType.PRICE});
+    expect(onTypePriceClick).toBeCalled();
 
     userEvent.click(screen.getByText(/[Пп]о популярности/));
-    expect(onSortOptionClick).toBeCalledTimes(2);
-    expect(onSortOptionClick).toBeCalledWith({type: SortType.RATING});
+    expect(onTypeRatingClick).toBeCalled();
 
     userEvent.click(screen.getByLabelText(/[Пп]о возрастанию/));
-    expect(onSortOptionClick).toBeCalledTimes(3);
-    expect(onSortOptionClick).toBeCalledWith({order: SortOrder.ASC});
+    expect(onAscendingOrderClick).toBeCalled();
 
     userEvent.click(screen.getByLabelText(/[Пп]о убыванию/));
-    expect(onSortOptionClick).toBeCalledTimes(4);
-    expect(onSortOptionClick).toBeCalledWith({order: SortOrder.DESC});
+    expect(onDescendingOrderClick).toBeCalled();
   });
 
   it('should not call onSortOptionClick when not disabled', () => {
+    const onTypePriceClick = jest.fn();
+    const onTypeRatingClick = jest.fn();
+    const onDescendingOrderClick = jest.fn();
+    const onAscendingOrderClick = jest.fn();
     render(
       <Sort
         isDisabled
         currentSort={initialSort}
-        onSortOptionClick={onSortOptionClick}
+        onTypePriceClick={onTypePriceClick}
+        onTypeRatingClick={onTypeRatingClick}
+        onDescendingOrderClick={onDescendingOrderClick}
+        onAscendingOrderClick={onAscendingOrderClick}
       />);
 
     userEvent.click(screen.getByText(/[Пп]о цене/));
@@ -63,6 +74,9 @@ describe('Component: CatalogPage', () => {
     userEvent.click(screen.getByLabelText(/[Пп]о возрастанию/));
     userEvent.click(screen.getByLabelText(/[Пп]о убыванию/));
 
-    expect(onSortOptionClick).not.toBeCalled();
+    expect(onTypePriceClick).not.toBeCalled();
+    expect(onTypeRatingClick).not.toBeCalled();
+    expect(onDescendingOrderClick).not.toBeCalled();
+    expect(onAscendingOrderClick).not.toBeCalled();
   });
 });

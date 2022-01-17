@@ -3,18 +3,18 @@ import {Comment, Guitar, Price} from '../types/types';
 import {SortSettings} from './reducer/sort-reducer/sort-reducer';
 
 enum ActionType {
-  START_LOAD_GUITARS = 'DATA | START_LOAD_GUITARS',
-  SAVE_GUITARS = 'DATA | SAVE_GUITARS',
-  ERROR_LOAD_GUITARS ='DATA | ERROR_LOAD_GUITARS',
-  START_LOAD_COMMENTS = 'DATA | START_LOAD_COMMENTS',
-  SAVE_COMMENTS = 'DATA | SAVE_COMMENTS',
-  ERROR_LOAD_COMMENTS = 'DATA | ERROR_LOAD_COMMENTS',
-  SET_PRICE_RANGE = 'DATA | SET_PRICE_RANGE',
-  TOGGLE_STRING_CONDITION = 'FILTER | TOGGLE_STRING_CONDITION',
-  TOGGLE_TYPE_CONDITION = 'FILTER | TOGGLE_TYPE_CONDITION',
-  FILTER_PRICE_MIN= 'FILTER | FILTER_PRICE_MIN',
-  FILTER_PRICE_MAX = 'FILTER | FILTER_PRICE_MAX',
-  CHANGE_SORT = 'SORT | CHANGE_SORT',
+  START_LOAD_GUITARS = 'DATA / startLoadGuitars',
+  SAVE_GUITARS = 'DATA / saveGuitars',
+  ERROR_LOAD_GUITARS ='DATA / errorLoadGuitars',
+  START_LOAD_COMMENTS = 'DATA / startLoadComments',
+  SAVE_COMMENTS = 'DATA / saveComments',
+  ERROR_LOAD_COMMENTS = 'DATA / errorLoadComments',
+  SET_PRICE_RANGE = 'DATA / setPriceRange',
+  TOGGLE_STRING_CONDITION = 'FILTER / toggleStringCondition',
+  TOGGLE_TYPE_CONDITION = 'FILTER / toggleTypeCondition',
+  FILTER_PRICE_MIN= 'FILTER / filterPriceMin',
+  FILTER_PRICE_MAX = 'FILTER / filterPriceMax',
+  CHANGE_SORT = 'SORT / changeSort',
 }
 
 const ActionCreator = {

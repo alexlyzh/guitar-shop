@@ -4,7 +4,10 @@ import {SortSettings} from '../../../store/reducer/sort-reducer/sort-reducer';
 type Props = {
   isDisabled: boolean,
   currentSort: SortSettings,
-  onSortOptionClick: (update: SortSettings) => void,
+  onTypePriceClick: () => void,
+  onTypeRatingClick: () => void,
+  onAscendingOrderClick: () => void,
+  onDescendingOrderClick: () => void,
 }
 
 export const getSortTypeBtnClassName = (
@@ -17,7 +20,7 @@ export const getSortOrderBtnClassName = (
   target: SortOrder,
 ) => currentSort.order === target ? 'catalog-sort__order-button--active' : '';
 
-function Sort({isDisabled, currentSort, onSortOptionClick}: Props): JSX.Element {
+function Sort({isDisabled, currentSort, onTypePriceClick, onTypeRatingClick, onAscendingOrderClick, onDescendingOrderClick}: Props): JSX.Element {
   return (
     <div className="catalog-sort">
       <h2 className="catalog-sort__title">Сортировать:</h2>
@@ -25,7 +28,7 @@ function Sort({isDisabled, currentSort, onSortOptionClick}: Props): JSX.Element 
         <button
           className={`catalog-sort__type-button ${getSortTypeBtnClassName(currentSort, SortType.PRICE)}`}
           aria-label="по цене"
-          onClick={() => onSortOptionClick({type: SortType.PRICE})}
+          onClick={onTypePriceClick}
           disabled={isDisabled}
         >
           по цене
@@ -33,7 +36,7 @@ function Sort({isDisabled, currentSort, onSortOptionClick}: Props): JSX.Element 
         <button
           className={`catalog-sort__type-button ${getSortTypeBtnClassName(currentSort, SortType.RATING)}`}
           aria-label="по популярности"
-          onClick={() => onSortOptionClick({type: SortType.RATING})}
+          onClick={onTypeRatingClick}
           disabled={isDisabled}
         >
           по популярности
@@ -43,14 +46,14 @@ function Sort({isDisabled, currentSort, onSortOptionClick}: Props): JSX.Element 
         <button
           className={`catalog-sort__order-button catalog-sort__order-button--up ${getSortOrderBtnClassName(currentSort, SortOrder.ASC)}`}
           aria-label="По возрастанию"
-          onClick={() => onSortOptionClick({order: SortOrder.ASC})}
+          onClick={onAscendingOrderClick}
           disabled={isDisabled}
         >
         </button>
         <button
           className={`catalog-sort__order-button catalog-sort__order-button--down ${getSortOrderBtnClassName(currentSort, SortOrder.DESC)}`}
           aria-label="По убыванию"
-          onClick={() => onSortOptionClick({order: SortOrder.DESC})}
+          onClick={onDescendingOrderClick}
           disabled={isDisabled}
         >
         </button>

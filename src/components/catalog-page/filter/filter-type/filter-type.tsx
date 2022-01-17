@@ -1,31 +1,22 @@
-import {GuitarTypeNameSpace} from '../../../../const';
+import {GuitarType, typeOptions} from '../../../../const';
+import {useTypeFilter} from '../../../../hooks/use-type-filter/use-type-filter';
+import FilterCheckbox from '../filter-checkbox/filter-checkbox';
 
-type Props = {
-  onGuitarTypeChange: (type: GuitarTypeNameSpace) => void,
-}
+function FilterType(): JSX.Element {
+  const {handleGuitarTypeChange} = useTypeFilter();
 
-function FilterType({onGuitarTypeChange}: Props): JSX.Element {
   return (
     <fieldset className="catalog-filter__block" aria-label="filter-type">
       <legend className="catalog-filter__block-title">Тип гитар</legend>
-      <div className="form-checkbox catalog-filter__block-item">
-        <input className="visually-hidden" type="checkbox" id="acoustic" name="acoustic"
-          onChange={() => onGuitarTypeChange(GuitarTypeNameSpace.acoustic)}
+      {typeOptions.map((type) => (
+        <FilterCheckbox
+          key={type}
+          id={type}
+          name={type}
+          labelText={GuitarType[type]}
+          onInputChange={() => handleGuitarTypeChange(type)}
         />
-        <label htmlFor="acoustic">Акустические гитары</label>
-      </div>
-      <div className="form-checkbox catalog-filter__block-item">
-        <input className="visually-hidden" type="checkbox" id="electric" name="electric"
-          onChange={() => onGuitarTypeChange(GuitarTypeNameSpace.electric)}
-        />
-        <label htmlFor="electric">Электрогитары</label>
-      </div>
-      <div className="form-checkbox catalog-filter__block-item">
-        <input className="visually-hidden" type="checkbox" id="ukulele" name="ukulele"
-          onChange={() => onGuitarTypeChange(GuitarTypeNameSpace.ukulele)}
-        />
-        <label htmlFor="ukulele">Укулеле</label>
-      </div>
+      ))}
     </fieldset>
   );
 }

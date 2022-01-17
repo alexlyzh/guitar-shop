@@ -33,7 +33,7 @@ const debounceDelay = {
 } as const;
 
 const stringOptions = [4, 6, 7, 12];
-const typeOptions = ['acoustic', 'ukulele', 'electric'];
+const typeOptions = ['acoustic', 'electric', 'ukulele'];
 
 const stringCount: {
   [key: string]: number[],
@@ -43,17 +43,21 @@ const stringCount: {
   electric: [4, 6, 7],
 };
 
-enum GuitarTypeNameSpace {
-  acoustic = 'acoustic',
-  ukulele = 'ukulele',
-  electric = 'electric',
-}
+const GuitarTypeNameSpace: {
+  [key: string]: string,
+} = {
+  acoustic: 'acoustic',
+  electric: 'electric',
+  ukulele: 'ukulele',
+} as const;
 
-enum GuitarType {
-  acoustic = 'Акустические гитары',
-  ukulele = 'Укулеле',
-  electric = 'Электрогитары',
-}
+const GuitarType: {
+  [key: string]: string,
+} = {
+  acoustic: 'Акустические гитары',
+  ukulele: 'Укулеле',
+  electric: 'Электрогитары',
+} as const;
 
 enum SortType {
   PRICE = 'price',

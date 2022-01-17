@@ -39,6 +39,14 @@ export const Mock = {
       threePages: (GUITARS_PER_PAGE * 2) + 1,
     },
   },
+  filter: {
+    string: {
+      value: '4',
+    },
+    type: {
+      value: 'ukulele',
+    },
+  },
 } as const;
 
 export const getMockGuitar = (): Guitar => ({
