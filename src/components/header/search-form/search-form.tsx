@@ -1,9 +1,10 @@
 import {onSelectItemFocus, onSelectItemBlur} from './utils';
 import {Guitar} from '../../../types/types';
+import {ChangeEvent} from 'react';
 
 type Props = {
   search: string,
-  onInputChange: (search: string) => void,
+  onInputChange: (evt: ChangeEvent<HTMLInputElement>) => void,
   isDropdownVisible: boolean,
   foundGuitars: Guitar[],
 }
@@ -23,7 +24,7 @@ function SearchForm({search, onInputChange, isDropdownVisible, foundGuitars}: Pr
           id="search" type="text" autoComplete="off"
           placeholder="что вы ищите?"
           value={search}
-          onChange={({target}) => onInputChange(target.value)}
+          onChange={onInputChange}
         />
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
@@ -31,19 +32,22 @@ function SearchForm({search, onInputChange, isDropdownVisible, foundGuitars}: Pr
         className={`form-search__select-list ${isDropdownVisible ? '': 'hidden'}`}
         style={{zIndex: '1'}}
       >
-        {foundGuitars.map((guitar) => (
-          <li
-            className="form-search__select-item"
-            tabIndex={0}
-            style={{outline: 'none'}}
-            key={guitar.id}
-            data-id={guitar.id}
-            onFocus={onSelectItemFocus}
-            onBlur={onSelectItemBlur}
-          >
-            {guitar.name}
-          </li>
-        ))}
+        {foundGuitars.map((guitar, i) => {
+          const key = `search-${i}`;
+          return (
+            <li
+              className="form-search__select-item"
+              tabIndex={0}
+              style={{outline: 'none'}}
+              key={key}
+              data-id={guitar.id}
+              onFocus={onSelectItemFocus}
+              onBlur={onSelectItemBlur}
+            >
+              {guitar.name}
+            </li>
+          );
+        })}
 
       </ul>
     </div>

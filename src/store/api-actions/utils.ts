@@ -18,6 +18,17 @@ export const checkStringsFilter = (currentFilter: FilterSettings) => {
   return filterUpdate;
 };
 
+export const sortByNameStartingWithTemplate = (data: Guitar[], template: string) =>
+  data.slice().sort((a, b) => {
+    if (a.name.toLowerCase().startsWith(template) && !b.name.toLowerCase().startsWith(template)) {
+      return -1;
+    }
+    if (b.name.toLowerCase().startsWith(template) && !a.name.toLowerCase().startsWith(template)) {
+      return 1;
+    }
+    return 0;
+  });
+
 export const parseGuitarsData = (guitars: Guitar[]) => {
   let minPrice = 0;
   let maxPrice = 0;

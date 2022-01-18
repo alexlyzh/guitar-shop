@@ -1,5 +1,5 @@
 import {useDispatch} from 'react-redux';
-import {useCallback, useEffect, useState} from 'react';
+import {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import {Guitar} from '../../types/types';
 import {ActionAPI} from '../../store/api-actions/api-actions';
 import {isEscKeyDown} from '../../utils/common';
@@ -10,9 +10,9 @@ export const useSearch = () => {
   const [foundGuitars, setFoundGuitars] = useState<Guitar[]>([]);
   const isDropdownVisible = Boolean(foundGuitars.length);
 
-  const changeSearch = (query: string) => {
-    setSearch(query);
-    dispatch(ActionAPI.searchGuitars(query, setFoundGuitars));
+  const changeSearch = ({target}: ChangeEvent<HTMLInputElement>) => {
+    setSearch(target.value);
+    dispatch(ActionAPI.searchGuitars(target.value.toLowerCase(), setFoundGuitars));
   };
 
   const onDocumentEscKeydown = useCallback((evt: KeyboardEvent) => {

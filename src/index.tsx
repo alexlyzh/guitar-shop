@@ -6,8 +6,6 @@ import {createApi} from './api';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
 import rootReducer from './store/reducer/root-reducer';
-import {ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const api = createApi();
 
@@ -20,7 +18,6 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <ToastContainer/>
         <App />
       </BrowserRouter>
     </Provider>
