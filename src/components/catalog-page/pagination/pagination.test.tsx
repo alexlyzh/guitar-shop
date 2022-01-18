@@ -63,7 +63,7 @@ describe('Component: Pagination', () => {
   });
 
   it('should correctly render active pagination-page', () => {
-    const cardsCount = getRandomInteger(0, 100);
+    const cardsCount = getRandomInteger(Mock.pagination.cardsCount.twoPages, 100);
     const pagesCount = Math.ceil(cardsCount / GUITARS_PER_PAGE);
     const currentPage = getRandomInteger(FIRST_PAGE, pagesCount);
 

@@ -51,16 +51,16 @@ function CatalogPage(): JSX.Element {
 
       <div className="catalog" style={{minHeight: MIN_CATALOG_HEIGHT}}>
         <FilterContainer />
+        <Sort
+          isDisabled={!guitars.data.length}
+          currentSort={currentSort}
+          onAscendingOrderClick={setAscendingOrderSort}
+          onDescendingOrderClick={setDescendingOrderSort}
+          onTypePriceClick={setTypePriceSort}
+          onTypeRatingClick={setTypeRatingSort}
+        />
         {isFetchingGuitars ? <Spinner /> :
           <>
-            <Sort
-              isDisabled={!guitars.data.length}
-              currentSort={currentSort}
-              onAscendingOrderClick={setAscendingOrderSort}
-              onDescendingOrderClick={setDescendingOrderSort}
-              onTypePriceClick={setTypePriceSort}
-              onTypeRatingClick={setTypeRatingSort}
-            />
             <Cards guitars={renderGuitars} />
             <Pagination
               totalCards={guitars.data.length}
