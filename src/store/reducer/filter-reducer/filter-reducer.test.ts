@@ -1,5 +1,6 @@
 import {filterReducer, FilterState, initialFilterState} from './filter-reducer';
 import {ActionCreator} from '../../actions';
+import {FIRST_PAGE} from '../../../const';
 
 const FAKE_PRICE = 5000;
 const FAKE_STRING = 4;
@@ -14,7 +15,7 @@ describe('Reducer: FilterContainer', () => {
   });
 
   it('should change min price filter correctly', () => {
-    expect(filterReducer(state, ActionCreator.changePriceMin(FAKE_PRICE)))
+    expect(filterReducer(state, ActionCreator.setPriceMin(FAKE_PRICE)))
       .toEqual({
         currentFilter: {
           ...state.currentFilter,
@@ -24,7 +25,7 @@ describe('Reducer: FilterContainer', () => {
   });
 
   it('should change max price filter correctly', () => {
-    expect(filterReducer(state, ActionCreator.changePriceMax(FAKE_PRICE)))
+    expect(filterReducer(state, ActionCreator.setPriceMax(FAKE_PRICE)))
       .toEqual({
         currentFilter: {
           ...state.currentFilter,
@@ -36,6 +37,7 @@ describe('Reducer: FilterContainer', () => {
   it('should toggle strings in filter correctly', () => {
     const initialState: FilterState = {
       currentFilter: {
+        page: FIRST_PAGE,
         priceMin: null,
         priceMax: null,
         strings: [],
@@ -65,6 +67,7 @@ describe('Reducer: FilterContainer', () => {
   it('should toggle types in filter correctly', () => {
     const initialState: FilterState = {
       currentFilter: {
+        page: FIRST_PAGE,
         priceMin: null,
         priceMax: null,
         strings: [],

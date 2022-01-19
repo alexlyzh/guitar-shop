@@ -11,7 +11,7 @@ describe('Reducer: Sort', () => {
   });
 
   it('should change sort correctly', () => {
-    expect(sortReducer(state, ActionCreator.changeSort({
+    expect(sortReducer(state, ActionCreator.setSort({
       type: SortType.RATING,
       order: SortOrder.ASC,
     })))

@@ -17,7 +17,7 @@ const initialState: SortState = {
 
 export const sortReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(ActionCreator.changeSort, (state, action) => {
+    .addCase(ActionCreator.setSort, (state, action) => {
       state.currentSort = action.payload;
     });
 });

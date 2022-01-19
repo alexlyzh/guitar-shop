@@ -1,14 +1,14 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../../const';
+import {AppPath} from '../../../const';
 
 export default function Breadcrumbs(): JSX.Element {
   return (
     <ul className="breadcrumbs page-content__breadcrumbs">
       <li className="breadcrumbs__item">
-        <Link className="link" to={AppRoute.Main}>Главная</Link>
+        <Link className="link" to={AppPath.Main}>Главная</Link>
       </li>
       <li className="breadcrumbs__item">
-        <Link className="link" to={AppRoute.Catalog}>Каталог</Link>
+        <Link className="link" to={AppPath.Catalog}>Каталог</Link>
       </li>
     </ul>
   );

@@ -1,6 +1,6 @@
 import './not-found-page.css';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppPath} from '../../const';
 
 function NotFoundPage(): JSX.Element {
   return (
@@ -8,7 +8,7 @@ function NotFoundPage(): JSX.Element {
       <h1>
         404 - <small>Страница не найдена</small>
       </h1>
-      <Link className="link-to-main" to={AppRoute.Main}>
+      <Link className="link-to-main" to={AppPath.Main}>
         На главную
       </Link>
     </div>

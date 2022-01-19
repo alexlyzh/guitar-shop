@@ -22,7 +22,9 @@ function FilterContainer(): JSX.Element {
         onPriceMinChange={onPriceMinChange}
         onPriceMaxChange={onPriceMaxChange}
       />
-      <FilterType />
+      <FilterType
+        types={types}
+      />
       <FilterString
         types={types}
         selectedStrings={strings}

@@ -7,19 +7,17 @@ import Sort from './sort/sort';
 import Cards from './cards/cards';
 import Pagination from './pagination/pagination';
 import {usePagination} from '../../hooks/use-pagination/use-pagination';
-import {useParams} from 'react-router-dom';
 import {useAllGuitars} from '../../hooks/use-all-guitars/use-all-guitars';
 import {useSort} from '../../hooks/use-sort/use-sort';
-
-type PageParams = {
-  id: string,
-}
+import {useCatalogUrl} from '../../hooks/use-catalog-url/use-catalog-url';
 
 function CatalogPage(): JSX.Element {
-  const params = useParams<PageParams>();
-  const pageNumber = Number(params.id);
-
   const {guitars, isFetchingGuitars, isErrorLoadingGuitars} = useAllGuitars();
+
+  useCatalogUrl();
+
+  const {currentPage, renderGuitars, paginate} = usePagination(guitars, GUITARS_PER_PAGE);
+
   const {
     currentSort,
     setTypePriceSort,
@@ -27,11 +25,6 @@ function CatalogPage(): JSX.Element {
     setDescendingOrderSort,
     setAscendingOrderSort,
   } = useSort();
-
-  const {
-    currentPage,
-    renderGuitars,
-  } = usePagination(guitars, pageNumber, GUITARS_PER_PAGE);
 
   if (isErrorLoadingGuitars) {
     return (
@@ -66,6 +59,7 @@ function CatalogPage(): JSX.Element {
               totalCards={guitars.data.length}
               currentPage={currentPage}
               guitarsPerPage={GUITARS_PER_PAGE}
+              paginate={paginate}
             />
           </>}
       </div>

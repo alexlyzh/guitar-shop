@@ -1,9 +1,10 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {Price} from '../../../types/types';
 import {ActionCreator} from '../../actions';
-import {MIN_PRICE} from '../../../const';
+import {FIRST_PAGE, MIN_PRICE} from '../../../const';
 
 type FilterSettings = {
+  page: number,
   priceMin: Price,
   priceMax: Price,
   strings: number[],
@@ -16,6 +17,7 @@ type FilterState = {
 
 const initialState: FilterState = {
   currentFilter: {
+    page: FIRST_PAGE,
     priceMin: null,
     priceMax: null,
     strings: [],
@@ -25,6 +27,12 @@ const initialState: FilterState = {
 
 export const filterReducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(ActionCreator.setFilter, (state, action) => {
+      state.currentFilter = action.payload;
+    })
+    .addCase(ActionCreator.setCatalogPage, (state, action) => {
+      state.currentFilter.page = action.payload;
+    })
     .addCase(ActionCreator.toggleStringCondition, (state, action) => {
       if (state.currentFilter.strings.includes(action.payload)) {
         state.currentFilter.strings = state.currentFilter.strings.filter((string) => string !== action.payload);
@@ -39,10 +47,10 @@ export const filterReducer = createReducer(initialState, (builder) => {
       }
       state.currentFilter.types.push(action.payload);
     })
-    .addCase(ActionCreator.changePriceMin, (state, action) => {
+    .addCase(ActionCreator.setPriceMin, (state, action) => {
       state.currentFilter.priceMin = action.payload ? Math.max(MIN_PRICE, action.payload) : action.payload;
     })
-    .addCase(ActionCreator.changePriceMax, (state, action) => {
+    .addCase(ActionCreator.setPriceMax, (state, action) => {
       state.currentFilter.priceMax = action.payload ? Math.max(MIN_PRICE, action.payload) : action.payload;
     });
 });

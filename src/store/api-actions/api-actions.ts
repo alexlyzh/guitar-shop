@@ -6,11 +6,12 @@ import {apiRoute} from '../../const';
 import {ActionCreator} from '../actions';
 import {State} from '../reducer/root-reducer';
 import {Dispatch, SetStateAction} from 'react';
-import {BASE_URL} from '../../api';
+import {BASE_API_URL} from '../../api';
 import {SortSettings} from '../reducer/sort-reducer/sort-reducer';
 import {
   checkStringsFilter,
-  createCatalogUrl,
+  createCatalogApiUrl,
+  createCatalogAppUrl,
   parseGuitarsData,
   prepareSortAction,
   sortByNameStartingWithTemplate
@@ -49,7 +50,7 @@ const ActionAPI = {
   searchGuitars: (template: string, setFoundGuitars: Dispatch<SetStateAction<Guitar[]>>): ThunkActionResult =>
     async (dispatch, getState, api): Promise<void> => {
       try {
-        const url = new URL(apiRoute.path.guitars, BASE_URL);
+        const url = new URL(apiRoute.path.guitars, BASE_API_URL);
         url.searchParams.append(apiRoute.search.name, template);
         const {data} = await api.get<Guitar[]>(url.href);
         setFoundGuitars(sortByNameStartingWithTemplate(data, template));
@@ -65,8 +66,8 @@ const ActionAPI = {
       const {currentFilter} = state.FILTER;
       const {currentSort} = state.SORT;
       const sort = prepareSortAction(currentSort, update);
-      dispatch(ActionCreator.changeSort(sort));
-      const url = createCatalogUrl(currentFilter, sort);
+      dispatch(ActionCreator.setSort(sort));
+      const url = createCatalogApiUrl(currentFilter, sort);
       dispatch(ActionCreator.startLoadGuitars());
       try {
         const {data} = await api.get<Guitar[]>(url.href);
@@ -83,8 +84,11 @@ const ActionAPI = {
       const {currentFilter} = state.FILTER;
       const {currentSort} = state.SORT;
       const filter = checkStringsFilter(currentFilter);
-      const url = createCatalogUrl(filter, currentSort);
+      const url = createCatalogApiUrl(filter, currentSort);
       dispatch(ActionCreator.startLoadGuitars());
+      const link = createCatalogAppUrl(filter).search;
+      console.log('THUNK updateFilter ', link) // eslint-disable-line
+      dispatch(ActionCreator.updateFilterUrl(link));
       try {
         const {data} = await api.get<Guitar[]>(url.href);
         dispatch(ActionCreator.saveGuitars(data));

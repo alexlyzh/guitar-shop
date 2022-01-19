@@ -4,7 +4,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import thunk from 'redux-thunk';
 import {Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {AppMessage, AppRoute} from '../../const';
+import {AppMessage, AppPath} from '../../const';
 import {initialDataState} from '../../store/reducer/data-reducer/data-reducer';
 import {initialSortState} from '../../store/reducer/sort-reducer/sort-reducer';
 import {initialFilterState} from '../../store/reducer/filter-reducer/filter-reducer';
@@ -17,7 +17,7 @@ const mockStore = configureMockStore([thunk]);
 
 describe('Application routing', () => {
   it('should correctly render CatalogPage when have got an error navigating to "/catalog"', () => {
-    history.push(AppRoute.Catalog);
+    history.push(AppPath.Catalog);
     const store = mockStore({
       DATA: {
         ...initialDataState,
@@ -42,7 +42,7 @@ describe('Application routing', () => {
   });
 
   it('should correctly render CatalogPage when navigating to "/catalog"', () => {
-    history.push(AppRoute.Catalog);
+    history.push(AppPath.Catalog);
     const {guitars, comments} = mockGuitarsWithComments();
 
     const store = mockStore({

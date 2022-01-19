@@ -1,7 +1,7 @@
 import {SortSettings} from '../reducer/sort-reducer/sort-reducer';
 import {FilterSettings} from '../reducer/filter-reducer/filter-reducer';
-import {apiRoute, initialSort, stringCount} from '../../const';
-import {BASE_URL} from '../../api';
+import {apiRoute, AppSearchParam, initialSort, stringCount} from '../../const';
+import {BASE_API_URL} from '../../api';
 import {Guitar} from '../../types/types';
 
 export const checkStringsFilter = (currentFilter: FilterSettings) => {
@@ -39,7 +39,6 @@ export const parseGuitarsData = (guitars: Guitar[]) => {
   return {minPrice, maxPrice};
 };
 
-
 export const prepareSortAction = (currentSort: SortSettings, update: SortSettings) => {
   if (!currentSort.type && !currentSort.order) {
     return {...initialSort, ...update};
@@ -47,10 +46,7 @@ export const prepareSortAction = (currentSort: SortSettings, update: SortSetting
   return {...currentSort, ...update};
 };
 
-
-export const createCatalogUrl = (filter: FilterSettings, sort: SortSettings) => {
-  const url = new URL(apiRoute.path.guitars, BASE_URL);
-
+export const appendFilterParams = (url: URL, filter: FilterSettings) => {
   filter.priceMin && url.searchParams.append(apiRoute.search.priceMin, filter.priceMin.toString());
   filter.priceMax && url.searchParams.append(apiRoute.search.priceMax, filter.priceMax.toString());
   filter.strings.length && filter.strings.forEach((string) => {
@@ -59,9 +55,19 @@ export const createCatalogUrl = (filter: FilterSettings, sort: SortSettings) => 
   filter.types.length && filter.types.forEach((type) => {
     url.searchParams.append(apiRoute.search.type, type);
   });
+};
 
+export const createCatalogApiUrl = (filter: FilterSettings, sort: SortSettings) => {
+  const url = new URL(apiRoute.path.guitars, BASE_API_URL);
+  appendFilterParams(url, filter);
   sort.type && url.searchParams.append(apiRoute.search.sort, sort.type);
   sort.order && url.searchParams.append(apiRoute.search.order, sort.order);
+  return url;
+};
 
+export const createCatalogAppUrl = (filter: FilterSettings) => {
+  const url = new URL(apiRoute.path.guitars, BASE_API_URL);
+  url.searchParams.set(AppSearchParam.page, filter.page.toString());
+  appendFilterParams(url, filter);
   return url;
 };

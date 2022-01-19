@@ -4,10 +4,17 @@ const FIRST_PAGE = 1;
 const GUITARS_PER_PAGE = 9;
 const STARS_COUNT = 5;
 
-enum AppRoute {
+enum AppPath {
   Main = '/',
   Catalog = '/catalog',
-  CatalogPage = '/catalog/page_:id',
+}
+
+enum AppSearchParam {
+  page = 'page',
+  priceMin = 'price_gte',
+  priceMax = 'price_lte',
+  type = 'type',
+  stringCount = 'stringCount',
 }
 
 const apiRoute = {
@@ -99,7 +106,8 @@ export {
   GUITARS_PER_PAGE,
   STARS_COUNT,
   HttpCode,
-  AppRoute,
+  AppPath,
+  AppSearchParam,
   AppMessage,
   apiRoute,
   debounceDelay,

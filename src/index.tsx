@@ -6,12 +6,13 @@ import {createApi} from './api';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
 import rootReducer from './store/reducer/root-reducer';
+import {redirect} from './store/middleware/redirect/redirect';
 
 const api = createApi();
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({thunk: {extraArgument: api}}),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({thunk: {extraArgument: api}}).concat([redirect]),
 });
 
 ReactDOM.render(

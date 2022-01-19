@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react';
 import Logo from './logo';
 import {createMemoryHistory} from 'history';
 import {Router, Switch, Route} from 'react-router-dom';
-import {AppRoute} from '../../../const';
+import {AppPath} from '../../../const';
 import userEvent from '@testing-library/user-event';
 
 const history = createMemoryHistory();
@@ -14,7 +14,7 @@ describe('Component: Logo', () => {
     render(
       <Router history={history}>
         <Switch>
-          <Route exact path={AppRoute.Main}>
+          <Route exact path={AppPath.Main}>
             <h1>This is CatalogPage</h1>
           </Route>
           <Route>

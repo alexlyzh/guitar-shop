@@ -1,13 +1,14 @@
-import {generatePath, Link} from 'react-router-dom';
-import {FIRST_PAGE, AppRoute} from '../../../const';
+import {FIRST_PAGE} from '../../../const';
+import PaginationItem from './pagination-page/pagination-item';
 
 type Props = {
   totalCards: number,
   currentPage: number,
   guitarsPerPage: number,
+  paginate: (page: number) => void,
 }
 
-function Pagination({totalCards, currentPage, guitarsPerPage}: Props): JSX.Element | null {
+function Pagination({totalCards, currentPage, guitarsPerPage, paginate}: Props): JSX.Element | null {
   const lastPage = Math.ceil(totalCards / guitarsPerPage);
 
   if (totalCards <= guitarsPerPage) {
@@ -23,39 +24,29 @@ function Pagination({totalCards, currentPage, guitarsPerPage}: Props): JSX.Eleme
     <div className="pagination page-content__pagination">
       <ul className="pagination__list">
         {currentPage > FIRST_PAGE ?
-          <li className="pagination__page pagination__page--prev" id="prev"
-            data-testid={'paginate-prev'}
-          >
-            <Link className="link pagination__page-link"
-              to={generatePath(AppRoute.CatalogPage, {id: currentPage - 1})}
-            >
-              Назад
-            </Link>
-          </li> : null}
+          <PaginationItem
+            className={'pagination__page pagination__page--prev'}
+            linkText={'Назад'}
+            onLinkClick={() => paginate(currentPage - 1)}
+          />  : null}
         {pages.map((page) => {
           const isActive = currentPage === page;
           return (
-            <li className={`pagination__page ${isActive ? 'pagination__page--active' : ''}`} key={page}
-              data-testid={isActive ? 'pagination-page-active' : 'pagination-page'}
-            >
-              <Link className="link pagination__page-link"
-                to={generatePath(AppRoute.CatalogPage, {id: page})}
-              >
-                {page}
-              </Link>
-            </li>
+            <PaginationItem
+              className={`pagination__page ${isActive ? 'pagination__page--active' : ''}`}
+              linkText={page}
+              onLinkClick={() => paginate(page)}
+              isActive={isActive}
+              key={page}
+            />
           );
         })}
         {currentPage < lastPage ?
-          <li className="pagination__page pagination__page--next" id="next"
-            data-testid={'paginate-next'}
-          >
-            <Link className="link pagination__page-link"
-              to={generatePath(AppRoute.CatalogPage, {id: currentPage + 1})}
-            >
-              Далее
-            </Link>
-          </li> : null}
+          <PaginationItem
+            className={'pagination__page pagination__page--next'}
+            linkText={'Далее'}
+            onLinkClick={() => paginate(currentPage + 1)}
+          /> : null}
       </ul>
     </div>
   );

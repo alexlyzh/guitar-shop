@@ -4,6 +4,7 @@ import {stringCount} from '../../../const';
 
 const getCurrentFilter = (state: State) => state.FILTER.currentFilter;
 const getFilteredGuitarTypes = (state: State) => state.FILTER.currentFilter.types;
+export const getCatalogPage = (state: State) => state.FILTER.currentFilter.page;
 
 const getAvailableStringsByFilterTypes = createSelector(getFilteredGuitarTypes, (types) => {
   const availableStrings: number[] = [];

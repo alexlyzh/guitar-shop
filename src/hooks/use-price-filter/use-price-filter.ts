@@ -4,7 +4,7 @@ import {ActionCreator} from '../../store/actions';
 import {ActionAPI} from '../../store/api-actions/api-actions';
 import {Price} from '../../types/types';
 
-type PriceChangeAction = ReturnType<typeof ActionCreator.changePriceMax> | ReturnType<typeof ActionCreator.changePriceMin>;
+type PriceChangeAction = ReturnType<typeof ActionCreator.setPriceMax> | ReturnType<typeof ActionCreator.setPriceMin>;
 type PriceChangeActionCreator = (price: Price) => PriceChangeAction;
 
 const limitPrice = (value: number, minLimit: number, maxLimit: number) =>
@@ -32,10 +32,10 @@ export const usePriceFilter = (minPriceLimit: Price, maxPriceLimit: Price) => {
   };
 
   const onPriceMinChange = (evt: ChangeEvent<HTMLInputElement>) =>
-    onPriceInputElementChange(evt, ActionCreator.changePriceMin);
+    onPriceInputElementChange(evt, ActionCreator.setPriceMin);
 
   const onPriceMaxChange = (evt: ChangeEvent<HTMLInputElement>) =>
-    onPriceInputElementChange(evt, ActionCreator.changePriceMax);
+    onPriceInputElementChange(evt, ActionCreator.setPriceMax);
 
   return {
     onPriceMinChange,

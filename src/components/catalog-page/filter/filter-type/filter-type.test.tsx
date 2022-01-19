@@ -14,7 +14,7 @@ describe('Component: FilterType', () => {
     });
     render(
       <Provider store={store}>
-        <FilterType />
+        <FilterType types={['mock']} />
       </Provider>);
 
     expect(screen.getByText('Тип гитар')).toBeInTheDocument();

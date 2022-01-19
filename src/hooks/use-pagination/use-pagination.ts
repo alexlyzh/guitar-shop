@@ -1,26 +1,38 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect} from 'react';
 import {Guitar, RemoteData, RequestStatus} from '../../types/types';
-import {AppRoute, FIRST_PAGE} from '../../const';
-import {generatePath, useHistory} from 'react-router-dom';
+import {FIRST_PAGE} from '../../const';
+import {useDispatch, useSelector} from 'react-redux';
+import {getCurrentFilter} from '../../store/reducer/filter-reducer/selectors';
+import {ActionCreator} from '../../store/actions';
+import {createCatalogAppUrl} from '../../store/api-actions/utils';
 
 export const usePagination = (
   guitars: RemoteData<Guitar>,
-  pageNumber: number,
   guitarsPerPage: number,
 ) => {
-  const [currentPage, setCurrentPage] = useState(pageNumber);
-  const history = useHistory();
+  const dispatch = useDispatch();
+  const currentFilter = useSelector(getCurrentFilter);
+  const {page: currentPage} = currentFilter;
 
-  const lastGuitarIndex = currentPage * guitarsPerPage;
+  const lastGuitarIndex = currentFilter.page * guitarsPerPage;
   const firstGuitarIndex = lastGuitarIndex - guitarsPerPage;
   const renderGuitars = guitars.data.slice(firstGuitarIndex, lastGuitarIndex);
   const shouldResetPagination = guitars.requestStatus === RequestStatus.SUCCESS
-    && (currentPage * guitarsPerPage) > (Math.ceil(guitars.data.length / guitarsPerPage) * guitarsPerPage);
+    && (currentFilter.page * guitarsPerPage) > (Math.ceil(guitars.data.length / guitarsPerPage) * guitarsPerPage);
 
   const paginate = useCallback((page: number) => {
-    history.push(generatePath(AppRoute.CatalogPage, {id: page}));
-    setCurrentPage(page);
-  }, [history]);
+    dispatch(ActionCreator.setCatalogPage(page));
+
+    const newFilter = {...currentFilter, page};
+    const link = createCatalogAppUrl({...currentFilter, page}).search;
+    console.log('____________________________________') // eslint-disable-line
+    console.log('PAGINATION') // eslint-disable-line
+    console.log(newFilter) // eslint-disable-line
+    console.log(link) // eslint-disable-line
+    console.log('____________________________________') // eslint-disable-line
+    dispatch(ActionCreator.updateFilterUrl(link));
+  }, [dispatch]);
+
 
   useEffect(() => {
     if (shouldResetPagination) {
@@ -29,8 +41,8 @@ export const usePagination = (
   }, [shouldResetPagination, paginate]);
 
   useEffect(() => {
-    paginate(pageNumber);
-  }, [pageNumber, paginate]);
+    paginate(currentPage);
+  }, [currentPage, paginate]);
 
   return {
     currentPage,

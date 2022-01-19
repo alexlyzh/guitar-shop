@@ -3,7 +3,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
 import thunk, {ThunkDispatch} from 'redux-thunk';
 import {State} from '../reducer/root-reducer';
-import {BASE_URL, createApi} from '../../api';
+import {BASE_API_URL, createApi} from '../../api';
 import {apiRoute, HttpCode, SortOrder, SortType} from '../../const';
 import {getMockComment, getMockGuitar, Mock} from '../../utils/mock';
 import {ActionAPI} from './api-actions';
@@ -60,7 +60,7 @@ describe('Async actions', () => {
     const guitars = [Mock.guitar];
 
     mockApi
-      .onGet(`${BASE_URL}${Mock.searchParams.nameLikeQuery}`)
+      .onGet(`${BASE_API_URL}${Mock.searchParams.nameLikeQuery}`)
       .reply(HttpCode.OK, guitars);
 
     expect(store.getActions()).toEqual([]);
@@ -86,7 +86,7 @@ describe('Async actions', () => {
     };
 
     mockApi
-      .onGet(`${BASE_URL}${Mock.searchParams.sortQuery}`)
+      .onGet(`${BASE_API_URL}${Mock.searchParams.sortQuery}`)
       .reply(HttpCode.OK, guitars);
 
     expect(store.getActions()).toEqual([]);
@@ -94,7 +94,7 @@ describe('Async actions', () => {
     await store.dispatch(ActionAPI.updateSort(sortUpdate));
 
     expect(store.getActions()).toEqual([
-      ActionCreator.changeSort(sortUpdate),
+      ActionCreator.setSort(sortUpdate),
       ActionCreator.startLoadGuitars(),
       ActionCreator.saveGuitars(guitars),
     ]);
@@ -115,7 +115,7 @@ describe('Async actions', () => {
     const guitars = [Mock.guitar];
 
     mockApi
-      .onGet(`${BASE_URL}${Mock.searchParams.filterQuery}`)
+      .onGet(`${BASE_API_URL}${Mock.searchParams.filterQuery}`)
       .reply(HttpCode.OK, guitars);
 
     expect(store.getActions()).toEqual([]);
