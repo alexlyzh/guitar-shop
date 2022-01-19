@@ -9,6 +9,7 @@ import {createCatalogAppUrl} from '../../store/api-actions/utils';
 export const usePagination = (
   guitars: RemoteData<Guitar>,
   guitarsPerPage: number,
+  isAppInitialized: boolean,
 ) => {
   const dispatch = useDispatch();
   const currentFilter = useSelector(getCurrentFilter);
@@ -17,21 +18,14 @@ export const usePagination = (
   const lastGuitarIndex = currentFilter.page * guitarsPerPage;
   const firstGuitarIndex = lastGuitarIndex - guitarsPerPage;
   const renderGuitars = guitars.data.slice(firstGuitarIndex, lastGuitarIndex);
-  const shouldResetPagination = guitars.requestStatus === RequestStatus.SUCCESS
+  const shouldResetPagination = isAppInitialized
+    && guitars.requestStatus === RequestStatus.SUCCESS
     && (currentFilter.page * guitarsPerPage) > (Math.ceil(guitars.data.length / guitarsPerPage) * guitarsPerPage);
 
   const paginate = useCallback((page: number) => {
     dispatch(ActionCreator.setCatalogPage(page));
-
-    const newFilter = {...currentFilter, page};
-    const link = createCatalogAppUrl({...currentFilter, page}).search;
-    console.log('____________________________________') // eslint-disable-line
-    console.log('PAGINATION') // eslint-disable-line
-    console.log(newFilter) // eslint-disable-line
-    console.log(link) // eslint-disable-line
-    console.log('____________________________________') // eslint-disable-line
-    dispatch(ActionCreator.updateFilterUrl(link));
-  }, [dispatch]);
+    dispatch(ActionCreator.updateFilterUrl(createCatalogAppUrl({...currentFilter, page}).search));
+  }, [currentFilter, dispatch]);
 
 
   useEffect(() => {
@@ -41,8 +35,11 @@ export const usePagination = (
   }, [shouldResetPagination, paginate]);
 
   useEffect(() => {
-    paginate(currentPage);
-  }, [currentPage, paginate]);
+    if (isAppInitialized) {
+      console.log('paginate(currentPage)') // eslint-disable-line
+      paginate(currentPage);
+    }
+  }, [isAppInitialized, currentPage, paginate]);
 
   return {
     currentPage,

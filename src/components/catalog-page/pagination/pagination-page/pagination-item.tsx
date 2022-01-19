@@ -3,13 +3,15 @@ import {Link} from 'react-router-dom';
 type Props = {
   linkText: string | number,
   onLinkClick: () => void,
+  isPage?: boolean,
   isActive?: boolean,
   className?: string,
 }
 
-function PaginationItem({className, linkText, isActive, onLinkClick}: Props): JSX.Element {
+function PaginationItem({className, linkText, isActive, isPage, onLinkClick}: Props): JSX.Element {
+  const testId = isActive ? 'pagination-page-active' : 'pagination-page';
   return (
-    <li className={className} data-testid={isActive ? 'pagination-page-active' : 'pagination-page'}>
+    <li className={className} data-testid={isPage ? testId : 'pagination-direction'}>
       <Link className="link pagination__page-link" to="#" onClick={onLinkClick}>
         {linkText}
       </Link>

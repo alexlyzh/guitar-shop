@@ -7,16 +7,14 @@ import Sort from './sort/sort';
 import Cards from './cards/cards';
 import Pagination from './pagination/pagination';
 import {usePagination} from '../../hooks/use-pagination/use-pagination';
-import {useAllGuitars} from '../../hooks/use-all-guitars/use-all-guitars';
 import {useSort} from '../../hooks/use-sort/use-sort';
 import {useCatalogUrl} from '../../hooks/use-catalog-url/use-catalog-url';
+import {useAllGuitars} from '../../hooks/use-all-guitars/use-all-guitars';
 
 function CatalogPage(): JSX.Element {
   const {guitars, isFetchingGuitars, isErrorLoadingGuitars} = useAllGuitars();
-
-  useCatalogUrl();
-
-  const {currentPage, renderGuitars, paginate} = usePagination(guitars, GUITARS_PER_PAGE);
+  const {isAppInitialized} = useCatalogUrl();
+  const {currentPage, renderGuitars, paginate} = usePagination(guitars, GUITARS_PER_PAGE, isAppInitialized);
 
   const {
     currentSort,
@@ -52,7 +50,7 @@ function CatalogPage(): JSX.Element {
           onTypePriceClick={setTypePriceSort}
           onTypeRatingClick={setTypeRatingSort}
         />
-        {isFetchingGuitars ? <Spinner /> :
+        {(isFetchingGuitars || !isAppInitialized) ? <Spinner /> :
           <>
             <Cards guitars={renderGuitars} />
             <Pagination

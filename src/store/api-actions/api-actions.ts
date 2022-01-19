@@ -2,7 +2,7 @@ import {ThunkAction} from 'redux-thunk';
 import {Comment, Guitar} from '../../types/types';
 import {AxiosInstance} from 'axios';
 import {Action} from '@reduxjs/toolkit';
-import {apiRoute} from '../../const';
+import {apiRoute, AppPath, AppSearchParam} from '../../const';
 import {ActionCreator} from '../actions';
 import {State} from '../reducer/root-reducer';
 import {Dispatch, SetStateAction} from 'react';
@@ -21,20 +21,6 @@ import {generatePath} from 'react-router-dom';
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
 const ActionAPI = {
-  getAllGuitars: (): ThunkActionResult =>
-    async (dispatch, getState, api): Promise<void> => {
-      dispatch(ActionCreator.startLoadGuitars());
-      try {
-        const {data} = await api.get<Guitar[]>(apiRoute.path.guitars);
-        const {minPrice, maxPrice} = parseGuitarsData(data);
-        dispatch(ActionCreator.saveGuitars(data));
-        dispatch(ActionCreator.setPriceRange(minPrice, maxPrice));
-      } catch (e) {
-        dispatch(ActionCreator.setErrorLoadGuitars());
-        throw e;
-      }
-    },
-
   getComments: (guitarId: number): ThunkActionResult =>
     async (dispatch, getState, api): Promise<void> => {
       dispatch(ActionCreator.startLoadComments(guitarId));
@@ -78,24 +64,40 @@ const ActionAPI = {
       }
     },
 
-  updateFilter: (): ThunkActionResult =>
+  getAllGuitars: (): ThunkActionResult =>
     async (dispatch, getState, api): Promise<void> => {
-      const state = getState();
-      const {currentFilter} = state.FILTER;
-      const {currentSort} = state.SORT;
-      const filter = checkStringsFilter(currentFilter);
-      const url = createCatalogApiUrl(filter, currentSort);
       dispatch(ActionCreator.startLoadGuitars());
-      const link = createCatalogAppUrl(filter).search;
-      console.log('THUNK updateFilter ', link) // eslint-disable-line
-      dispatch(ActionCreator.updateFilterUrl(link));
       try {
-        const {data} = await api.get<Guitar[]>(url.href);
+        const {data} = await api.get<Guitar[]>(apiRoute.path.guitars);
+        const {minPrice, maxPrice} = parseGuitarsData(data);
+        dispatch(ActionCreator.saveGuitars(data));
+        dispatch(ActionCreator.setPriceRange(minPrice, maxPrice));
+      } catch (e) {
+        dispatch(ActionCreator.setErrorLoadGuitars());
+        throw e;
+      }
+    },
+
+  getGuitars: (searchParams: string): ThunkActionResult =>
+    async (dispatch, getState, api): Promise<void> => {
+      dispatch(ActionCreator.startLoadGuitars());
+      dispatch(ActionCreator.updateFilterUrl(`${AppPath.Catalog}?${searchParams}`));
+      try {
+        const {data} = await api.get<Guitar[]>(`${apiRoute.path.guitars}?${searchParams}`);
         dispatch(ActionCreator.saveGuitars(data));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());
         throw e;
       }
+    },
+
+  updateFilter: (): ThunkActionResult =>
+    async (dispatch, getState, _api): Promise<void> => {
+      const state = getState();
+      const filter = checkStringsFilter(state.FILTER.currentFilter);
+      const params = new URLSearchParams(createCatalogAppUrl(filter).search);
+      params.delete(AppSearchParam.page);
+      await dispatch(ActionAPI.getGuitars(params.toString()));
     },
 };
 

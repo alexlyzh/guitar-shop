@@ -37,6 +37,7 @@ function Pagination({totalCards, currentPage, guitarsPerPage, paginate}: Props):
               linkText={page}
               onLinkClick={() => paginate(page)}
               isActive={isActive}
+              isPage
               key={page}
             />
           );

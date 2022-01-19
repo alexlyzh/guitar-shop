@@ -4,20 +4,6 @@ import {apiRoute, AppSearchParam, initialSort, stringCount} from '../../const';
 import {BASE_API_URL} from '../../api';
 import {Guitar} from '../../types/types';
 
-export const checkStringsFilter = (currentFilter: FilterSettings) => {
-  if (!currentFilter.types.length) {
-    return currentFilter;
-  }
-  const filterUpdate = {...currentFilter};
-  const availableStrings: number[] = [];
-  currentFilter.types.forEach((type) => {
-    const strings = stringCount[type];
-    availableStrings.push(...strings);
-  });
-  filterUpdate.strings = currentFilter.strings.filter((string) => availableStrings.includes(string));
-  return filterUpdate;
-};
-
 export const sortByNameStartingWithTemplate = (data: Guitar[], template: string) =>
   data.slice().sort((a, b) => {
     if (a.name.toLowerCase().startsWith(template) && !b.name.toLowerCase().startsWith(template)) {
@@ -68,6 +54,20 @@ export const createCatalogApiUrl = (filter: FilterSettings, sort: SortSettings) 
 export const createCatalogAppUrl = (filter: FilterSettings) => {
   const url = new URL(apiRoute.path.guitars, BASE_API_URL);
   url.searchParams.set(AppSearchParam.page, filter.page.toString());
-  appendFilterParams(url, filter);
+  appendFilterParams(url, checkStringsFilter(filter));
   return url;
+};
+
+export const checkStringsFilter = (currentFilter: FilterSettings) => {
+  if (!currentFilter.types.length) {
+    return currentFilter;
+  }
+  const filterUpdate = {...currentFilter};
+  const availableStrings: number[] = [];
+  currentFilter.types.forEach((type) => {
+    const strings = stringCount[type];
+    availableStrings.push(...strings);
+  });
+  filterUpdate.strings = currentFilter.strings.filter((string) => availableStrings.includes(string));
+  return filterUpdate;
 };
