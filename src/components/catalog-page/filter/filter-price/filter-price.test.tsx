@@ -9,8 +9,8 @@ describe('Component: FilterPrice', () => {
       <FilterPrice
         minPriceLimit={Mock.minPrice}
         maxPriceLimit={Mock.maxPrice}
-        onPriceMinChange={jest.fn}
-        onPriceMaxChange={jest.fn}
+        onPriceMinInput={jest.fn}
+        onPriceMaxInput={jest.fn}
       />);
 
     expect(screen.getByText('Минимальная цена')).toBeInTheDocument();
@@ -26,8 +26,8 @@ describe('Component: FilterPrice', () => {
       <FilterPrice
         minPriceLimit={Mock.minPrice}
         maxPriceLimit={Mock.maxPrice}
-        onPriceMinChange={onPriceMinChange}
-        onPriceMaxChange={onPriceMaxChange}
+        onPriceMinInput={onPriceMinChange}
+        onPriceMaxInput={onPriceMaxChange}
       />);
 
     const priceInputs = screen.getAllByRole('spinbutton');

@@ -64,26 +64,21 @@ const ActionAPI = {
       }
     },
 
-  getAllGuitars: (): ThunkActionResult =>
+  getGuitarsPriceRange: (): ThunkActionResult =>
     async (dispatch, getState, api): Promise<void> => {
       dispatch(ActionCreator.startLoadGuitars());
-      try {
-        const {data} = await api.get<Guitar[]>(apiRoute.path.guitars);
-        const {minPrice, maxPrice} = parseGuitarsData(data);
-        dispatch(ActionCreator.saveGuitars(data));
-        dispatch(ActionCreator.setPriceRange(minPrice, maxPrice));
-      } catch (e) {
-        dispatch(ActionCreator.setErrorLoadGuitars());
-        throw e;
-      }
+      const {data} = await api.get<Guitar[]>(apiRoute.path.guitars);
+      const {minPrice, maxPrice} = parseGuitarsData(data);
+      dispatch(ActionCreator.setPriceRange(minPrice, maxPrice));
     },
 
-  getGuitars: (searchParams: string): ThunkActionResult =>
+  getGuitars: (searchParams: URLSearchParams): ThunkActionResult =>
     async (dispatch, getState, api): Promise<void> => {
       dispatch(ActionCreator.startLoadGuitars());
-      dispatch(ActionCreator.updateFilterUrl(`${AppPath.Catalog}?${searchParams}`));
+      dispatch(ActionCreator.updateFilterUrl(`${AppPath.Catalog}?${searchParams.toString()}`));
       try {
-        const {data} = await api.get<Guitar[]>(`${apiRoute.path.guitars}?${searchParams}`);
+        searchParams.delete(AppSearchParam.page);
+        const {data} = await api.get<Guitar[]>(`${apiRoute.path.guitars}?${searchParams.toString()}`);
         dispatch(ActionCreator.saveGuitars(data));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());
@@ -96,8 +91,7 @@ const ActionAPI = {
       const state = getState();
       const filter = checkStringsFilter(state.FILTER.currentFilter);
       const params = new URLSearchParams(createCatalogAppUrl(filter).search);
-      params.delete(AppSearchParam.page);
-      await dispatch(ActionAPI.getGuitars(params.toString()));
+      await dispatch(ActionAPI.getGuitars(params));
     },
 };
 

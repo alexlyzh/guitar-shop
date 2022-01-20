@@ -9,11 +9,11 @@ import Pagination from './pagination/pagination';
 import {usePagination} from '../../hooks/use-pagination/use-pagination';
 import {useSort} from '../../hooks/use-sort/use-sort';
 import {useCatalogUrl} from '../../hooks/use-catalog-url/use-catalog-url';
-import {useAllGuitars} from '../../hooks/use-all-guitars/use-all-guitars';
+import {useGuitars} from '../../hooks/use-guitars/use-guitars';
 
 function CatalogPage(): JSX.Element {
-  const {guitars, isFetchingGuitars, isErrorLoadingGuitars} = useAllGuitars();
-  const {isAppInitialized} = useCatalogUrl();
+  const isAppInitialized = useCatalogUrl();
+  const {guitars, isFetchingGuitars, isErrorLoadingGuitars} = useGuitars();
   const {currentPage, renderGuitars, paginate} = usePagination(guitars, GUITARS_PER_PAGE, isAppInitialized);
 
   const {
@@ -43,7 +43,7 @@ function CatalogPage(): JSX.Element {
       <div className="catalog" style={{minHeight: MIN_CATALOG_HEIGHT}}>
         <FilterContainer />
         <Sort
-          isDisabled={!guitars.data.length}
+          isDisabled={!isAppInitialized || !guitars.data.length}
           currentSort={currentSort}
           onAscendingOrderClick={setAscendingOrderSort}
           onDescendingOrderClick={setDescendingOrderSort}

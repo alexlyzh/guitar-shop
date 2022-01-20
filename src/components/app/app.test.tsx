@@ -19,6 +19,9 @@ describe('Application routing', () => {
   it('should correctly render CatalogPage when have got an error navigating to "/catalog"', () => {
     history.push(AppPath.Catalog);
     const store = mockStore({
+      APP: {
+        isAppInitialized: true,
+      },
       DATA: {
         ...initialDataState,
         guitars: {
@@ -46,6 +49,9 @@ describe('Application routing', () => {
     const {guitars, comments} = mockGuitarsWithComments();
 
     const store = mockStore({
+      APP: {
+        isAppInitialized: true,
+      },
       DATA: {
         guitars: {
           requestStatus: RequestStatus.SUCCESS,

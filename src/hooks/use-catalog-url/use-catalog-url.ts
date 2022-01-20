@@ -12,6 +12,7 @@ export const useCatalogUrl = () => {
   const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
   const isAppInitialized = useSelector(getIsAppInitialized);
   const shouldParseCatalogUrl = !isAppInitialized;
+  const shouldGetGuitarsPriceRange = !isAppInitialized;
 
   useEffect(() => {
     if (shouldParseCatalogUrl) {
@@ -23,9 +24,15 @@ export const useCatalogUrl = () => {
         types: searchParams.getAll(AppSearchParam.type),
         strings: searchParams.getAll(AppSearchParam.stringCount).map((string) => Number(string)),
       }));
-      dispatch(ActionAPI.getGuitars(`?${searchParams.toString()}`));
+      dispatch(ActionAPI.getGuitars(searchParams));
     }
   }, [shouldParseCatalogUrl, searchParams, dispatch]);
 
-  return {isAppInitialized};
+  useEffect(() => {
+    if (shouldGetGuitarsPriceRange) {
+      dispatch(ActionAPI.getGuitarsPriceRange());
+    }
+  }, [shouldGetGuitarsPriceRange, dispatch]);
+
+  return isAppInitialized;
 };

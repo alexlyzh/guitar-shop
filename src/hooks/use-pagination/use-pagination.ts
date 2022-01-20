@@ -36,7 +36,6 @@ export const usePagination = (
 
   useEffect(() => {
     if (isAppInitialized) {
-      console.log('paginate(currentPage)') // eslint-disable-line
       paginate(currentPage);
     }
   }, [isAppInitialized, currentPage, paginate]);

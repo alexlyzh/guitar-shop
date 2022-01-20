@@ -1,17 +1,18 @@
 import {ChangeEvent} from 'react';
 import {debounce} from '../../../../utils/common';
 import {debounceDelay} from '../../../../const';
-import {Price} from '../../../../types/types';
 
 type Props = {
-  minPriceLimit: Price,
-  maxPriceLimit: Price,
-  onPriceMinChange: (evt: ChangeEvent<HTMLInputElement>) => void,
-  onPriceMaxChange: (evt: ChangeEvent<HTMLInputElement>) => void,
+  priceMin?: number,
+  priceMax?: number,
+  minPriceLimit?: number,
+  maxPriceLimit?: number,
+  onPriceMinInput: (evt: ChangeEvent<HTMLInputElement>) => void,
+  onPriceMaxInput: (evt: ChangeEvent<HTMLInputElement>) => void,
 }
 
 function FilterPrice(props: Props): JSX.Element {
-  const {maxPriceLimit, minPriceLimit, onPriceMinChange, onPriceMaxChange} = props;
+  const {priceMin, priceMax, maxPriceLimit, minPriceLimit, onPriceMinInput, onPriceMaxInput} = props;
   return (
     <fieldset className="catalog-filter__block" aria-label="filter-price">
       <legend className="catalog-filter__block-title">Цена, ₽</legend>
@@ -23,7 +24,8 @@ function FilterPrice(props: Props): JSX.Element {
             placeholder={!minPriceLimit ? '' : minPriceLimit.toString()}
             id="priceMin"
             name="от"
-            onChange={debounce(onPriceMinChange, debounceDelay.price)}
+            defaultValue={!priceMin ? '' : priceMin}
+            onInput={debounce(onPriceMinInput, debounceDelay.price)}
           />
         </div>
         <div className="form-input">
@@ -33,7 +35,8 @@ function FilterPrice(props: Props): JSX.Element {
             placeholder={!maxPriceLimit ? '' : maxPriceLimit.toString()}
             id="priceMax"
             name="до"
-            onChange={debounce(onPriceMaxChange, debounceDelay.price)}
+            defaultValue={!priceMax ? '' : priceMax}
+            onInput={debounce(onPriceMaxInput, debounceDelay.price)}
           />
         </div>
       </div>

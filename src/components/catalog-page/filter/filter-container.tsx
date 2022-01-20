@@ -11,16 +11,18 @@ function FilterContainer(): JSX.Element {
   const availableStringsForSelectedTypes = useSelector(getAvailableStringsByFilterTypes);
   const {min : minPriceLimit, max : maxPriceLimit} = useSelector(getCatalogPriceRange);
 
-  const {onPriceMinChange, onPriceMaxChange} = usePriceFilter(minPriceLimit, maxPriceLimit);
+  const {priceMin, priceMax, onPriceMinInput, onPriceMaxInput} = usePriceFilter(minPriceLimit, maxPriceLimit);
 
   return (
     <form className="catalog-filter">
       <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
       <FilterPrice
+        priceMin={priceMin}
+        priceMax={priceMax}
         minPriceLimit={minPriceLimit}
         maxPriceLimit={maxPriceLimit}
-        onPriceMinChange={onPriceMinChange}
-        onPriceMaxChange={onPriceMaxChange}
+        onPriceMinInput={onPriceMinInput}
+        onPriceMaxInput={onPriceMaxInput}
       />
       <FilterType
         types={types}

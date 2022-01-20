@@ -4,7 +4,7 @@ import MockAdapter from 'axios-mock-adapter';
 import thunk, {ThunkDispatch} from 'redux-thunk';
 import {State} from '../reducer/root-reducer';
 import {BASE_API_URL, createApi} from '../../api';
-import {apiRoute, HttpCode, SortOrder, SortType} from '../../const';
+import {apiRoute, AppPath, FIRST_PAGE, HttpCode, SortOrder, SortType} from '../../const';
 import {getMockComment, getMockGuitar, Mock} from '../../utils/mock';
 import {ActionAPI} from './api-actions';
 import {ActionCreator} from '../actions';
@@ -29,11 +29,10 @@ describe('Async actions', () => {
 
     expect(store.getActions()).toEqual([]);
 
-    await store.dispatch(ActionAPI.getAllGuitars());
+    await store.dispatch(ActionAPI.getGuitarsPriceRange());
 
     expect(store.getActions()).toEqual([
       ActionCreator.startLoadGuitars(),
-      ActionCreator.saveGuitars(guitars),
       ActionCreator.setPriceRange(minPrice, maxPrice),
     ]);
   });
@@ -104,6 +103,7 @@ describe('Async actions', () => {
     const store = mockStore({
       FILTER: {
         currentFilter: {
+          page: FIRST_PAGE,
           priceMin: Mock.guitar.price,
           priceMax: Mock.guitar.price,
           strings: [Mock.guitar.stringCount],
@@ -115,7 +115,7 @@ describe('Async actions', () => {
     const guitars = [Mock.guitar];
 
     mockApi
-      .onGet(`${BASE_API_URL}${Mock.searchParams.filterQuery}`)
+      .onGet(`${BASE_API_URL}${Mock.searchParams.filterApiQuery}`)
       .reply(HttpCode.OK, guitars);
 
     expect(store.getActions()).toEqual([]);
@@ -124,6 +124,7 @@ describe('Async actions', () => {
 
     expect(store.getActions()).toEqual([
       ActionCreator.startLoadGuitars(),
+      ActionCreator.updateFilterUrl(`${AppPath.Catalog}?page=${FIRST_PAGE}&${Mock.searchParams.filterAppSearch}`),
       ActionCreator.saveGuitars(guitars),
     ]);
   });

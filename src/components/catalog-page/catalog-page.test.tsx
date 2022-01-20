@@ -17,6 +17,9 @@ describe('Component: CatalogPage', () => {
   it('should render correctly', () => {
     const {guitars, comments} = mockGuitarsWithComments();
     const store = mockStore({
+      APP: {
+        isAppInitialized: true,
+      },
       DATA: {
         guitars: {
           requestStatus: RequestStatus.SUCCESS,

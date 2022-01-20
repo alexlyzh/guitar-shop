@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import {Comment, Guitar, Price} from '../types/types';
+import {Comment, Guitar} from '../types/types';
 import {SortSettings} from './reducer/sort-reducer/sort-reducer';
 import {FilterSettings} from './reducer/filter-reducer/filter-reducer';
 
@@ -47,9 +47,9 @@ const ActionCreator = {
 
   setSort: createAction(ActionType.SET_SORT, (sort: SortSettings) => ({payload: sort})),
 
-  setPriceMin: createAction(ActionType.SET_PRICE_MIN, (price: Price) => ({payload: price})),
+  setPriceMin: createAction(ActionType.SET_PRICE_MIN, (price?: number) => ({payload: price})),
 
-  setPriceMax: createAction(ActionType.SET_PRICE_MAX, (price: Price) => ({payload: price})),
+  setPriceMax: createAction(ActionType.SET_PRICE_MAX, (price?: number) => ({payload: price})),
 
   updateFilterUrl: createAction(ActionType.REDIRECT, (url: string) => ({payload: url})),
 

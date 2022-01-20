@@ -1,6 +1,8 @@
 import {filterReducer, FilterState, initialFilterState} from './filter-reducer';
 import {ActionCreator} from '../../actions';
 import {FIRST_PAGE} from '../../../const';
+import {getRandomInteger} from '../../../utils/common';
+import {Mock} from '../../../utils/mock';
 
 const FAKE_PRICE = 5000;
 const FAKE_STRING = 4;
@@ -8,6 +10,20 @@ const FAKE_TYPE = 'ukulele';
 
 describe('Reducer: FilterContainer', () => {
   const state = initialFilterState;
+
+  it('should set specified filter settings to state', () => {
+    const filterUpdate = {
+      page: Mock.pagination.pageNumber.three,
+      strings: [4, 6],
+      types: [Mock.filter.type.value],
+      priceMin: getRandomInteger(Mock.minPrice, Mock.maxPrice),
+      priceMax: getRandomInteger(Mock.minPrice, Mock.maxPrice),
+    };
+    expect(filterReducer(state, ActionCreator.setFilter(filterUpdate)))
+      .toEqual({
+        currentFilter: filterUpdate,
+      });
+  });
 
   it('should return initial state without additional parameters', () => {
     expect(filterReducer(undefined, {type: 'UNKNOWN_ACTION'}))
@@ -38,8 +54,6 @@ describe('Reducer: FilterContainer', () => {
     const initialState: FilterState = {
       currentFilter: {
         page: FIRST_PAGE,
-        priceMin: null,
-        priceMax: null,
         strings: [],
         types: [],
       },
@@ -68,8 +82,6 @@ describe('Reducer: FilterContainer', () => {
     const initialState: FilterState = {
       currentFilter: {
         page: FIRST_PAGE,
-        priceMin: null,
-        priceMax: null,
         strings: [],
         types: [],
       },

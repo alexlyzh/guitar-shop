@@ -1,14 +1,13 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {Price} from '../../../types/types';
 import {ActionCreator} from '../../actions';
 import {FIRST_PAGE, MIN_PRICE} from '../../../const';
 
 type FilterSettings = {
   page: number,
-  priceMin: Price,
-  priceMax: Price,
   strings: number[],
   types: string[],
+  priceMin?: number,
+  priceMax?: number,
 }
 
 type FilterState = {
@@ -18,8 +17,6 @@ type FilterState = {
 const initialState: FilterState = {
   currentFilter: {
     page: FIRST_PAGE,
-    priceMin: null,
-    priceMax: null,
     strings: [],
     types: [],
   },

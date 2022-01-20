@@ -1,13 +1,13 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {Comment, Guitar, Price, RemoteData, RemoteDataByID, RequestStatus} from '../../../types/types';
+import {Comment, Guitar, RemoteData, RemoteDataByID, RequestStatus} from '../../../types/types';
 import {ActionCreator} from '../../actions';
 
 type DataState = {
   guitars: RemoteData<Guitar>,
   comments: RemoteDataByID<Comment>,
   priceRange: {
-    min: Price,
-    max: Price,
+    min?: number,
+    max?: number,
   }
 }
 
@@ -17,10 +17,7 @@ const initialState: DataState = {
     data: [],
   },
   comments: {},
-  priceRange: {
-    min: null,
-    max: null,
-  },
+  priceRange: {},
 };
 
 export const dataReducer = createReducer(initialState, (builder) => {

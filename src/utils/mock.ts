@@ -12,7 +12,8 @@ export const Mock = {
     name: 'CURT',
     nameLikeQuery: '/guitars?name_like=CURT',
     sortQuery: '/guitars?_sort=price&_order=asc',
-    filterQuery: '/guitars?price_gte=23000&price_lte=23000&stringCount=4&type=electric',
+    filterApiQuery: '/guitars?price_gte=23000&price_lte=23000&stringCount=4&type=electric',
+    filterAppSearch: 'price_gte=23000&price_lte=23000&stringCount=4&type=electric',
   },
   guitar: {
     id: 10,

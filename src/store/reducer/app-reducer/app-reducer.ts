@@ -11,7 +11,7 @@ const initialState: AppState = {
 
 export const appReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(ActionCreator.initializeApp, (state, action) => {
+    .addCase(ActionCreator.initializeApp, (state) => {
       state.isAppInitialized = true;
     });
 });
