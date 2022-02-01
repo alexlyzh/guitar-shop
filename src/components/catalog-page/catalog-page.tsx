@@ -50,7 +50,7 @@ function CatalogPage(): JSX.Element {
           onTypePriceClick={setTypePriceSort}
           onTypeRatingClick={setTypeRatingSort}
         />
-        {(isFetchingGuitars || !isAppInitialized) ? <Spinner /> :
+        {(isFetchingGuitars || !isAppInitialized) ? <Spinner marginTop={'10em'} /> :
           <>
             <Cards guitars={renderGuitars} />
             <Pagination

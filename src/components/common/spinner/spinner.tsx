@@ -1,8 +1,12 @@
 import './spinner.css';
 
-function Spinner(): JSX.Element {
+type Props = {
+  marginTop?: number | string;
+}
+
+function Spinner({marginTop = '0'}: Props): JSX.Element {
   return (
-    <div className="loader">
+    <div className="loader" style={{marginTop: marginTop ? marginTop : 0}}>
       <span className="loader__column"/>
       <span className="loader__column"/>
       <span className="loader__column"/>

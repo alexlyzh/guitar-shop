@@ -2857,6 +2857,7 @@ button,
   min-width: 190px;
   padding-right: 26px;
   padding-left: 26px;
+  border-width: 1px;
 }
 
 .cart-item {

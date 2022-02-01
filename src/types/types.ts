@@ -1,4 +1,4 @@
-import {AppPath} from '../const';
+import { AppPath } from '../const';
 
 enum RequestStatus {
   IDLE = 'IDLE',

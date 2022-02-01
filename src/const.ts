@@ -1,4 +1,4 @@
-import {SiteMap} from './types/types';
+import { SiteMap } from './types/types';
 
 const MIN_PRICE = 0;
 const MIN_CATALOG_HEIGHT = '745px';
@@ -57,10 +57,10 @@ const debounceDelay = {
   search: 250,
 } as const;
 
-const stringOptions = [4, 6, 7, 12];
-const typeOptions = ['acoustic', 'electric', 'ukulele'];
+const stringOptions: Array<number> = [4, 6, 7, 12];
+const typeOptions: Array<string> = ['acoustic', 'electric', 'ukulele'];
 
-const stringCount: Record<string, number[]> = {
+const stringCount: Record<string, ReadonlyArray<number>> = {
   acoustic: [6, 7, 12],
   ukulele: [4],
   electric: [4, 6, 7],

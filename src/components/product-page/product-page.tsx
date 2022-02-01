@@ -5,9 +5,9 @@ import {useParams, Link} from 'react-router-dom';
 import {useGuitar} from '../../hooks/use-guitar/use-guitar';
 import {useComments} from '../../hooks/use-comments/use-comments';
 import Spinner from '../common/spinner/spinner';
-import {getCommentsCount} from '../../utils/common';
 import StarRating from '../common/star-rating/star-rating';
 import Reviews from './reviews/reviews';
+import TabContainer from './tab-container/tab-container';
 
 type PageParams = {
   id: string,
@@ -35,7 +35,7 @@ function ProductPage(): JSX.Element {
       <h1 className="page-content__title title title--bigger">{AppMessage.ProductPageHeading}</h1>
       <Breadcrumbs />
 
-      {isFetchingGuitars || !product ? <Spinner/> :
+      {isFetchingGuitars || !product ? <Spinner marginTop={'5em'} /> :
         <>
           <div className="product-container">
             <img className="product-container__img" src={product.previewImg} width="90" height="235" alt=""/>
@@ -44,33 +44,30 @@ function ProductPage(): JSX.Element {
               <div className="rate product-container__rating" aria-hidden="true">
                 <span className="visually-hidden">Рейтинг:</span>
                 <StarRating rating={product.rating || 0} starHeight={14} starWidth={14}/>
-                <span className="rate__count">{getCommentsCount(id, comments)}</span>
+
               </div>
-              <div className="tabs">
-                <a className="button button--medium tabs__button" href="#characteristics">Характеристики</a>
-                <a className="button button--black-border button--medium tabs__button" href="#description">Описание</a>
-                <div className="tabs__content" id="characteristics">
-                  <table className="tabs__table">
-                    <tbody>
-                      <tr className="tabs__table-row">
-                        <td className="tabs__title">Артикул:</td>
-                        <td className="tabs__value">{product.vendorCode}</td>
-                      </tr>
-                      <tr className="tabs__table-row">
-                        <td className="tabs__title">Тип:</td>
-                        <td className="tabs__value">{GuitarType[product.type].typeName}</td>
-                      </tr>
-                      <tr className="tabs__table-row">
-                        <td className="tabs__title">Количество струн:</td>
-                        <td className="tabs__value">{product.stringCount}-струнная</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <p className="tabs__product-description hidden">
-                    {product.description}
-                  </p>
-                </div>
-              </div>
+              <TabContainer>
+                <table className="tabs__table" id="characteristics">
+                  <tbody>
+                    <tr className="tabs__table-row">
+                      <td className="tabs__title">Артикул:</td>
+                      <td className="tabs__value">{product.vendorCode}</td>
+                    </tr>
+                    <tr className="tabs__table-row">
+                      <td className="tabs__title">Тип:</td>
+                      <td className="tabs__value">{GuitarType[product.type].typeName}</td>
+                    </tr>
+                    <tr className="tabs__table-row">
+                      <td className="tabs__title">Количество струн:</td>
+                      <td className="tabs__value">{product.stringCount}-струнная</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p className="tabs__product-description" id="description">
+                  {product.description}
+                </p>
+              </TabContainer>
+
             </div>
             <div className="product-container__price-wrapper">
               <p className="product-container__price-info product-container__price-info--title">Цена:</p>

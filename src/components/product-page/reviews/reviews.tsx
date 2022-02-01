@@ -10,16 +10,14 @@ type Props = {
 }
 
 function Reviews({comments}: Props): JSX.Element {
-  const sorted = [...comments.data].sort((a, b) => Date.parse(a.createAt) - Date.parse(b.createAt));
+  const sortedComments = [...comments.data].sort((a, b) => Date.parse(b.createAt) - Date.parse(a.createAt));
 
-  console.log(sorted) // eslint-disable-line
   return (
     <section className="reviews">
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
       <Link className="button button--red-border button--big reviews__sumbit-button" to="#">Оставить отзыв</Link>
-      {comments.data.map((comment) => {
+      {sortedComments.map((comment) => {
         const date = new Date(comment.createAt);
-        console.log(date) // eslint-disable-line
         return (
           <div className="review" key={comment.id}>
             <div className="review__wrapper">
