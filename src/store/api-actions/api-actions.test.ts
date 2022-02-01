@@ -124,7 +124,7 @@ describe('Async actions', () => {
 
     expect(store.getActions()).toEqual([
       ActionCreator.startLoadGuitars(),
-      ActionCreator.updateFilterUrl(`${AppPath.Catalog}?page=${FIRST_PAGE}&${Mock.searchParams.filterAppSearch}`),
+      ActionCreator.updateFilterUrl(`${AppPath.catalog}?page=${FIRST_PAGE}&${Mock.searchParams.filterAppSearch}`),
       ActionCreator.saveGuitars(guitars),
     ]);
   });

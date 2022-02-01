@@ -11,6 +11,9 @@ const fakeHistory = {
   push(path: string) {
     this.location.pathname = path;
   },
+  replace(path: string) {
+    this.location.pathname = path;
+  },
 };
 
 jest.mock('../../../browser-history.ts', () => fakeHistory);
@@ -22,7 +25,7 @@ describe('Middlewares: redirect', () => {
   beforeEach(() => fakeHistory.push(''));
 
   it('should redirect to specified pathname', () => {
-    const mockPathname = `${AppPath.Catalog}?${Mock.searchParams.filterAppSearch}`;
+    const mockPathname = `${AppPath.catalog}?${Mock.searchParams.filterAppSearch}`;
     store.dispatch(ActionCreator.updateFilterUrl(mockPathname));
     expect(fakeHistory.location.pathname).toBe(mockPathname);
     expect(store.getActions()).toEqual([ActionCreator.updateFilterUrl(mockPathname)]);
@@ -31,8 +34,8 @@ describe('Middlewares: redirect', () => {
   it('should not redirect to /catalog with unknown actions', () => {
     store.dispatch({
       type: 'UNKNOWN_ACTION',
-      payload: AppPath.Catalog,
+      payload: AppPath.catalog,
     });
-    expect(fakeHistory.location.pathname).not.toBe(AppPath.Catalog);
+    expect(fakeHistory.location.pathname).not.toBe(AppPath.catalog);
   });
 });

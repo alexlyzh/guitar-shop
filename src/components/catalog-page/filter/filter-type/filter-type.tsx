@@ -17,7 +17,7 @@ function FilterType({types}: Props): JSX.Element {
           key={type}
           id={type}
           name={type}
-          labelText={GuitarType[type]}
+          labelText={GuitarType[type].filterName}
           onInputChange={() => handleGuitarTypeChange(type)}
           isChecked={types.includes(type)}
         />

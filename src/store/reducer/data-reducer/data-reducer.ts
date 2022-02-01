@@ -34,6 +34,10 @@ export const dataReducer = createReducer(initialState, (builder) => {
         data: action.payload,
       };
     })
+    .addCase(ActionCreator.saveGuitar, (state, action) => {
+      state.guitars.requestStatus = RequestStatus.SUCCESS;
+      state.guitars.data.push(action.payload);
+    })
     .addCase(ActionCreator.setErrorLoadGuitars, (state) => {
       state.guitars = {
         requestStatus: RequestStatus.ERROR,

@@ -1,3 +1,5 @@
+import {AppPath} from '../const';
+
 enum RequestStatus {
   IDLE = 'IDLE',
   PENDING = 'PENDING',
@@ -10,11 +12,16 @@ type RemoteData<Type> = {
   data: Type[],
 }
 
-type RemoteDataByID<Type> = {
-  [key: number]: RemoteData<Type>,
-}
+type RemoteDataByID<Type> = Record<number, RemoteData<Type>>;
 
-type Price = number;
+type ParentKey = keyof typeof AppPath;
+
+type SiteMap = {
+  [K in ParentKey]: {
+    path: AppPath;
+    parent: K extends 'root' ? null : ParentKey;
+  };
+};
 
 type Guitar = {
   id: number,
@@ -31,8 +38,8 @@ type Guitar = {
 type Comment = {
   id: string,
   userName: string,
-  advantages: string,
-  disadvantages: string,
+  advantage: string,
+  disadvantage: string,
   comment: string,
   rating: number,
   createAt: string,
@@ -55,5 +62,5 @@ export type {
   Guitar,
   Comment,
   CommentPost,
-  Price
+  SiteMap
 };

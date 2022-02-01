@@ -4,56 +4,59 @@ import {SortSettings} from './reducer/sort-reducer/sort-reducer';
 import {FilterSettings} from './reducer/filter-reducer/filter-reducer';
 
 enum ActionType {
-  INIT_APP = 'APP / initializeApp',
-  REDIRECT = 'FILTER / redirect',
-  START_LOAD_GUITARS = 'DATA / startLoadGuitars',
-  SAVE_GUITARS = 'DATA / saveGuitars',
-  ERROR_LOAD_GUITARS ='DATA / errorLoadGuitars',
-  START_LOAD_COMMENTS = 'DATA / startLoadComments',
-  SAVE_COMMENTS = 'DATA / saveComments',
-  ERROR_LOAD_COMMENTS = 'DATA / errorLoadComments',
-  SET_PRICE_RANGE = 'DATA / setPriceRange',
-  SET_FILTER = 'FILTER / setFilter',
-  TOGGLE_STRING_CONDITION = 'FILTER / toggleStringCondition',
-  TOGGLE_TYPE_CONDITION = 'FILTER / toggleTypeCondition',
-  SET_PRICE_MIN= 'FILTER / setPriceMin',
-  SET_PRICE_MAX = 'FILTER / setPriceMax',
-  SET_CATALOG_PAGE = 'FILTER / setCatalogPage',
-  SET_SORT = 'SORT / setSort',
+  initializeApp = 'APP / initializeApp',
+  redirect = 'FILTER / redirect',
+  startLoadGuitars = 'DATA / startLoadGuitars',
+  saveGuitars = 'DATA / saveGuitars',
+  errorLoadGuitars ='DATA / errorLoadGuitars',
+  startLoadComments = 'DATA / startLoadComments',
+  saveComments = 'DATA / saveComments',
+  errorLoadComments = 'DATA / errorLoadComments',
+  saveGuitar = 'DATA / saveGuitar',
+  setPriceRange = 'DATA / setPriceRange',
+  setFilter = 'FILTER / setFilter',
+  toggleStringCondition = 'FILTER / toggleStringCondition',
+  toggleTypeCondition = 'FILTER / toggleTypeCondition',
+  setPriceMin= 'FILTER / setPriceMin',
+  setPriceMax = 'FILTER / setPriceMax',
+  setCatalogPage = 'FILTER / setCatalogPage',
+  setSort = 'SORT / setSort',
 }
 
 const ActionCreator = {
-  initializeApp: createAction(ActionType.INIT_APP),
+  initializeApp: createAction(ActionType.initializeApp),
 
-  startLoadGuitars: createAction(ActionType.START_LOAD_GUITARS),
+  startLoadGuitars: createAction(ActionType.startLoadGuitars),
 
-  saveGuitars: createAction(ActionType.SAVE_GUITARS, (guitars: Guitar[]) => ({payload: guitars})),
+  saveGuitars: createAction(ActionType.saveGuitars, (guitars: Guitar[]) => ({payload: guitars})),
 
-  setErrorLoadGuitars: createAction(ActionType.ERROR_LOAD_GUITARS),
+  saveGuitar: createAction(ActionType.saveGuitar, (guitar: Guitar) => ({payload: guitar})),
 
-  setPriceRange: createAction(ActionType.SET_PRICE_RANGE, (min, max) => ({payload: {min, max}})),
+  setErrorLoadGuitars: createAction(ActionType.errorLoadGuitars),
 
-  startLoadComments: createAction(ActionType.START_LOAD_COMMENTS, (guitarId: number) => ({payload: guitarId})),
+  setPriceRange: createAction(ActionType.setPriceRange, (min, max) => ({payload: {min, max}})),
 
-  saveComments: createAction(ActionType.SAVE_COMMENTS, (guitarId: number, comments: Comment[]) => ({ payload: {guitarId, comments} })),
+  startLoadComments: createAction(ActionType.startLoadComments, (guitarId: number) => ({payload: guitarId})),
 
-  setErrorLoadComments: createAction(ActionType.ERROR_LOAD_COMMENTS, (guitarId: number) => ({payload: guitarId})),
+  saveComments: createAction(ActionType.saveComments, (guitarId: number, comments: Comment[]) => ({ payload: {guitarId, comments} })),
 
-  setFilter: createAction(ActionType.SET_FILTER, (filter: FilterSettings) => ({payload: filter})),
+  setErrorLoadComments: createAction(ActionType.errorLoadComments, (guitarId: number) => ({payload: guitarId})),
 
-  toggleStringCondition: createAction(ActionType.TOGGLE_STRING_CONDITION, (stringCount: number) => ({payload: stringCount})),
+  setFilter: createAction(ActionType.setFilter, (filter: FilterSettings) => ({payload: filter})),
 
-  toggleTypeCondition: createAction(ActionType.TOGGLE_TYPE_CONDITION, (type: string) => ({payload: type})),
+  toggleStringCondition: createAction(ActionType.toggleStringCondition, (stringCount: number) => ({payload: stringCount})),
 
-  setSort: createAction(ActionType.SET_SORT, (sort: SortSettings) => ({payload: sort})),
+  toggleTypeCondition: createAction(ActionType.toggleTypeCondition, (type: string) => ({payload: type})),
 
-  setPriceMin: createAction(ActionType.SET_PRICE_MIN, (price?: number) => ({payload: price})),
+  setSort: createAction(ActionType.setSort, (sort: SortSettings) => ({payload: sort})),
 
-  setPriceMax: createAction(ActionType.SET_PRICE_MAX, (price?: number) => ({payload: price})),
+  setPriceMin: createAction(ActionType.setPriceMin, (price?: number) => ({payload: price})),
 
-  updateFilterUrl: createAction(ActionType.REDIRECT, (url: string) => ({payload: url})),
+  setPriceMax: createAction(ActionType.setPriceMax, (price?: number) => ({payload: price})),
 
-  setCatalogPage: createAction(ActionType.SET_CATALOG_PAGE, (page: number) => ({payload: page})),
+  updateFilterUrl: createAction(ActionType.redirect, (url: string) => ({payload: url})),
+
+  setCatalogPage: createAction(ActionType.setCatalogPage, (page: number) => ({payload: page})),
 };
 
 export {ActionCreator, ActionType};

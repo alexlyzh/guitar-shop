@@ -65,8 +65,8 @@ export const getMockGuitar = (): Guitar => ({
 export const getMockComment = (guitarId: number): Comment => ({
   id: datatype.string(),
   userName: internet.userName(),
-  advantages: datatype.string(),
-  disadvantages: datatype.string(),
+  advantage: datatype.string(),
+  disadvantage: datatype.string(),
   comment: datatype.string(),
   rating: datatype.number(STARS_COUNT),
   createAt: new Date().toISOString(),

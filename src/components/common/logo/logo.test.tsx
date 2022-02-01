@@ -14,7 +14,7 @@ describe('Component: Logo', () => {
     render(
       <Router history={history}>
         <Switch>
-          <Route exact path={AppPath.Main}>
+          <Route exact path={AppPath.root}>
             <h1>This is CatalogPage</h1>
           </Route>
           <Route>

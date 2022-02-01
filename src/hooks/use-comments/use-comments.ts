@@ -4,7 +4,7 @@ import {getComments} from '../../store/reducer/data-reducer/selectors';
 import {useEffect} from 'react';
 import {ActionAPI} from '../../store/api-actions/api-actions';
 
-export const useComments = (guitars: Guitar[]) => {
+export const useComments = (guitars: Guitar[], id?: number) => {
   const dispatch = useDispatch();
   const comments = useSelector(getComments);
 
@@ -15,6 +15,12 @@ export const useComments = (guitars: Guitar[]) => {
       }
     });
   }, [guitars, comments, dispatch]);
+
+  useEffect(() => {
+    if (id && !comments[id]) {
+      dispatch(ActionAPI.getComments(id));
+    }
+  }, [id, comments, dispatch]);
 
   return comments;
 };

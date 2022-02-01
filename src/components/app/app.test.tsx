@@ -17,7 +17,7 @@ const mockStore = configureMockStore([thunk]);
 
 describe('Application routing', () => {
   it('should correctly render CatalogPage when have got an error navigating to "/catalog"', () => {
-    history.push(AppPath.Catalog);
+    history.push(AppPath.catalog);
     const store = mockStore({
       APP: {
         isAppInitialized: true,
@@ -41,11 +41,11 @@ describe('Application routing', () => {
       </Provider>,
     );
 
-    expect(screen.getByText(AppMessage.ErrorOnGetAllGuitars)).toBeInTheDocument();
+    expect(screen.getByText(AppMessage.ErrorOnGetGuitars)).toBeInTheDocument();
   });
 
   it('should correctly render CatalogPage when navigating to "/catalog"', () => {
-    history.push(AppPath.Catalog);
+    history.push(AppPath.catalog);
     const {guitars, comments} = mockGuitarsWithComments();
 
     const store = mockStore({

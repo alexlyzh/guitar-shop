@@ -8,7 +8,7 @@ function NotFoundPage(): JSX.Element {
       <h1>
         404 - <small>Страница не найдена</small>
       </h1>
-      <Link className="link-to-main" to={AppPath.Main}>
+      <Link className="link-to-main" to={AppPath.root}>
         На главную
       </Link>
     </div>

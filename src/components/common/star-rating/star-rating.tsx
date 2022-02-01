@@ -5,7 +5,13 @@ enum StarSpriteID {
   EMPTY = '#icon-star',
 }
 
-export default function StarRating({rating}: {rating: number}): JSX.Element {
+type Props = {
+  rating: number,
+  starWidth: number,
+  starHeight: number,
+}
+
+export default function StarRating({rating, starWidth, starHeight}  : Props): JSX.Element {
   const stars = new Array(STARS_COUNT).fill(null).map((star, i) => {
     if (i < rating) {
       return StarSpriteID.FULL;
@@ -18,7 +24,7 @@ export default function StarRating({rating}: {rating: number}): JSX.Element {
       {stars.map((star, i) => {
         const key = `${i}-star`;
         return (
-          <svg width="12" height="11" key={key} aria-hidden="true"
+          <svg width={starWidth} height={starHeight} key={key} aria-hidden="true"
             data-testid={star === StarSpriteID.FULL ? 'full' : 'empty'}
           >
             <use xlinkHref={star}/>

@@ -29,7 +29,7 @@ function CatalogPage(): JSX.Element {
       <MainLayout>
         <Breadcrumbs />
         <p style={{display: 'flex', justifyContent: 'center'}}>
-          {AppMessage.ErrorOnGetAllGuitars}
+          {AppMessage.ErrorOnGetGuitars}
         </p>
       </MainLayout>
     );

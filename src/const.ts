@@ -1,3 +1,5 @@
+import {SiteMap} from './types/types';
+
 const MIN_PRICE = 0;
 const MIN_CATALOG_HEIGHT = '745px';
 const FIRST_PAGE = 1;
@@ -5,9 +7,25 @@ const GUITARS_PER_PAGE = 9;
 const STARS_COUNT = 5;
 
 enum AppPath {
-  Main = '/',
-  Catalog = '/catalog',
+  root = '/',
+  catalog = '/catalog',
+  product = '/catalog/:id',
 }
+
+const siteMap: SiteMap = {
+  root: {
+    path: AppPath.root,
+    parent: null,
+  },
+  catalog: {
+    path: AppPath.catalog,
+    parent: 'root',
+  },
+  product: {
+    path: AppPath.product,
+    parent: 'catalog',
+  },
+};
 
 enum AppSearchParam {
   page = 'page',
@@ -42,28 +60,40 @@ const debounceDelay = {
 const stringOptions = [4, 6, 7, 12];
 const typeOptions = ['acoustic', 'electric', 'ukulele'];
 
-const stringCount: {
-  [key: string]: number[],
-} = {
+const stringCount: Record<string, number[]> = {
   acoustic: [6, 7, 12],
   ukulele: [4],
   electric: [4, 6, 7],
 };
 
-const GuitarTypeNameSpace: {
-  [key: string]: string,
-} = {
-  acoustic: 'acoustic',
-  electric: 'electric',
-  ukulele: 'ukulele',
+const GuitarType: Record<string, Record<string, string>> = {
+  acoustic: {
+    typeName: 'Акустическая',
+    filterName: 'Акустические гитары',
+  },
+  ukulele: {
+    typeName: 'Укулеле',
+    filterName: 'Укулеле',
+  },
+  electric: {
+    typeName: 'Электрогитара',
+    filterName: 'Электрогитары',
+  },
 } as const;
 
-const GuitarType: {
-  [key: string]: string,
-} = {
-  acoustic: 'Акустические гитары',
-  ukulele: 'Укулеле',
-  electric: 'Электрогитары',
+const month: Record<number, string> = {
+  0: 'января',
+  1: 'февраля',
+  2: 'марта',
+  3: 'апреля',
+  4: 'мая',
+  5: 'июня',
+  6: 'июля',
+  7: 'августа',
+  8: 'сентября',
+  9: 'октября',
+  10: 'ноября',
+  11: 'декабря',
 } as const;
 
 enum SortType {
@@ -89,11 +119,13 @@ const initialSort = {
 enum HttpCode {
   OK = 200,
   TooManyRequests = 429,
+  NotFound = 404,
 }
 
 enum AppMessage {
-  ErrorOnGetAllGuitars = 'Что-то сломалось, попробуйте перезагрузить страницу',
+  ErrorOnGetGuitars = 'Что-то сломалось, попробуйте перезагрузить страницу',
   CatalogPageHeading = 'Каталог гитар',
+  ProductPageHeading = 'Товар',
   CatalogFilterHeading = 'Фильтр',
   CatalogSortHeading = 'Сортировать',
   NothingFound = 'Ничего не нашлось',
@@ -114,10 +146,11 @@ export {
   KeyCode,
   SortType,
   SortOrder,
-  GuitarTypeNameSpace,
   GuitarType,
   initialSort,
   stringCount,
   stringOptions,
-  typeOptions
+  typeOptions,
+  siteMap,
+  month
 };

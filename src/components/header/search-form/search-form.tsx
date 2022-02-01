@@ -1,6 +1,8 @@
-import {onSelectItemFocus, onSelectItemBlur} from './utils';
 import {Guitar} from '../../../types/types';
 import {ChangeEvent} from 'react';
+import SearchItem from './search-item/search-item';
+import {generatePath, useHistory} from 'react-router-dom';
+import {AppPath, KeyCode} from '../../../const';
 
 type Props = {
   search: string,
@@ -10,6 +12,12 @@ type Props = {
 }
 
 function SearchForm({search, onInputChange, isDropdownVisible, foundGuitars}: Props): JSX.Element {
+  const history = useHistory();
+
+  const redirectToProductPage = (id: number) => {
+    history.push(generatePath(AppPath.product, {id}));
+  };
+
   return (
     <div className="form-search" data-testid="form-search">
       <form className="form-search__form" onSubmit={(evt) => evt.preventDefault()}>
@@ -32,23 +40,17 @@ function SearchForm({search, onInputChange, isDropdownVisible, foundGuitars}: Pr
         className={`form-search__select-list ${isDropdownVisible ? '': 'hidden'}`}
         style={{zIndex: '1'}}
       >
-        {foundGuitars.map((guitar, i) => {
-          const key = `search-${i}`;
-          return (
-            <li
-              className="form-search__select-item"
-              tabIndex={0}
-              style={{outline: 'none'}}
-              key={key}
-              data-id={guitar.id}
-              onFocus={onSelectItemFocus}
-              onBlur={onSelectItemBlur}
-            >
-              {guitar.name}
-            </li>
-          );
-        })}
-
+        {foundGuitars.map((guitar) => (
+          <SearchItem
+            key={`search-${guitar.id}`}
+            guitar={guitar}
+            onItemKeyDown={(evt) => {
+              if (evt.keyCode === KeyCode.ENTER) {
+                redirectToProductPage(guitar.id);
+              }
+            }}
+            onItemClick={() => redirectToProductPage(guitar.id)}
+          />))}
       </ul>
     </div>
   );

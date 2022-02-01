@@ -18,8 +18,8 @@ describe('Component: FilterType', () => {
       </Provider>);
 
     expect(screen.getByText('Тип гитар')).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${GuitarType.acoustic}`))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${GuitarType.ukulele}`))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${GuitarType.electric}`))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${GuitarType.acoustic.filterName}`))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${GuitarType.ukulele.filterName}`))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${GuitarType.electric.filterName}`))).toBeInTheDocument();
   });
 });
