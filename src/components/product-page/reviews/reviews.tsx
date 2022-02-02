@@ -1,7 +1,8 @@
 import {Link} from 'react-router-dom';
 import {RemoteData, Comment} from '../../../types/types';
-import {month} from '../../../const';
 import StarRating from '../../common/star-rating/star-rating';
+import dayjs from 'dayjs';
+import {monthMap} from '../../../const';
 
 // const COMMENTS_STEP = 3;
 
@@ -17,12 +18,14 @@ function Reviews({comments}: Props): JSX.Element {
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
       <Link className="button button--red-border button--big reviews__sumbit-button" to="#">Оставить отзыв</Link>
       {sortedComments.map((comment) => {
-        const date = new Date(comment.createAt);
+        const month = dayjs(comment.createAt).format('MMMM');
+        const day = dayjs(comment.createAt).format('D');
+        const date = `${day} ${monthMap[month.toLowerCase()]}`;
         return (
           <div className="review" key={comment.id}>
             <div className="review__wrapper">
               <h4 className="review__title review__title--author title title--lesser">{comment.userName}</h4>
-              <span className="review__date">{`${date.getDay()} ${month[date.getMonth()]}`}</span>
+              <span className="review__date">{date}</span>
             </div>
             <div className="rate review__rating-panel" aria-hidden="true">
               <StarRating rating={comment.rating} starWidth={16} starHeight={16} />

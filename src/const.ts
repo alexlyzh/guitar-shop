@@ -97,19 +97,19 @@ const tabLabel = {
   },
 } as const;
 
-const month: Record<number, string> = {
-  0: 'января',
-  1: 'февраля',
-  2: 'марта',
-  3: 'апреля',
-  4: 'мая',
-  5: 'июня',
-  6: 'июля',
-  7: 'августа',
-  8: 'сентября',
-  9: 'октября',
-  10: 'ноября',
-  11: 'декабря',
+const monthMap: Record<string, string> = {
+  january: 'января',
+  february: 'февраля',
+  march: 'марта',
+  april: 'апреля',
+  may: 'мая',
+  june: 'июня',
+  july: 'июля',
+  august: 'августа',
+  september: 'сентября',
+  october: 'октября',
+  november: 'ноября',
+  december: 'декабря',
 } as const;
 
 enum SortType {
@@ -169,5 +169,5 @@ export {
   typeOptions,
   siteRoutes,
   tabLabel,
-  month
+  monthMap
 };

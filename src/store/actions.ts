@@ -1,7 +1,7 @@
-import {createAction} from '@reduxjs/toolkit';
-import {Comment, Guitar} from '../types/types';
-import {SortSettings} from './reducer/sort-reducer/sort-reducer';
-import {FilterSettings} from './reducer/filter-reducer/filter-reducer';
+import { createAction } from '@reduxjs/toolkit';
+import { Comment, Guitar } from '../types/types';
+import { SortSettings } from './reducer/sort-reducer/sort-reducer';
+import { FilterSettings } from './reducer/filter-reducer/filter-reducer';
 
 enum ActionType {
   initializeApp = 'APP / initializeApp',

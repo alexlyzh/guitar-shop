@@ -1,13 +1,14 @@
-import {ThunkAction} from 'redux-thunk';
-import {Comment, Guitar} from '../../types/types';
-import {AxiosInstance} from 'axios';
-import {Action} from '@reduxjs/toolkit';
-import {apiRoute, AppPath, AppSearchParam} from '../../const';
-import {ActionCreator} from '../actions';
-import {State} from '../reducer/root-reducer';
-import {Dispatch, SetStateAction} from 'react';
-import {BASE_API_URL} from '../../api';
-import {SortSettings} from '../reducer/sort-reducer/sort-reducer';
+import { ThunkAction } from 'redux-thunk';
+import { Comment, Guitar } from '../../types/types';
+import { AxiosInstance } from 'axios';
+import { Action } from '@reduxjs/toolkit';
+import { apiRoute, AppPath, AppSearchParam } from '../../const';
+import { ActionCreator } from '../actions';
+import { State } from '../reducer/root-reducer';
+import { Dispatch, SetStateAction } from 'react';
+import { BASE_API_URL } from '../../api';
+import { SortSettings } from '../reducer/sort-reducer/sort-reducer';
+import { generatePath } from 'react-router-dom';
 import {
   checkStringsFilter,
   createCatalogApiUrl,
@@ -16,7 +17,7 @@ import {
   prepareSortAction,
   sortByNameStartingWithTemplate
 } from './utils';
-import {generatePath} from 'react-router-dom';
+
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
@@ -107,4 +108,4 @@ const ActionAPI = {
     },
 };
 
-export {ActionAPI};
+export { ActionAPI };

@@ -7,13 +7,13 @@ export const useGuitar = (id: number) => {
   const dispatch = useDispatch();
   const {guitars, isErrorLoadingGuitars, isFetchingGuitars} = useGuitars();
   const product = guitars.data.find((guitar) => guitar.id === id);
-  const shouldLoadGuitarByID = !isFetchingGuitars && !isErrorLoadingGuitars && !product;
+  const shouldLoadGuitar = !isFetchingGuitars && !isErrorLoadingGuitars && !product;
 
   useEffect(() => {
-    if (shouldLoadGuitarByID) {
+    if (shouldLoadGuitar) {
       dispatch(ActionAPI.getGuitarById(id));
     }
-  }, [shouldLoadGuitarByID, id, dispatch]);
+  }, [shouldLoadGuitar, id, dispatch]);
 
   return {product, isErrorLoadingGuitars, isFetchingGuitars};
 };

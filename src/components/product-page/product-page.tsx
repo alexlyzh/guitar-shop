@@ -29,15 +29,20 @@ function ProductPage(): JSX.Element {
   const {product, isErrorLoadingGuitars, isFetchingGuitars} = useGuitar(id);
   const comments = useComments([], id);
 
+  const routes = useBreadcrumbRoutes(ProductPage);
+  if (product) {
+    routes[routes.length - 1].title = product.name;
+  }
+
   useEffect(() => {
     window.scrollTo(scrollOption);
   }, []);
 
-  const routes = useBreadcrumbRoutes(ProductPage);
-
-  if (product) {
-    routes[routes.length - 1].title = product.name;
-  }
+  useEffect(() => {
+    if (product) {
+      document.title = product.name;
+    }
+  }, [product]);
 
   if (isErrorLoadingGuitars) {
     return (

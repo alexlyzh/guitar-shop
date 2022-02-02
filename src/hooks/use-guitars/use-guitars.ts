@@ -1,6 +1,6 @@
-import {useSelector} from 'react-redux';
-import {getGuitars} from '../../store/reducer/data-reducer/selectors';
-import {RequestStatus} from '../../types/types';
+import { useSelector } from 'react-redux';
+import { getGuitars } from '../../store/reducer/data-reducer/selectors';
+import { RequestStatus } from '../../types/types';
 
 export const useGuitars = () => {
   const guitars = useSelector(getGuitars);
