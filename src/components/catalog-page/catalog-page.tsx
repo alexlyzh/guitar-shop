@@ -1,15 +1,16 @@
 import FilterContainer from './filter/filter-container';
-import {MIN_CATALOG_HEIGHT, GUITARS_PER_PAGE, AppMessage} from '../../const';
 import MainLayout from '../main-layout/main-layout';
 import Spinner from '../common/spinner/spinner';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Sort from './sort/sort';
 import Cards from './cards/cards';
 import Pagination from './pagination/pagination';
-import {usePagination} from '../../hooks/use-pagination/use-pagination';
-import {useSort} from '../../hooks/use-sort/use-sort';
-import {useCatalogUrl} from '../../hooks/use-catalog-url/use-catalog-url';
-import {useGuitars} from '../../hooks/use-guitars/use-guitars';
+import { MIN_CATALOG_HEIGHT, GUITARS_PER_PAGE, AppMessage } from '../../const';
+import { usePagination } from '../../hooks/use-pagination/use-pagination';
+import { useSort } from '../../hooks/use-sort/use-sort';
+import { useCatalogUrl } from '../../hooks/use-catalog-url/use-catalog-url';
+import { useGuitars } from '../../hooks/use-guitars/use-guitars';
+import { useBreadcrumbRoutes } from '../../hooks/use-breadcrumb-routes/use-breadcrumb-routes';
 
 function CatalogPage(): JSX.Element {
   const isAppInitialized = useCatalogUrl();
@@ -24,10 +25,12 @@ function CatalogPage(): JSX.Element {
     setAscendingOrderSort,
   } = useSort();
 
+  const routes = useBreadcrumbRoutes(CatalogPage);
+
   if (isErrorLoadingGuitars) {
     return (
       <MainLayout>
-        <Breadcrumbs />
+        <Breadcrumbs routes={routes} />
         <p style={{display: 'flex', justifyContent: 'center'}}>
           {AppMessage.ErrorOnGetGuitars}
         </p>
@@ -38,7 +41,7 @@ function CatalogPage(): JSX.Element {
   return (
     <MainLayout>
       <h1 className="page-content__title title title--bigger">{AppMessage.CatalogPageHeading}</h1>
-      <Breadcrumbs />
+      <Breadcrumbs routes={routes} />
 
       <div className="catalog" style={{minHeight: MIN_CATALOG_HEIGHT}}>
         <FilterContainer />

@@ -1,4 +1,4 @@
-import {GuitarType, typeOptions} from '../../../../const';
+import {guitarType, typeOptions} from '../../../../const';
 import {useTypeFilter} from '../../../../hooks/use-type-filter/use-type-filter';
 import FilterCheckbox from '../filter-checkbox/filter-checkbox';
 
@@ -17,7 +17,7 @@ function FilterType({types}: Props): JSX.Element {
           key={type}
           id={type}
           name={type}
-          labelText={GuitarType[type].filterName}
+          labelText={guitarType[type].filterName}
           onInputChange={() => handleGuitarTypeChange(type)}
           isChecked={types.includes(type)}
         />

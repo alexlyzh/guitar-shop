@@ -1,4 +1,5 @@
 import { AppPath } from '../const';
+import { ReactNode } from 'react';
 
 enum RequestStatus {
   IDLE = 'IDLE',
@@ -13,15 +14,6 @@ type RemoteData<Type> = {
 }
 
 type RemoteDataByID<Type> = Record<number, RemoteData<Type>>;
-
-type ParentKey = keyof typeof AppPath;
-
-type SiteMap = {
-  [K in ParentKey]: {
-    path: AppPath;
-    parent: K extends 'root' ? null : ParentKey;
-  };
-};
 
 type Guitar = {
   id: number,
@@ -55,6 +47,12 @@ type CommentPost = {
   rating: number,
 }
 
+type SiteRoute = {
+  pathname: AppPath,
+  title: string,
+  component: ReactNode,
+}
+
 export {RequestStatus};
 export type {
   RemoteData,
@@ -62,5 +60,5 @@ export type {
   Guitar,
   Comment,
   CommentPost,
-  SiteMap
+  SiteRoute
 };

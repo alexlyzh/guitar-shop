@@ -1,4 +1,6 @@
-import { SiteMap } from './types/types';
+import { SiteRoute } from './types/types';
+import CatalogPage from './components/catalog-page/catalog-page';
+import ProductPage from './components/product-page/product-page';
 
 const MIN_PRICE = 0;
 const MIN_CATALOG_HEIGHT = '745px';
@@ -12,20 +14,23 @@ enum AppPath {
   product = '/catalog/:id',
 }
 
-const siteMap: SiteMap = {
-  root: {
-    path: AppPath.root,
-    parent: null,
-  },
-  catalog: {
-    path: AppPath.catalog,
-    parent: 'root',
-  },
-  product: {
-    path: AppPath.product,
-    parent: 'catalog',
-  },
-};
+const siteRoutes: SiteRoute[] = [
+  {
+    pathname: AppPath.root,
+    title: 'Главная',
+    component: null,
+  } as const,
+  {
+    pathname: AppPath.catalog,
+    title: 'Каталог',
+    component: CatalogPage,
+  } as const,
+  {
+    pathname: AppPath.product,
+    title: 'Товар',
+    component: ProductPage,
+  } as const,
+];
 
 enum AppSearchParam {
   page = 'page',
@@ -66,7 +71,7 @@ const stringCount: Record<string, ReadonlyArray<number>> = {
   electric: [4, 6, 7],
 };
 
-const GuitarType: Record<string, Record<string, string>> = {
+const guitarType: Record<string, Record<string, string>> = {
   acoustic: {
     typeName: 'Акустическая',
     filterName: 'Акустические гитары',
@@ -78,6 +83,17 @@ const GuitarType: Record<string, Record<string, string>> = {
   electric: {
     typeName: 'Электрогитара',
     filterName: 'Электрогитары',
+  },
+} as const;
+
+const tabLabel = {
+  characteristics: {
+    en: 'characteristics',
+    ru: 'Характеристики',
+  },
+  description: {
+    en: 'description',
+    ru: 'Описание',
   },
 } as const;
 
@@ -146,11 +162,12 @@ export {
   KeyCode,
   SortType,
   SortOrder,
-  GuitarType,
+  guitarType,
   initialSort,
   stringCount,
   stringOptions,
   typeOptions,
-  siteMap,
+  siteRoutes,
+  tabLabel,
   month
 };

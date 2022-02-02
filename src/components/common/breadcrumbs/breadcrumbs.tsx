@@ -1,15 +1,20 @@
-import {Link} from 'react-router-dom';
-import {AppPath} from '../../../const';
+import { SiteRoute } from '../../../types/types';
+import { Link } from 'react-router-dom';
 
-export default function Breadcrumbs(): JSX.Element {
+type Props = {
+  routes: SiteRoute[],
+}
+
+export default function Breadcrumbs({routes}: Props): JSX.Element {
   return (
     <ul className="breadcrumbs page-content__breadcrumbs">
-      <li className="breadcrumbs__item">
-        <Link className="link" to={AppPath.root}>Главная</Link>
-      </li>
-      <li className="breadcrumbs__item">
-        <Link className="link" to={AppPath.catalog}>Каталог</Link>
-      </li>
+      {routes.map(({pathname, title}) => (
+        <li className="breadcrumbs__item" key={pathname}>
+          <Link className="link" to={pathname}>
+            {title}
+          </Link>
+        </li>
+      ))}
     </ul>
   );
 }

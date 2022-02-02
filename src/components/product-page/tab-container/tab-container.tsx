@@ -1,26 +1,14 @@
-import { useState, Children, ReactNode, isValidElement } from 'react';
-import { useLocation } from 'react-router-dom';
+import {Children, isValidElement, ReactNode, useState} from 'react';
 import TabLink from './tab-link/tab-link';
-
-const TabName = {
-  characteristics: {
-    en: 'characteristics',
-    ru: 'Характеристики',
-  },
-  description: {
-    en: 'description',
-    ru: 'Описание',
-  },
-} as const;
+import {tabLabel} from '../../../const';
 
 type Props = {
   children: ReactNode,
+  initialTab: string,
 }
 
-function TabContainer({children}: Props): JSX.Element {
-  const location = useLocation();
-  const hash = location.hash.slice(1);
-  const [activeTab, setActiveTab] = useState(hash in TabName ? hash : TabName.characteristics.en);
+function TabContainer({children, initialTab}: Props): JSX.Element {
+  const [activeTab, setActiveTab] = useState(initialTab);
 
   return (
     <div className="tabs">
@@ -28,13 +16,12 @@ function TabContainer({children}: Props): JSX.Element {
         if (!isValidElement(child)) {
           return;
         }
-        const id = (child.props.id) as keyof typeof TabName;
+        const label = (child.props.label) as keyof typeof tabLabel;
         return (
           <TabLink
-            isActive={activeTab === TabName[id].en}
-            ruName={TabName[id].ru}
-            enName={TabName[id].en}
-            onLinkClick={() => setActiveTab(TabName[id].en)}
+            isActive={activeTab === tabLabel[label].en}
+            label={tabLabel[label].ru}
+            onLinkClick={() => setActiveTab(tabLabel[label].en)}
           />);
       })}
 
@@ -43,7 +30,7 @@ function TabContainer({children}: Props): JSX.Element {
           if (!isValidElement(child)) {
             return;
           }
-          if (child.props.id === activeTab) {
+          if (child.props.label === activeTab) {
             return child;
           }
         })}

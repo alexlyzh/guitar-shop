@@ -1,6 +1,6 @@
 import FilterType from './filter-type';
 import {render, screen} from '@testing-library/react';
-import {GuitarType} from '../../../../const';
+import {guitarType} from '../../../../const';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import {initialFilterState} from '../../../../store/reducer/filter-reducer/filter-reducer';
@@ -18,8 +18,8 @@ describe('Component: FilterType', () => {
       </Provider>);
 
     expect(screen.getByText('Тип гитар')).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${GuitarType.acoustic.filterName}`))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${GuitarType.ukulele.filterName}`))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${GuitarType.electric.filterName}`))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${guitarType.acoustic.filterName}`))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${guitarType.ukulele.filterName}`))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${guitarType.electric.filterName}`))).toBeInTheDocument();
   });
 });

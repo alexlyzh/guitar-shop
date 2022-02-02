@@ -1,13 +1,23 @@
 import MainLayout from '../main-layout/main-layout';
-import {AppMessage, GuitarType} from '../../const';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
-import {useParams, Link} from 'react-router-dom';
-import {useGuitar} from '../../hooks/use-guitar/use-guitar';
-import {useComments} from '../../hooks/use-comments/use-comments';
 import Spinner from '../common/spinner/spinner';
 import StarRating from '../common/star-rating/star-rating';
 import Reviews from './reviews/reviews';
 import TabContainer from './tab-container/tab-container';
+import ProductCharacteristics from './product-characteristics/product-characteristics';
+import ProductDescription from './product-description/product-description';
+import { AppMessage, tabLabel } from '../../const';
+import { useEffect} from 'react';
+import { useBreadcrumbRoutes } from '../../hooks/use-breadcrumb-routes/use-breadcrumb-routes';
+import { useParams, Link } from 'react-router-dom';
+import { useGuitar } from '../../hooks/use-guitar/use-guitar';
+import { useComments } from '../../hooks/use-comments/use-comments';
+
+const scrollOption = {
+  top: 0,
+  left: 0,
+  behavior: 'auto',
+} as const;
 
 type PageParams = {
   id: string,
@@ -19,10 +29,20 @@ function ProductPage(): JSX.Element {
   const {product, isErrorLoadingGuitars, isFetchingGuitars} = useGuitar(id);
   const comments = useComments([], id);
 
+  useEffect(() => {
+    window.scrollTo(scrollOption);
+  }, []);
+
+  const routes = useBreadcrumbRoutes(ProductPage);
+
+  if (product) {
+    routes[routes.length - 1].title = product.name;
+  }
+
   if (isErrorLoadingGuitars) {
     return (
       <MainLayout>
-        <Breadcrumbs />
+        <Breadcrumbs routes={routes} />
         <p style={{display: 'flex', justifyContent: 'center'}}>
           {AppMessage.ErrorOnGetGuitars}
         </p>
@@ -32,11 +52,11 @@ function ProductPage(): JSX.Element {
 
   return (
     <MainLayout>
-      <h1 className="page-content__title title title--bigger">{AppMessage.ProductPageHeading}</h1>
-      <Breadcrumbs />
-
       {isFetchingGuitars || !product ? <Spinner marginTop={'5em'} /> :
         <>
+          <h1 className="page-content__title title title--bigger">{product.name}</h1>
+          <Breadcrumbs routes={routes} />
+
           <div className="product-container">
             <img className="product-container__img" src={product.previewImg} width="90" height="235" alt=""/>
             <div className="product-container__info-wrapper">
@@ -46,26 +66,9 @@ function ProductPage(): JSX.Element {
                 <StarRating rating={product.rating || 0} starHeight={14} starWidth={14}/>
 
               </div>
-              <TabContainer>
-                <table className="tabs__table" id="characteristics">
-                  <tbody>
-                    <tr className="tabs__table-row">
-                      <td className="tabs__title">Артикул:</td>
-                      <td className="tabs__value">{product.vendorCode}</td>
-                    </tr>
-                    <tr className="tabs__table-row">
-                      <td className="tabs__title">Тип:</td>
-                      <td className="tabs__value">{GuitarType[product.type].typeName}</td>
-                    </tr>
-                    <tr className="tabs__table-row">
-                      <td className="tabs__title">Количество струн:</td>
-                      <td className="tabs__value">{product.stringCount}-струнная</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <p className="tabs__product-description" id="description">
-                  {product.description}
-                </p>
+              <TabContainer initialTab={tabLabel.characteristics.en}>
+                <ProductCharacteristics product={product} label={tabLabel.characteristics.en}/>
+                <ProductDescription product={product} label={tabLabel.description.en}/>
               </TabContainer>
 
             </div>
@@ -76,7 +79,7 @@ function ProductPage(): JSX.Element {
             </div>
           </div>
 
-          <Reviews comments={comments[id]}/>
+          {comments[id] ? <Reviews comments={comments[id]}/> : <Spinner />}
         </>}
 
     </MainLayout>
