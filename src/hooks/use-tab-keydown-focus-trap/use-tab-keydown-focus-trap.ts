@@ -22,8 +22,7 @@ export const useTabKeydownFocusTrap = (trapRef: MutableRefObject<HTMLDivElement 
             lastElement.focus();
             evt.preventDefault();
           }
-        }
-        if (evt.key === KeyboardKey.TAB){
+        } else {
           if (document.activeElement === lastElement) {
             firstElement.focus();
             evt.preventDefault();
