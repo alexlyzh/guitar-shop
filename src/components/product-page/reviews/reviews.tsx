@@ -1,26 +1,39 @@
 import StarRating from '../../common/star-rating/star-rating';
 import ShowMoreBtn from './show-more-btn/show-more-btn';
 import dayjs from 'dayjs';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { RemoteData, Comment } from '../../../types/types';
+import {RemoteData, Comment, Guitar} from '../../../types/types';
 import { monthMap } from '../../../const';
-import {useReviewFeed} from '../../../hooks/use-review-feed/use-review-feed';
-import {useRef} from 'react';
+import { useReviewFeed } from '../../../hooks/use-review-feed/use-review-feed';
+import { scrollToPageTop } from '../../../utils/common';
+import Modal from '../../common/modal/modal';
+import ReviewModal from '../review-modal/review-modal';
+import {useModal} from '../../../hooks/use-modal/use-modal';
 
 const COMMENTS_STEP = 3;
 
 type Props = {
   comments: RemoteData<Comment>,
+  product: Guitar,
 }
 
-function Reviews({comments}: Props): JSX.Element {
+function Reviews({comments, product}: Props): JSX.Element {
   const observerRef = useRef<HTMLButtonElement | null>(null);
   const [reviews, renderNextReviews, isAllRendered] = useReviewFeed(comments, COMMENTS_STEP, observerRef);
+
+  const [isOpen, showModal, hideModal] = useModal();
 
   return (
     <section className="reviews">
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
-      <Link className="button button--red-border button--big reviews__sumbit-button" to="#">Оставить отзыв</Link>
+      <Link className="button button--red-border button--big reviews__submit-button" to="#" onClick={showModal}>
+        Оставить отзыв
+      </Link>
+      <Modal isOpen={isOpen} onModalClose={hideModal}>
+        <ReviewModal product={product}/>
+      </Modal>
+
       {reviews.map((comment) => {
         const month = dayjs(comment.createAt).format('MMMM');
         const day = dayjs(comment.createAt).format('D');
@@ -43,6 +56,7 @@ function Reviews({comments}: Props): JSX.Element {
           </div>
         );
       })}
+
       {!isAllRendered ?
         <ShowMoreBtn
           ref={observerRef}
@@ -50,7 +64,12 @@ function Reviews({comments}: Props): JSX.Element {
           onBtnClick={() => renderNextReviews()}
         /> : null}
 
-      <Link className="button button--up button--red-border button--big reviews__up-button" to="#header" style={{zIndex: 1}}>
+      <Link
+        className="button button--up button--red-border button--big reviews__up-button"
+        style={{zIndex: 1}}
+        to="#"
+        onClick={scrollToPageTop}
+      >
         Наверх
       </Link>
     </section>

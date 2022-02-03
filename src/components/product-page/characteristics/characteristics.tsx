@@ -6,7 +6,7 @@ type Props = {
   label: keyof typeof tabLabel,
 }
 
-function ProductCharacteristics({product, label}: Props): JSX.Element {
+function Characteristics({product, label}: Props): JSX.Element {
   return (
     <table className="tabs__table" id={label}>
       <tbody>
@@ -27,4 +27,4 @@ function ProductCharacteristics({product, label}: Props): JSX.Element {
   );
 }
 
-export default ProductCharacteristics;
+export default Characteristics;

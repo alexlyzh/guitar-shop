@@ -6,7 +6,7 @@ type Props = {
   label: keyof typeof tabLabel,
 }
 
-function ProductDescription({product, label}: Props): JSX.Element {
+function Description({product, label}: Props): JSX.Element {
   return (
     <p className="tabs__product-description" id={label}>
       {product.description}
@@ -14,4 +14,4 @@ function ProductDescription({product, label}: Props): JSX.Element {
   );
 }
 
-export default ProductDescription;
+export default Description;

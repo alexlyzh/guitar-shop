@@ -4,20 +4,15 @@ import Spinner from '../common/spinner/spinner';
 import StarRating from '../common/star-rating/star-rating';
 import Reviews from './reviews/reviews';
 import TabContainer from './tab-container/tab-container';
-import ProductCharacteristics from './product-characteristics/product-characteristics';
-import ProductDescription from './product-description/product-description';
+import Characteristics from './characteristics/characteristics';
+import Description from './description/description';
 import { AppMessage, tabLabel } from '../../const';
 import { useEffect} from 'react';
 import { useBreadcrumbRoutes } from '../../hooks/use-breadcrumb-routes/use-breadcrumb-routes';
 import { useParams, Link } from 'react-router-dom';
 import { useGuitar } from '../../hooks/use-guitar/use-guitar';
 import { useComments } from '../../hooks/use-comments/use-comments';
-
-const scrollOption = {
-  top: 0,
-  left: 0,
-  behavior: 'auto',
-} as const;
+import {scrollToPageTop} from '../../utils/common';
 
 type PageParams = {
   id: string,
@@ -28,14 +23,13 @@ function ProductPage(): JSX.Element {
   const id = Number(params.id);
   const {product, isErrorLoadingGuitars, isFetchingGuitars} = useGuitar(id);
   const comments = useComments([], id);
-
   const routes = useBreadcrumbRoutes(ProductPage);
   if (product) {
     routes[routes.length - 1].title = product.name;
   }
 
   useEffect(() => {
-    window.scrollTo(scrollOption);
+    scrollToPageTop();
   }, []);
 
   useEffect(() => {
@@ -72,8 +66,8 @@ function ProductPage(): JSX.Element {
 
               </div>
               <TabContainer initialTab={tabLabel.characteristics.en}>
-                <ProductCharacteristics product={product} label={tabLabel.characteristics.en}/>
-                <ProductDescription product={product} label={tabLabel.description.en}/>
+                <Characteristics product={product} label={tabLabel.characteristics.en}/>
+                <Description product={product} label={tabLabel.description.en}/>
               </TabContainer>
 
             </div>
@@ -84,7 +78,7 @@ function ProductPage(): JSX.Element {
             </div>
           </div>
 
-          {comments[id] ? <Reviews comments={comments[id]}/> : <Spinner />}
+          {comments[id] ? <Reviews comments={comments[id]} product={product}/> : <Spinner />}
         </>}
 
     </MainLayout>

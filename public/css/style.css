@@ -943,6 +943,12 @@ button,
   scrollbar-width: none;
 }
 
+.modal-open {
+  height: 100vh;
+  overflow: hidden;
+  padding-right: 15px;
+}
+
 .modal::-webkit-scrollbar {
   display: none;
 }
@@ -983,7 +989,7 @@ button,
   align-items: center;
   flex-shrink: 0;
   justify-content: center;
-
+  min-width: 420px;
   width: 100%;
   min-height: 100%;
   padding: 60px 40px;
@@ -2690,7 +2696,7 @@ button,
   color: #010101;
 }
 
-.reviews__sumbit-button {
+.reviews__submit-button {
   top: 46px;
   right: 0;
   position: absolute;

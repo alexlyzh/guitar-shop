@@ -122,9 +122,10 @@ enum SortOrder {
   DESC = 'desc',
 }
 
-enum KeyCode {
-  ESC = 27,
-  ENTER = 13,
+enum KeyboardKey {
+  ESC = 'Escape',
+  ENTER = 'Enter',
+  TAB = 'Tab',
 }
 
 const initialSort = {
@@ -141,7 +142,6 @@ enum HttpCode {
 enum AppMessage {
   ErrorOnGetGuitars = 'Что-то сломалось, попробуйте перезагрузить страницу',
   CatalogPageHeading = 'Каталог гитар',
-  ProductPageHeading = 'Товар',
   CatalogFilterHeading = 'Фильтр',
   CatalogSortHeading = 'Сортировать',
   NothingFound = 'Ничего не нашлось',
@@ -159,7 +159,7 @@ export {
   AppMessage,
   apiRoute,
   debounceDelay,
-  KeyCode,
+  KeyboardKey,
   SortType,
   SortOrder,
   guitarType,

@@ -1,7 +1,7 @@
-import {KeyCode} from '../const';
+import {KeyboardKey} from '../const';
 import {Comment, RemoteDataByID, RequestStatus} from '../types/types';
 
-export const isEscKeyDown = (evt: KeyboardEvent) => evt.keyCode === KeyCode.ESC;
+export const isEscKeyDown = (evt: KeyboardEvent) => evt.key === KeyboardKey.ESC;
 
 export const debounce = <A = unknown, R = void>(
   callback: (params: A) => R,
@@ -32,3 +32,9 @@ export const getCommentsCount = (id: number, comments: RemoteDataByID<Comment>) 
       return null;
   }
 };
+
+export const scrollToPageTop = () => window.scrollTo({
+  top: 0,
+  left: 0,
+  behavior: 'smooth',
+});

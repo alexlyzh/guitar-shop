@@ -2,7 +2,7 @@ import {Guitar} from '../../../types/types';
 import {ChangeEvent} from 'react';
 import SearchItem from './search-item/search-item';
 import {generatePath, useHistory} from 'react-router-dom';
-import {AppPath, KeyCode} from '../../../const';
+import {AppPath, KeyboardKey} from '../../../const';
 
 type Props = {
   search: string,
@@ -45,7 +45,7 @@ function SearchForm({search, onInputChange, isDropdownVisible, foundGuitars}: Pr
             key={`search-${guitar.id}`}
             guitar={guitar}
             onItemKeyDown={(evt) => {
-              if (evt.keyCode === KeyCode.ENTER) {
+              if (evt.key === KeyboardKey.ENTER) {
                 redirectToProductPage(guitar.id);
               }
             }}
