@@ -1,23 +1,27 @@
-import {Link} from 'react-router-dom';
-import {RemoteData, Comment} from '../../../types/types';
 import StarRating from '../../common/star-rating/star-rating';
+import ShowMoreBtn from './show-more-btn/show-more-btn';
 import dayjs from 'dayjs';
-import {monthMap} from '../../../const';
+import { Link } from 'react-router-dom';
+import { RemoteData, Comment } from '../../../types/types';
+import { monthMap } from '../../../const';
+import {useReviewFeed} from '../../../hooks/use-review-feed/use-review-feed';
+import {useRef} from 'react';
 
-// const COMMENTS_STEP = 3;
+const COMMENTS_STEP = 3;
 
 type Props = {
   comments: RemoteData<Comment>,
 }
 
 function Reviews({comments}: Props): JSX.Element {
-  const sortedComments = [...comments.data].sort((a, b) => Date.parse(b.createAt) - Date.parse(a.createAt));
+  const observerRef = useRef<HTMLButtonElement | null>(null);
+  const [reviews, renderNextReviews, isAllRendered] = useReviewFeed(comments, COMMENTS_STEP, observerRef);
 
   return (
     <section className="reviews">
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
       <Link className="button button--red-border button--big reviews__sumbit-button" to="#">Оставить отзыв</Link>
-      {sortedComments.map((comment) => {
+      {reviews.map((comment) => {
         const month = dayjs(comment.createAt).format('MMMM');
         const day = dayjs(comment.createAt).format('D');
         const date = `${day} ${monthMap[month.toLowerCase()]}`;
@@ -39,7 +43,13 @@ function Reviews({comments}: Props): JSX.Element {
           </div>
         );
       })}
-      <button className="button button--medium reviews__more-button">Показать еще отзывы</button>
+      {!isAllRendered ?
+        <ShowMoreBtn
+          ref={observerRef}
+          label={'Показать еще отзывы'}
+          onBtnClick={() => renderNextReviews()}
+        /> : null}
+
       <Link className="button button--up button--red-border button--big reviews__up-button" to="#header" style={{zIndex: 1}}>
         Наверх
       </Link>
