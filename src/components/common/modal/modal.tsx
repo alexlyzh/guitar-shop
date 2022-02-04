@@ -1,5 +1,5 @@
 import { ReactNode, useRef } from 'react';
-import { useTabKeydownFocusTrap } from '../../../hooks/use-tab-keydown-focus-trap/use-tab-keydown-focus-trap';
+import { useTabKeyFocusTrap } from '../../../hooks/use-tab-key-focus-trap/use-tab-key-focus-trap';
 import ReactDOM from 'react-dom';
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 
 function Modal({isOpen, children, onModalClose}: Props) {
   const divRef = useRef<HTMLDivElement | null>(null);
-  useTabKeydownFocusTrap(divRef);
+  useTabKeyFocusTrap(divRef);
 
   if (!isOpen) {
     return null;

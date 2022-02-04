@@ -5,9 +5,13 @@ describe('Reducer: FilterContainer', () => {
   it('should initialize correctly', () => {
     const initialState = {
       isAppInitialized: false,
+      isSubmitting: false,
     };
 
     expect(appReducer(initialState, ActionCreator.initializeApp()))
-      .toEqual({isAppInitialized: true});
+      .toEqual({
+        ...initialState,
+        isAppInitialized: true,
+      });
   });
 });

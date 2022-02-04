@@ -47,6 +47,14 @@ type CommentPost = {
   rating: number,
 }
 
+type ReviewFormState = {
+  'user-name': string,
+  rate?: string,
+  advantage: string,
+  disadvantage: string,
+  review: string,
+}
+
 type SiteRoute = {
   pathname: AppPath,
   title: string,
@@ -60,5 +68,6 @@ export type {
   Guitar,
   Comment,
   CommentPost,
+  ReviewFormState,
   SiteRoute
 };

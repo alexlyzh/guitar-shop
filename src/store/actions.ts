@@ -5,6 +5,7 @@ import { FilterSettings } from './reducer/filter-reducer/filter-reducer';
 
 enum ActionType {
   initializeApp = 'APP / initializeApp',
+  setSubmitting = 'APP / setSubmitting',
   redirect = 'FILTER / redirect',
   startLoadGuitars = 'DATA / startLoadGuitars',
   saveGuitars = 'DATA / saveGuitars',
@@ -12,6 +13,7 @@ enum ActionType {
   startLoadComments = 'DATA / startLoadComments',
   saveComments = 'DATA / saveComments',
   errorLoadComments = 'DATA / errorLoadComments',
+  addComment = 'DATA / addComment',
   saveGuitar = 'DATA / saveGuitar',
   setPriceRange = 'DATA / setPriceRange',
   setFilter = 'FILTER / setFilter',
@@ -25,6 +27,8 @@ enum ActionType {
 
 const ActionCreator = {
   initializeApp: createAction(ActionType.initializeApp),
+
+  setSubmitting: createAction(ActionType.setSubmitting, (isSubmitting: boolean) => ({payload: isSubmitting})),
 
   startLoadGuitars: createAction(ActionType.startLoadGuitars),
 
@@ -41,6 +45,8 @@ const ActionCreator = {
   saveComments: createAction(ActionType.saveComments, (guitarId: number, comments: Comment[]) => ({ payload: {guitarId, comments} })),
 
   setErrorLoadComments: createAction(ActionType.errorLoadComments, (guitarId: number) => ({payload: guitarId})),
+
+  addComment: createAction(ActionType.addComment, (guitarId: number, comment: Comment) => ({payload: {guitarId, comment}})),
 
   setFilter: createAction(ActionType.setFilter, (filter: FilterSettings) => ({payload: filter})),
 

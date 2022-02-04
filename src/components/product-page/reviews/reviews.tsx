@@ -3,13 +3,13 @@ import ShowMoreBtn from './show-more-btn/show-more-btn';
 import dayjs from 'dayjs';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import {RemoteData, Comment, Guitar} from '../../../types/types';
+import { RemoteData, Comment, Guitar } from '../../../types/types';
 import { monthMap } from '../../../const';
 import { useReviewFeed } from '../../../hooks/use-review-feed/use-review-feed';
+import { useModal } from '../../../hooks/use-modal/use-modal';
 import { scrollToPageTop } from '../../../utils/common';
 import Modal from '../../common/modal/modal';
 import ReviewModal from '../review-modal/review-modal';
-import {useModal} from '../../../hooks/use-modal/use-modal';
 
 const COMMENTS_STEP = 3;
 
@@ -63,7 +63,6 @@ function Reviews({comments, product}: Props): JSX.Element {
           label={'Показать еще отзывы'}
           onBtnClick={() => renderNextReviews()}
         /> : null}
-
       <Link
         className="button button--up button--red-border button--big reviews__up-button"
         style={{zIndex: 1}}

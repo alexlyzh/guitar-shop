@@ -3,8 +3,8 @@ import {Comment, RemoteData} from '../../types/types';
 
 const observerOptions = {
   root: null,
-  rootMargin: '50px',
-  threshold: 0,
+  rootMargin: '0px',
+  threshold: 1,
 } as const;
 
 export const useReviewFeed = (

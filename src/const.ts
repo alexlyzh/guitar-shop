@@ -45,6 +45,7 @@ const apiRoute = {
     guitars: '/guitars',
     guitar: '/guitars/:id',
     guitarComments: '/guitars/:id/comments',
+    comments: '/comments',
   },
   search: {
     name: 'name_like',
@@ -135,6 +136,7 @@ const initialSort = {
 
 enum HttpCode {
   OK = 200,
+  BadRequest = 400,
   TooManyRequests = 429,
   NotFound = 404,
 }

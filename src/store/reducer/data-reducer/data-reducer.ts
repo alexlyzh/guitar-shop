@@ -62,6 +62,9 @@ export const dataReducer = createReducer(initialState, (builder) => {
         data: [],
       };
     })
+    .addCase(ActionCreator.addComment, (state, action) => {
+      state.comments[action.payload.guitarId].data.push(action.payload.comment);
+    })
     .addCase(ActionCreator.setPriceRange, (state, action) => {
       state.priceRange = action.payload;
     });

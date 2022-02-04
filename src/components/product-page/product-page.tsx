@@ -12,7 +12,7 @@ import { useBreadcrumbRoutes } from '../../hooks/use-breadcrumb-routes/use-bread
 import { useParams, Link } from 'react-router-dom';
 import { useGuitar } from '../../hooks/use-guitar/use-guitar';
 import { useComments } from '../../hooks/use-comments/use-comments';
-import {scrollToPageTop} from '../../utils/common';
+import { scrollToPageTop } from '../../utils/common';
 
 type PageParams = {
   id: string,
@@ -80,7 +80,6 @@ function ProductPage(): JSX.Element {
 
           {comments[id] ? <Reviews comments={comments[id]} product={product}/> : <Spinner />}
         </>}
-
     </MainLayout>
   );
 }

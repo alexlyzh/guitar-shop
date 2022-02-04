@@ -3,7 +3,7 @@ import { KeyboardKey } from '../../const';
 
 const FOCUSABLE_ELEMENTS_SELECTOR = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-export const useTabKeydownFocusTrap = (trapRef: MutableRefObject<HTMLDivElement | null>) => {
+export const useTabKeyFocusTrap = (trapRef: MutableRefObject<HTMLDivElement | null>) => {
   useEffect(() => {
     const trapElement = trapRef.current;
     if (trapElement) {

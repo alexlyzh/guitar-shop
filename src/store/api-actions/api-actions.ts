@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import { Comment, Guitar } from '../../types/types';
+import {Comment, CommentPost, Guitar} from '../../types/types';
 import { AxiosInstance } from 'axios';
 import { Action } from '@reduxjs/toolkit';
 import { apiRoute, AppPath, AppSearchParam } from '../../const';
@@ -18,7 +18,6 @@ import {
   sortByNameStartingWithTemplate
 } from './utils';
 
-
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
 const ActionAPI = {
@@ -34,8 +33,19 @@ const ActionAPI = {
       }
     },
 
+  postComment: (comment: CommentPost): ThunkActionResult =>
+    async (dispatch, _getState, api): Promise<void> => {
+      dispatch(ActionCreator.setSubmitting(true));
+      try {
+        const {data} = await api.post<Comment>(apiRoute.path.comments, {...comment});
+        dispatch(ActionCreator.addComment(comment.guitarId, data));
+      } finally {
+        dispatch(ActionCreator.setSubmitting(false));
+      }
+    },
+
   searchGuitars: (template: string, setFoundGuitars: Dispatch<SetStateAction<Guitar[]>>): ThunkActionResult =>
-    async (dispatch, getState, api): Promise<void> => {
+    async (dispatch, _getState, api): Promise<void> => {
       try {
         const url = new URL(apiRoute.path.guitars, BASE_API_URL);
         url.searchParams.append(apiRoute.search.name, template);
@@ -74,7 +84,7 @@ const ActionAPI = {
     },
 
   getGuitars: (searchParams: URLSearchParams): ThunkActionResult =>
-    async (dispatch, getState, api): Promise<void> => {
+    async (dispatch, _getState, api): Promise<void> => {
       dispatch(ActionCreator.startLoadGuitars());
       dispatch(ActionCreator.updateFilterUrl(`${AppPath.catalog}?${searchParams.toString()}`));
       try {
