@@ -1,11 +1,10 @@
-import {ComponentType} from 'react';
-import {SiteRoute} from '../../types/types';
-import {siteRoutes} from '../../const';
+import { SiteRoute } from '../../types/types';
+import { siteRoutes } from '../../const';
 
-export const useBreadcrumbRoutes = (Component: ComponentType) => {
+export const useBreadcrumbRoutes = (currentPageTitle: string) => {
   const routes: SiteRoute[] = [];
   for (const route of siteRoutes) {
-    if (route.component === Component) {
+    if (route.title === currentPageTitle) {
       routes.push(route);
       break;
     }

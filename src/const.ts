@@ -1,12 +1,11 @@
 import { SiteRoute } from './types/types';
-import CatalogPage from './components/catalog-page/catalog-page';
-import ProductPage from './components/product-page/product-page';
 
 const MIN_PRICE = 0;
 const MIN_CATALOG_HEIGHT = '745px';
 const FIRST_PAGE = 1;
 const GUITARS_PER_PAGE = 9;
 const STARS_COUNT = 5;
+const MODAL_FADE_OUT_DURATION = 600;
 
 enum AppPath {
   root = '/',
@@ -18,17 +17,14 @@ const siteRoutes: SiteRoute[] = [
   {
     pathname: AppPath.root,
     title: 'Главная',
-    component: null,
   } as const,
   {
     pathname: AppPath.catalog,
     title: 'Каталог',
-    component: CatalogPage,
   } as const,
   {
     pathname: AppPath.product,
     title: 'Товар',
-    component: ProductPage,
   } as const,
 ];
 
@@ -156,6 +152,7 @@ export {
   FIRST_PAGE,
   GUITARS_PER_PAGE,
   STARS_COUNT,
+  MODAL_FADE_OUT_DURATION,
   HttpCode,
   AppPath,
   AppSearchParam,

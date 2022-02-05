@@ -23,7 +23,7 @@ function ProductPage(): JSX.Element {
   const id = Number(params.id);
   const {product, isErrorLoadingGuitars, isFetchingGuitars} = useGuitar(id);
   const comments = useComments([], id);
-  const routes = useBreadcrumbRoutes(ProductPage);
+  const routes = useBreadcrumbRoutes('Товар');
   if (product) {
     routes[routes.length - 1].title = product.name;
   }

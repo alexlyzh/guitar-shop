@@ -1,5 +1,4 @@
 import { AppPath } from '../const';
-import { ReactNode } from 'react';
 
 enum RequestStatus {
   IDLE = 'IDLE',
@@ -58,7 +57,6 @@ type ReviewFormState = {
 type SiteRoute = {
   pathname: AppPath,
   title: string,
-  component: ReactNode,
 }
 
 export {RequestStatus};

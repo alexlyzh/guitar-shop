@@ -1,6 +1,6 @@
-import {Children, isValidElement, ReactNode, useState} from 'react';
 import TabLink from './tab-link/tab-link';
-import {tabLabel} from '../../../const';
+import { Children, isValidElement, ReactNode, useState } from 'react';
+import { tabLabel } from '../../../const';
 
 type Props = {
   children: ReactNode,

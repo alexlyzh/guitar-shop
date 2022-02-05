@@ -16,7 +16,6 @@ function CatalogPage(): JSX.Element {
   const isAppInitialized = useCatalogUrl();
   const {guitars, isFetchingGuitars, isErrorLoadingGuitars} = useGuitars();
   const {currentPage, renderGuitars, paginate} = usePagination(guitars, GUITARS_PER_PAGE, isAppInitialized);
-
   const {
     currentSort,
     setTypePriceSort,
@@ -25,7 +24,7 @@ function CatalogPage(): JSX.Element {
     setAscendingOrderSort,
   } = useSort();
 
-  const routes = useBreadcrumbRoutes(CatalogPage);
+  const routes = useBreadcrumbRoutes('Каталог');
 
   if (isErrorLoadingGuitars) {
     return (
