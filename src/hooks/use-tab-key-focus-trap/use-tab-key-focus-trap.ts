@@ -7,7 +7,7 @@ export const useTabKeyFocusTrap = (trapRef: MutableRefObject<HTMLDivElement | nu
   useEffect(() => {
     const trapElement = trapRef.current;
     if (trapElement) {
-      const focusableElements = Array.from(trapElement.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR)) as HTMLElement[];
+      const focusableElements = [...trapElement.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR)] as HTMLElement[];
       const firstElement = focusableElements[0];
       const lastElement = focusableElements[focusableElements.length - 1];
 

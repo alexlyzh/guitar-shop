@@ -14,18 +14,18 @@ enum AppPath {
 }
 
 const siteRoutes: SiteRoute[] = [
-  {
+  <const>{
     pathname: AppPath.root,
     title: 'Главная',
-  } as const,
-  {
+  },
+  <const>{
     pathname: AppPath.catalog,
     title: 'Каталог',
-  } as const,
-  {
+  },
+  <const>{
     pathname: AppPath.product,
     title: 'Товар',
-  } as const,
+  },
 ];
 
 enum AppSearchParam {
@@ -36,14 +36,14 @@ enum AppSearchParam {
   stringCount = 'stringCount',
 }
 
-const apiRoute = {
-  path: {
+const apiRoute = <const>{
+  path: <const>{
     guitars: '/guitars',
     guitar: '/guitars/:id',
     guitarComments: '/guitars/:id/comments',
     comments: '/comments',
   },
-  search: {
+  search: <const>{
     name: 'name_like',
     sort: '_sort',
     order: '_order',
@@ -54,47 +54,47 @@ const apiRoute = {
   },
 };
 
-const debounceDelay = {
+const debounceDelay = <const>{
   price: 700,
   search: 250,
-} as const;
+};
 
 const stringOptions: Array<number> = [4, 6, 7, 12];
 const typeOptions: Array<string> = ['acoustic', 'electric', 'ukulele'];
 
-const stringCount: Record<string, ReadonlyArray<number>> = {
-  acoustic: [6, 7, 12],
-  ukulele: [4],
-  electric: [4, 6, 7],
+const stringCount: Record<string, ReadonlyArray<number>> = <const>{
+  acoustic: <const> [6, 7, 12],
+  ukulele: <const> [4],
+  electric: <const> [4, 6, 7],
 };
 
-const guitarType: Record<string, Record<string, string>> = {
-  acoustic: {
+const guitarType: Record<string, Record<string, string>> = <const>{
+  acoustic: <const>{
     typeName: 'Акустическая',
     filterName: 'Акустические гитары',
   },
-  ukulele: {
+  ukulele: <const>{
     typeName: 'Укулеле',
     filterName: 'Укулеле',
   },
-  electric: {
+  electric: <const>{
     typeName: 'Электрогитара',
     filterName: 'Электрогитары',
   },
-} as const;
+};
 
-const tabLabel = {
-  characteristics: {
+const tabLabel = <const>{
+  characteristics: <const>{
     en: 'characteristics',
     ru: 'Характеристики',
   },
-  description: {
+  description: <const>{
     en: 'description',
     ru: 'Описание',
   },
-} as const;
+};
 
-const monthMap: Record<string, string> = {
+const monthMap: Record<string, string> = <const>{
   january: 'января',
   february: 'февраля',
   march: 'марта',
@@ -107,7 +107,7 @@ const monthMap: Record<string, string> = {
   october: 'октября',
   november: 'ноября',
   december: 'декабря',
-} as const;
+};
 
 enum SortType {
   PRICE = 'price',
@@ -125,10 +125,10 @@ enum KeyboardKey {
   TAB = 'Tab',
 }
 
-const initialSort = {
+const initialSort = <const>{
   type: SortType.PRICE,
   order: SortOrder.DESC,
-} as const;
+};
 
 enum HttpCode {
   OK = 200,

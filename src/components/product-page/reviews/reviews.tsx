@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { RemoteData, Comment, Guitar } from '../../../types/types';
 import { monthMap } from '../../../const';
 import { useReviewFeed } from '../../../hooks/use-review-feed/use-review-feed';
-import { useModal } from '../../../hooks/use-modal/use-modal';
 import { scrollToPageTop } from '../../../utils/common';
 import ReviewModal from '../review-modal/review-modal';
 import StarRating from '../../common/star-rating/star-rating';
@@ -21,15 +20,10 @@ function Reviews({comments, product}: Props): JSX.Element {
   const observerRef = useRef<HTMLButtonElement | null>(null);
   const [reviews, renderNextReviews, isAllRendered] = useReviewFeed(comments, COMMENTS_STEP, observerRef);
 
-  const [isOpen, showModal, hideModal] = useModal();
-
   return (
     <section className="reviews">
       <h3 className="reviews__title title title--bigger">Отзывы</h3>
-      <Link className="button button--red-border button--big reviews__submit-button" to="#" onClick={showModal}>
-        Оставить отзыв
-      </Link>
-      <ReviewModal product={product} isOpen={isOpen} onModalClose={hideModal} />
+      <ReviewModal product={product} />
 
       {reviews.map((comment) => {
         const month = dayjs(comment.createAt).format('MMMM');

@@ -1,11 +1,11 @@
-import {useMemo, MutableRefObject, useState, useEffect, useCallback} from 'react';
-import {Comment, RemoteData} from '../../types/types';
+import { useMemo, MutableRefObject, useState, useEffect, useCallback } from 'react';
+import { Comment, RemoteData } from '../../types/types';
 
-const observerOptions = {
+const observerOptions = <const>{
   root: null,
   rootMargin: '0px',
   threshold: 1,
-} as const;
+};
 
 export const useReviewFeed = (
   comments: RemoteData<Comment>,

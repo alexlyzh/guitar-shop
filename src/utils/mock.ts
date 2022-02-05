@@ -3,19 +3,19 @@ import {GUITARS_PER_PAGE, STARS_COUNT, stringOptions, typeOptions} from '../cons
 import {getRandomInteger} from './common';
 import {Comment, Guitar, RemoteDataByID, RequestStatus} from '../types/types';
 
-export const Mock = {
+export const Mock = <const> {
   arrayLength: 3,
   id: 3,
   minPrice: 10,
   maxPrice: 100,
-  searchParams: {
+  searchParams: <const> {
     name: 'CURT',
     nameLikeQuery: '/guitars?name_like=CURT',
     sortQuery: '/guitars?_sort=price&_order=asc',
     filterApiQuery: '/guitars?price_gte=23000&price_lte=23000&stringCount=4&type=electric',
     filterAppSearch: 'price_gte=23000&price_lte=23000&stringCount=4&type=electric',
   },
-  guitar: {
+  guitar: <const> {
     id: 10,
     description: 'Корпус электрогитары окрашен в классический цвет, гриф имеет профиль "C".  Подойдёт для исполнения композиций разных жанров.',
     name:'CURT Classic',
@@ -26,15 +26,15 @@ export const Mock = {
     type: 'electric',
     vendorCode: 'TK244556',
   },
-  pagination: {
-    pageNumber: {
+  pagination: <const> {
+    pageNumber: <const> {
       one: 1,
       two: 2,
       three: 3,
       four: 4,
       five: 5,
     },
-    cardsCount: {
+    cardsCount: <const> {
       onePage: GUITARS_PER_PAGE,
       twoPages: GUITARS_PER_PAGE + 1,
       threePages: (GUITARS_PER_PAGE * 2) + 1,
@@ -48,7 +48,7 @@ export const Mock = {
       value: 'ukulele',
     },
   },
-} as const;
+};
 
 export const getMockGuitar = (): Guitar => ({
   id: datatype.number(),

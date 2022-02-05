@@ -1,4 +1,6 @@
 import {useEffect, useState} from 'react';
+import { useModal } from '../../../hooks/use-modal/use-modal';
+import { Link } from 'react-router-dom';
 import { Guitar } from '../../../types/types';
 import { MODAL_FADE_OUT_DURATION } from '../../../const';
 import Modal from '../../common/modal/modal';
@@ -12,25 +14,29 @@ enum ClassName {
 
 type Props = {
   product: Guitar,
-  isOpen: boolean,
-  onModalClose: () => void,
 }
 
-function ReviewModal({product, isOpen, onModalClose}: Props): JSX.Element {
+function ReviewModal({product}: Props): JSX.Element {
+  const [isModalOpen, showModal, hideModal] = useModal();
   const [shouldShowSuccess, setShouldShowSuccess] = useState(false);
 
   useEffect(() => {
-    if (!isOpen) {
+    if (!isModalOpen) {
       setTimeout(() => setShouldShowSuccess(false), MODAL_FADE_OUT_DURATION);
     }
-  }, [isOpen, setShouldShowSuccess]);
+  }, [isModalOpen, setShouldShowSuccess]);
 
   return (
-    <Modal isOpen={isOpen} onModalClose={onModalClose} className={shouldShowSuccess ? ClassName.success : ClassName.review}>
-      {!shouldShowSuccess
-        ? <ReviewForm product={product} onSubmitSuccess={() => setShouldShowSuccess(true)} />
-        : <ReviewSuccess onModalClose={onModalClose} />}
-    </Modal>
+    <>
+      <Link className="button button--red-border button--big reviews__submit-button" to="#" onClick={showModal}>
+        Оставить отзыв
+      </Link>
+      <Modal isOpen={isModalOpen} onModalClose={hideModal} className={shouldShowSuccess ? ClassName.success : ClassName.review}>
+        {!shouldShowSuccess
+          ? <ReviewForm product={product} onSubmitSuccess={() => setShouldShowSuccess(true)} />
+          : <ReviewSuccess onModalClose={hideModal} />}
+      </Modal>
+    </>
   );
 }
 
