@@ -9,6 +9,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { BASE_API_URL } from '../../api';
 import { SortSettings } from '../reducer/sort-reducer/sort-reducer';
 import { generatePath } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {
   checkStringsFilter,
   createCatalogApiUrl,
@@ -17,7 +18,6 @@ import {
   prepareSortAction,
   sortByNameStartingWithTemplate
 } from './utils';
-import {toast} from 'react-toastify';
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 

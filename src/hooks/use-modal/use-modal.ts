@@ -1,5 +1,5 @@
-import {useCallback, useEffect, useState} from 'react';
-import {isEscKeyDown} from '../../utils/common';
+import { useCallback, useEffect, useState } from 'react';
+import { isEscKeyDown } from '../../utils/common';
 
 export const useModal = () => {
   const [isOpen, setIsOpen] = useState(false);
