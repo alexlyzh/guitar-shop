@@ -1,5 +1,3 @@
-import StarRating from '../../common/star-rating/star-rating';
-import ShowMoreBtn from './show-more-btn/show-more-btn';
 import dayjs from 'dayjs';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
@@ -8,8 +6,9 @@ import { monthMap } from '../../../const';
 import { useReviewFeed } from '../../../hooks/use-review-feed/use-review-feed';
 import { useModal } from '../../../hooks/use-modal/use-modal';
 import { scrollToPageTop } from '../../../utils/common';
-import Modal from '../../common/modal/modal';
 import ReviewModal from '../review-modal/review-modal';
+import StarRating from '../../common/star-rating/star-rating';
+import ShowMoreBtn from './show-more-btn/show-more-btn';
 
 const COMMENTS_STEP = 3;
 
@@ -30,9 +29,7 @@ function Reviews({comments, product}: Props): JSX.Element {
       <Link className="button button--red-border button--big reviews__submit-button" to="#" onClick={showModal}>
         Оставить отзыв
       </Link>
-      <Modal isOpen={isOpen} onModalClose={hideModal}>
-        <ReviewModal product={product}/>
-      </Modal>
+      <ReviewModal product={product} isOpen={isOpen} onModalClose={hideModal} />
 
       {reviews.map((comment) => {
         const month = dayjs(comment.createAt).format('MMMM');
@@ -63,14 +60,15 @@ function Reviews({comments, product}: Props): JSX.Element {
           label={'Показать еще отзывы'}
           onBtnClick={() => renderNextReviews()}
         /> : null}
-      <Link
-        className="button button--up button--red-border button--big reviews__up-button"
-        style={{zIndex: 1}}
-        to="#"
-        onClick={scrollToPageTop}
-      >
-        Наверх
-      </Link>
+      {reviews.length ?
+        <Link
+          className="button button--up button--red-border button--big reviews__up-button"
+          style={{zIndex: 1}}
+          to="#"
+          onClick={scrollToPageTop}
+        >
+          Наверх
+        </Link> : null}
     </section>
   );
 }

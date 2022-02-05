@@ -1,8 +1,8 @@
 import { ThunkAction } from 'redux-thunk';
-import {Comment, CommentPost, Guitar} from '../../types/types';
+import { Comment, CommentPost, Guitar } from '../../types/types';
 import { AxiosInstance } from 'axios';
 import { Action } from '@reduxjs/toolkit';
-import { apiRoute, AppPath, AppSearchParam } from '../../const';
+import {apiRoute, AppMessage, AppPath, AppSearchParam} from '../../const';
 import { ActionCreator } from '../actions';
 import { State } from '../reducer/root-reducer';
 import { Dispatch, SetStateAction } from 'react';
@@ -17,6 +17,7 @@ import {
   prepareSortAction,
   sortByNameStartingWithTemplate
 } from './utils';
+import {toast} from 'react-toastify';
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
@@ -33,13 +34,17 @@ const ActionAPI = {
       }
     },
 
-  postComment: (comment: CommentPost): ThunkActionResult =>
+  postComment: (comment: CommentPost, onSuccess?: () => void): ThunkActionResult =>
     async (dispatch, _getState, api): Promise<void> => {
       dispatch(ActionCreator.setSubmitting(true));
       try {
         const {data} = await api.post<Comment>(apiRoute.path.comments, {...comment});
         dispatch(ActionCreator.addComment(comment.guitarId, data));
-      } finally {
+        onSuccess && onSuccess();
+      } catch {
+        toast.info(AppMessage.ErrorPostingReview);
+      }
+      finally {
         dispatch(ActionCreator.setSubmitting(false));
       }
     },

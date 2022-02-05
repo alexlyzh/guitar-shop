@@ -12,13 +12,17 @@ const adaptFormData = (guitarId: number, data: ReviewFormState) => ({
   rating: Number(data.rate),
 }) as CommentPost;
 
-export const usePostReview = (id: number, data: ReviewFormState) => {
+export const usePostReview = (
+  id: number,
+  data: ReviewFormState,
+  onSubmitSuccess?: () => void,
+) => {
   const dispatch = useDispatch();
   const isDataValid = Boolean(data['user-name'] && data.rate);
 
   const postReview = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    isDataValid && dispatch(ActionAPI.postComment(adaptFormData(id, data)));
+    isDataValid && dispatch(ActionAPI.postComment(adaptFormData(id, data), onSubmitSuccess));
   };
 
   return [isDataValid, postReview] as [boolean, (evt: FormEvent<HTMLFormElement>) => void];
