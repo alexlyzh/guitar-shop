@@ -1,4 +1,4 @@
-import { ReactNode, useRef } from 'react';
+import {ReactNode, useRef} from 'react';
 import { useTabKeyFocusTrap } from '../../../hooks/use-tab-key-focus-trap/use-tab-key-focus-trap';
 import ReactDOM from 'react-dom';
 
@@ -12,10 +12,6 @@ type Props = {
 function Modal({children, className, isOpen, onModalClose}: Props) {
   const focusTrapRef = useRef<HTMLDivElement | null>(null);
   useTabKeyFocusTrap(focusTrapRef);
-
-  if (!isOpen) {
-    return null;
-  }
 
   return ReactDOM.createPortal(
     <div className={`modal ${isOpen ? 'is-active' : ''} ${className}`}>

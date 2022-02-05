@@ -18,11 +18,16 @@ type Props = {
 function ReviewModal({product, isOpen, onModalClose}: Props): JSX.Element {
   const [shouldShowSuccess, setShouldShowSuccess] = useState(false);
 
+  const handleSuccessModalClose = () => {
+    onModalClose();
+    setShouldShowSuccess(false);
+  };
+
   return (
     <Modal isOpen={isOpen} onModalClose={onModalClose} className={shouldShowSuccess ? ClassName.success : ClassName.review}>
-      {!shouldShowSuccess
-        ? <ReviewForm product={product} onSubmitSuccess={() => setShouldShowSuccess(true)}/>
-        : <ReviewSuccess onModalClose={onModalClose} onComponentUnmount={() => setShouldShowSuccess(false)}/>}
+      {!shouldShowSuccess && isOpen
+        ? <ReviewForm product={product} onSubmitSuccess={() => setShouldShowSuccess(true)} />
+        : <ReviewSuccess onModalClose={handleSuccessModalClose} />}
     </Modal>
   );
 }

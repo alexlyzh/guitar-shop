@@ -1,15 +1,8 @@
-import {useEffect} from 'react';
-
 type Props = {
   onModalClose: () => void,
-  onComponentUnmount: () => void,
 }
 
-function ReviewSuccess({onModalClose, onComponentUnmount}: Props): JSX.Element {
-  useEffect(() => () => {
-    onComponentUnmount();
-  });
-
+function ReviewSuccess({onModalClose}: Props): JSX.Element {
   return (
     <>
       <svg className="modal__icon" width="26" height="20" aria-hidden="true">

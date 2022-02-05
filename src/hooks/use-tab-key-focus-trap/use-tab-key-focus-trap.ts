@@ -7,26 +7,30 @@ export const useTabKeyFocusTrap = (trapRef: MutableRefObject<HTMLDivElement | nu
   useEffect(() => {
     const trapElement = trapRef.current;
     if (trapElement) {
-      const focusableElements = trapElement.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR) as NodeListOf<HTMLElement>;
+      const focusableElements = Array.from(trapElement.querySelectorAll(FOCUSABLE_ELEMENTS_SELECTOR)) as HTMLElement[];
       const firstElement = focusableElements[0];
       const lastElement = focusableElements[focusableElements.length - 1];
 
       const onTabKeydown = (evt: KeyboardEvent) => {
-        const isTabPressed = evt.key === KeyboardKey.TAB;
-        if (!isTabPressed) {
+        const isTabKeydown = evt.key === KeyboardKey.TAB;
+        if (!isTabKeydown) {
           return;
         }
+        const currentElement = document.activeElement as HTMLElement;
 
-        if (evt.shiftKey) {
-          if (document.activeElement === firstElement) {
+        switch (true) {
+          case evt.shiftKey && currentElement === firstElement:
             lastElement.focus();
             evt.preventDefault();
-          }
-        } else {
-          if (document.activeElement === lastElement) {
+            break;
+          case currentElement === lastElement:
             firstElement.focus();
             evt.preventDefault();
-          }
+            break;
+          case !focusableElements.includes(currentElement):
+            firstElement.focus();
+            evt.preventDefault();
+            break;
         }
       };
 
