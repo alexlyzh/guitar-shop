@@ -1,26 +1,29 @@
-import {createMemoryHistory} from 'history';
-import {render, screen} from '@testing-library/react';
-import {configureMockStore} from '@jedmao/redux-mock-store';
-import thunk from 'redux-thunk';
-import {Router} from 'react-router-dom';
-import {Provider} from 'react-redux';
-import {AppMessage, AppPath} from '../../const';
-import {initialDataState} from '../../store/reducer/data-reducer/data-reducer';
-import {initialSortState} from '../../store/reducer/sort-reducer/sort-reducer';
-import {initialFilterState} from '../../store/reducer/filter-reducer/filter-reducer';
-import {Mock, mockGuitarsWithComments} from '../../utils/mock';
 import App from './app';
-import {RequestStatus} from '../../types/types';
+import thunk from 'redux-thunk';
+import { redirect } from '../../store/middleware/redirect/redirect';
+import { createMemoryHistory } from 'history';
+import { render, screen } from '@testing-library/react';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { AppMessage, AppPath } from '../../const';
+import { initialAppState } from '../../store/reducer/app-reducer/app-reducer';
+import { initialDataState } from '../../store/reducer/data-reducer/data-reducer';
+import { initialSortState } from '../../store/reducer/sort-reducer/sort-reducer';
+import { initialFilterState } from '../../store/reducer/filter-reducer/filter-reducer';
+import { Mock, mockGuitarsWithComments } from '../../utils/mock';
+import { RequestStatus } from '../../types/types';
 
 const history = createMemoryHistory();
-const mockStore = configureMockStore([thunk]);
+const mockStore = configureMockStore([thunk, redirect]);
 
 describe('Application routing', () => {
   it('should correctly render CatalogPage when have got an error navigating to "/catalog"', () => {
     history.push(AppPath.catalog);
     const store = mockStore({
       APP: {
-        isAppInitialized: true,
+        ...initialAppState,
+        isCatalogInitialized: true,
       },
       DATA: {
         ...initialDataState,
@@ -30,7 +33,10 @@ describe('Application routing', () => {
         },
       },
       SORT: initialSortState,
-      FILTER: initialFilterState,
+      FILTER: {
+        ...initialFilterState,
+        isActive: true,
+      },
     });
 
     render(
@@ -50,7 +56,8 @@ describe('Application routing', () => {
 
     const store = mockStore({
       APP: {
-        isAppInitialized: true,
+        ...initialAppState,
+        isCatalogInitialized: true,
       },
       DATA: {
         guitars: {
@@ -64,7 +71,10 @@ describe('Application routing', () => {
         },
       },
       SORT: initialSortState,
-      FILTER: initialFilterState,
+      FILTER: {
+        ...initialFilterState,
+        isActive: true,
+      },
     });
 
     render(

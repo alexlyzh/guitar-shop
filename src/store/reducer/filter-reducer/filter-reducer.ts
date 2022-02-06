@@ -11,10 +11,12 @@ type FilterSettings = {
 }
 
 type FilterState = {
+  isActive: boolean,
   currentFilter: FilterSettings,
 }
 
 const initialState: FilterState = {
+  isActive: false,
   currentFilter: {
     page: FIRST_PAGE,
     strings: [],
@@ -26,6 +28,9 @@ export const filterReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(ActionCreator.setFilter, (state, action) => {
       state.currentFilter = action.payload;
+    })
+    .addCase(ActionCreator.setFilterActivity, (state, action) => {
+      state.isActive = action.payload;
     })
     .addCase(ActionCreator.setCatalogPage, (state, action) => {
       state.currentFilter.page = action.payload;

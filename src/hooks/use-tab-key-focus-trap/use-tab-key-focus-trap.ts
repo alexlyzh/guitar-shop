@@ -23,7 +23,7 @@ export const useTabKeyFocusTrap = (trapRef: MutableRefObject<HTMLDivElement | nu
             lastElement.focus();
             evt.preventDefault();
             break;
-          case currentElement === lastElement:
+          case !evt.shiftKey && currentElement === lastElement:
             firstElement.focus();
             evt.preventDefault();
             break;
@@ -35,8 +35,6 @@ export const useTabKeyFocusTrap = (trapRef: MutableRefObject<HTMLDivElement | nu
       };
 
       document.addEventListener('keydown', onTabKeydown);
-
-      firstElement.focus();
 
       return () => {
         document.removeEventListener('keydown', onTabKeydown);

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import {ChangeEvent, Dispatch, SetStateAction, useState} from 'react';
 
 export const useFormState = <T>(initialState: T) => {
   const [state, setState] = useState(initialState);
@@ -11,5 +11,5 @@ export const useFormState = <T>(initialState: T) => {
     });
   };
 
-  return [state, onFormElementChange] as [T, (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void];
+  return [state, setState, onFormElementChange] as [T, Dispatch<SetStateAction<T>>, (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void];
 };

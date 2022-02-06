@@ -1,38 +1,43 @@
-import {mockGuitarsWithComments} from '../../utils/mock';
-import {RequestStatus} from '../../types/types';
-import {render, screen} from '@testing-library/react';
-import {Provider} from 'react-redux';
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
-import {configureMockStore} from '@jedmao/redux-mock-store';
 import CatalogPage from './catalog-page';
-import {initialSortState} from '../../store/reducer/sort-reducer/sort-reducer';
-import {initialFilterState} from '../../store/reducer/filter-reducer/filter-reducer';
-import {AppMessage} from '../../const';
+import thunk from 'redux-thunk';
+import { mockGuitarsWithComments } from '../../utils/mock';
+import { RequestStatus } from '../../types/types';
+import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { initialSortState } from '../../store/reducer/sort-reducer/sort-reducer';
+import { initialFilterState } from '../../store/reducer/filter-reducer/filter-reducer';
+import { AppMessage } from '../../const';
+import { redirect } from '../../store/middleware/redirect/redirect';
+import {initialAppState} from '../../store/reducer/app-reducer/app-reducer';
+import {initialDataState} from '../../store/reducer/data-reducer/data-reducer';
 
 const history = createMemoryHistory();
-const mockStore = configureMockStore();
+const mockStore = configureMockStore([thunk, redirect]);
 
 describe('Component: CatalogPage', () => {
   it('should render correctly', () => {
     const {guitars, comments} = mockGuitarsWithComments();
     const store = mockStore({
       APP: {
-        isAppInitialized: true,
+        ...initialAppState,
+        isCatalogInitialized: true,
       },
       DATA: {
+        ...initialDataState,
         guitars: {
           requestStatus: RequestStatus.SUCCESS,
           data: guitars,
         },
-        priceRange: {
-          min: null,
-          max: null,
-        },
         comments,
       },
       SORT: initialSortState,
-      FILTER: initialFilterState,
+      FILTER: {
+        ...initialFilterState,
+        isActive: true,
+      },
     });
 
     render(

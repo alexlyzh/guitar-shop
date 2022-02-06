@@ -15,6 +15,6 @@ describe('Component: Breadcrumbs', () => {
     );
 
     expect(screen.getByRole('list')).toBeInTheDocument();
-    expect(screen.getByText('Главная')).toBeInTheDocument();
+    siteRoutes.forEach((route) => expect(screen.getByText(route.title)).toBeInTheDocument());
   });
 });

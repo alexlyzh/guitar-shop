@@ -3,6 +3,8 @@ import { getIsSubmitting } from '../../../store/reducer/app-reducer/selectors';
 import { useFormState } from '../../../hooks/use-form-state/use-form-state';
 import { Guitar, ReviewFormState } from '../../../types/types';
 import { usePostReview } from '../../../hooks/use-post-review/use-post-review';
+import {useEffect} from 'react';
+import {MODAL_FADE_OUT_DURATION} from '../../../const';
 
 const initialState: ReviewFormState = {
   'user-name': '',
@@ -13,13 +15,20 @@ const initialState: ReviewFormState = {
 
 type Props = {
   product: Guitar,
+  isModalOpen?: boolean,
   onSubmitSuccess?: () => void,
 }
 
-function ReviewForm({product, onSubmitSuccess}: Props): JSX.Element {
+function ReviewForm({product, isModalOpen, onSubmitSuccess}: Props): JSX.Element {
   const isSubmitting = useSelector(getIsSubmitting);
-  const [state, onFormElementChange] = useFormState<ReviewFormState>(initialState);
+  const [state, setState, onFormElementChange] = useFormState<ReviewFormState>(initialState);
   const [isDataValid, onReviewFormSubmit] = usePostReview(product.id, state, onSubmitSuccess);
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      setTimeout(() => setState(initialState), MODAL_FADE_OUT_DURATION);
+    }
+  }, [isModalOpen, setState]);
 
   return (
     <>

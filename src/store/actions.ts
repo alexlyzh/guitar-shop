@@ -4,9 +4,9 @@ import { SortSettings } from './reducer/sort-reducer/sort-reducer';
 import { FilterSettings } from './reducer/filter-reducer/filter-reducer';
 
 enum ActionType {
-  initializeApp = 'APP / initializeApp',
+  initializeCatalog = 'APP / initializeCatalog',
   setSubmitting = 'APP / setSubmitting',
-  redirect = 'FILTER / redirect',
+  redirect = 'APP / redirect',
   startLoadGuitars = 'DATA / startLoadGuitars',
   saveGuitars = 'DATA / saveGuitars',
   errorLoadGuitars ='DATA / errorLoadGuitars',
@@ -16,6 +16,7 @@ enum ActionType {
   addComment = 'DATA / addComment',
   saveGuitar = 'DATA / saveGuitar',
   setPriceRange = 'DATA / setPriceRange',
+  setFilterActivity = 'FILTER / setFilterActivity',
   setFilter = 'FILTER / setFilter',
   toggleStringCondition = 'FILTER / toggleStringCondition',
   toggleTypeCondition = 'FILTER / toggleTypeCondition',
@@ -26,7 +27,7 @@ enum ActionType {
 }
 
 const ActionCreator = {
-  initializeApp: createAction(ActionType.initializeApp),
+  initializeCatalog: createAction(ActionType.initializeCatalog),
 
   setSubmitting: createAction(ActionType.setSubmitting, (isSubmitting: boolean) => ({payload: isSubmitting})),
 
@@ -49,6 +50,8 @@ const ActionCreator = {
   addComment: createAction(ActionType.addComment, (guitarId: number, comment: Comment) => ({payload: {guitarId, comment}})),
 
   setFilter: createAction(ActionType.setFilter, (filter: FilterSettings) => ({payload: filter})),
+
+  setFilterActivity: createAction(ActionType.setFilterActivity, (isActive: boolean) => ({payload: isActive})),
 
   toggleStringCondition: createAction(ActionType.toggleStringCondition, (stringCount: number) => ({payload: stringCount})),
 

@@ -13,9 +13,9 @@ import { useGuitars } from '../../hooks/use-guitars/use-guitars';
 import { useBreadcrumbRoutes } from '../../hooks/use-breadcrumb-routes/use-breadcrumb-routes';
 
 function CatalogPage(): JSX.Element {
-  const isAppInitialized = useCatalogUrl();
+  const isCatalogInitialized = useCatalogUrl();
   const {guitars, isFetchingGuitars, isErrorLoadingGuitars} = useGuitars();
-  const {currentPage, renderGuitars, paginate} = usePagination(guitars, GUITARS_PER_PAGE, isAppInitialized);
+  const {currentPage, renderGuitars, paginate} = usePagination(guitars, GUITARS_PER_PAGE, isCatalogInitialized);
   const {
     currentSort,
     setTypePriceSort,
@@ -45,14 +45,14 @@ function CatalogPage(): JSX.Element {
       <div className="catalog" style={{minHeight: MIN_CATALOG_HEIGHT}}>
         <FilterContainer />
         <Sort
-          isDisabled={!isAppInitialized || !guitars.data.length}
+          isDisabled={!isCatalogInitialized || !guitars.data.length}
           currentSort={currentSort}
           onAscendingOrderClick={setAscendingOrderSort}
           onDescendingOrderClick={setDescendingOrderSort}
           onTypePriceClick={setTypePriceSort}
           onTypeRatingClick={setTypeRatingSort}
         />
-        {(isFetchingGuitars || !isAppInitialized) ? <Spinner marginTop={'10em'} /> :
+        {(isFetchingGuitars || !isCatalogInitialized) ? <Spinner marginTop={'10em'} /> :
           <>
             <Cards guitars={renderGuitars} />
             <Pagination

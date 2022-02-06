@@ -1,7 +1,7 @@
-import {dataReducer, initialDataState} from './data-reducer';
-import {ActionCreator} from '../../actions';
-import {RequestStatus} from '../../../types/types';
-import {getMockComment, getMockGuitar, Mock} from '../../../utils/mock';
+import { dataReducer, initialDataState } from './data-reducer';
+import { ActionCreator } from '../../actions';
+import { RequestStatus } from '../../../types/types';
+import { getMockComment, getMockGuitar, Mock } from '../../../utils/mock';
 
 describe('Reducer: Data', () => {
   const state = initialDataState;

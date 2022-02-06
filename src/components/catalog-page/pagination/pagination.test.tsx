@@ -1,14 +1,14 @@
-import {render, screen} from '@testing-library/react';
 import Pagination from './pagination';
-import {Mock} from '../../../utils/mock';
-import {Provider} from 'react-redux';
-import {Router} from 'react-router-dom';
-import {createMemoryHistory} from 'history';
-import {configureMockStore} from '@jedmao/redux-mock-store';
-import {FIRST_PAGE, GUITARS_PER_PAGE} from '../../../const';
-import {getRandomInteger} from '../../../utils/common';
+import { render, screen } from '@testing-library/react';
+import { Mock } from '../../../utils/mock';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { FIRST_PAGE, GUITARS_PER_PAGE } from '../../../const';
+import { getRandomInteger } from '../../../utils/common';
 
-const {pagination} = Mock;
+const { pagination } = Mock;
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();

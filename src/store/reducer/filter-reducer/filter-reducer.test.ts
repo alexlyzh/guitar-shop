@@ -11,6 +11,11 @@ const FAKE_TYPE = 'ukulele';
 describe('Reducer: FilterContainer', () => {
   const state = initialFilterState;
 
+  it('should return initial state without additional parameters', () => {
+    expect(filterReducer(undefined, {type: 'UNKNOWN_ACTION'}))
+      .toEqual(state);
+  });
+
   it('should set specified filter settings to state', () => {
     const filterUpdate = {
       page: Mock.pagination.pageNumber.three,
@@ -21,18 +26,15 @@ describe('Reducer: FilterContainer', () => {
     };
     expect(filterReducer(state, ActionCreator.setFilter(filterUpdate)))
       .toEqual({
+        ...state,
         currentFilter: filterUpdate,
       });
-  });
-
-  it('should return initial state without additional parameters', () => {
-    expect(filterReducer(undefined, {type: 'UNKNOWN_ACTION'}))
-      .toEqual(state);
   });
 
   it('should change min price filter correctly', () => {
     expect(filterReducer(state, ActionCreator.setPriceMin(FAKE_PRICE)))
       .toEqual({
+        ...state,
         currentFilter: {
           ...state.currentFilter,
           priceMin: FAKE_PRICE,
@@ -43,6 +45,7 @@ describe('Reducer: FilterContainer', () => {
   it('should change max price filter correctly', () => {
     expect(filterReducer(state, ActionCreator.setPriceMax(FAKE_PRICE)))
       .toEqual({
+        ...state,
         currentFilter: {
           ...state.currentFilter,
           priceMax: FAKE_PRICE,
@@ -52,6 +55,7 @@ describe('Reducer: FilterContainer', () => {
 
   it('should toggle strings in filter correctly', () => {
     const initialState: FilterState = {
+      ...state,
       currentFilter: {
         page: FIRST_PAGE,
         strings: [],
@@ -61,6 +65,7 @@ describe('Reducer: FilterContainer', () => {
 
     expect(filterReducer(initialState, ActionCreator.toggleStringCondition(FAKE_STRING)))
       .toEqual({
+        ...state,
         currentFilter: {
           ...initialState.currentFilter,
           strings: [FAKE_STRING],
@@ -71,6 +76,7 @@ describe('Reducer: FilterContainer', () => {
 
     expect(filterReducer(initialState, ActionCreator.toggleStringCondition(FAKE_STRING)))
       .toEqual({
+        ...state,
         currentFilter: {
           ...initialState.currentFilter,
           strings: [],
@@ -80,6 +86,7 @@ describe('Reducer: FilterContainer', () => {
 
   it('should toggle types in filter correctly', () => {
     const initialState: FilterState = {
+      ...state,
       currentFilter: {
         page: FIRST_PAGE,
         strings: [],
@@ -89,6 +96,7 @@ describe('Reducer: FilterContainer', () => {
 
     expect(filterReducer(initialState, ActionCreator.toggleTypeCondition(FAKE_TYPE)))
       .toEqual({
+        ...state,
         currentFilter: {
           ...initialState.currentFilter,
           types: [FAKE_TYPE],
@@ -99,6 +107,7 @@ describe('Reducer: FilterContainer', () => {
 
     expect(filterReducer(initialState, ActionCreator.toggleTypeCondition(FAKE_TYPE)))
       .toEqual({
+        ...state,
         currentFilter: {
           ...initialState.currentFilter,
           types: [],

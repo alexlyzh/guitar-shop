@@ -1,10 +1,10 @@
-import {useCallback, useEffect} from 'react';
-import {Guitar, RemoteData, RequestStatus} from '../../types/types';
-import {FIRST_PAGE} from '../../const';
-import {useDispatch, useSelector} from 'react-redux';
-import {getCurrentFilter} from '../../store/reducer/filter-reducer/selectors';
-import {ActionCreator} from '../../store/actions';
-import {createCatalogAppUrl} from '../../store/api-actions/utils';
+import { useCallback, useEffect } from 'react';
+import { Guitar, RemoteData, RequestStatus } from '../../types/types';
+import { FIRST_PAGE } from '../../const';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentFilter } from '../../store/reducer/filter-reducer/selectors';
+import { ActionCreator } from '../../store/actions';
+import { createCatalogAppUrl } from '../../store/api-actions/utils';
 
 export const usePagination = (
   guitars: RemoteData<Guitar>,

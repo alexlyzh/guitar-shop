@@ -34,6 +34,7 @@ describe('Async actions', () => {
     expect(store.getActions()).toEqual([
       ActionCreator.startLoadGuitars(),
       ActionCreator.setPriceRange(minPrice, maxPrice),
+      ActionCreator.initializeCatalog(),
     ]);
   });
 
@@ -126,6 +127,7 @@ describe('Async actions', () => {
       ActionCreator.startLoadGuitars(),
       ActionCreator.updateFilterUrl(`${AppPath.catalog}?page=${FIRST_PAGE}&${Mock.searchParams.filterAppSearch}`),
       ActionCreator.saveGuitars(guitars),
+      ActionCreator.setFilterActivity(true),
     ]);
   });
 });

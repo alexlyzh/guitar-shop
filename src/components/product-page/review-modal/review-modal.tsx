@@ -28,13 +28,16 @@ function ReviewModal({product}: Props): JSX.Element {
 
   return (
     <>
-      <Link className="button button--red-border button--big reviews__submit-button" to="#" onClick={showModal}>
+      <Link className="button button--red-border button--big reviews__submit-button"
+        to="#"
+        onClick={showModal}
+      >
         Оставить отзыв
       </Link>
       <Modal isOpen={isModalOpen} onModalClose={hideModal} className={shouldShowSuccess ? ClassName.success : ClassName.review}>
         {!shouldShowSuccess
-          ? <ReviewForm product={product} onSubmitSuccess={() => setShouldShowSuccess(true)} />
-          : <ReviewSuccess onModalClose={hideModal} />}
+          ? <ReviewForm isModalOpen={isModalOpen} product={product} onSubmitSuccess={() => setShouldShowSuccess(true)} />
+          : <ReviewSuccess onButtonClick={hideModal} />}
       </Modal>
     </>
   );

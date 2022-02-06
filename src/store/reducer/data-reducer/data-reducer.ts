@@ -1,6 +1,6 @@
-import {createReducer} from '@reduxjs/toolkit';
-import {Comment, Guitar, RemoteData, RemoteDataByID, RequestStatus} from '../../../types/types';
-import {ActionCreator} from '../../actions';
+import { createReducer } from '@reduxjs/toolkit';
+import { Comment, Guitar, RemoteData, RemoteDataByID, RequestStatus } from '../../../types/types';
+import { ActionCreator } from '../../actions';
 
 type DataState = {
   guitars: RemoteData<Guitar>,

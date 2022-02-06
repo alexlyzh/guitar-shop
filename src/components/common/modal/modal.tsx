@@ -1,15 +1,15 @@
-import {ReactNode, useRef} from 'react';
+import { ReactNode, useRef } from 'react';
 import { useTabKeyFocusTrap } from '../../../hooks/use-tab-key-focus-trap/use-tab-key-focus-trap';
 import ReactDOM from 'react-dom';
 
-type Props = {
+type ModalProps = {
   children: ReactNode,
   isOpen: boolean,
   onModalClose: () => void,
   className?: string,
 }
 
-function Modal({children, className, isOpen, onModalClose}: Props) {
+function Modal({children, className, isOpen, onModalClose}: ModalProps) {
   const focusTrapRef = useRef<HTMLDivElement | null>(null);
   useTabKeyFocusTrap(focusTrapRef);
 
@@ -29,3 +29,4 @@ function Modal({children, className, isOpen, onModalClose}: Props) {
 }
 
 export default Modal;
+export type { ModalProps };

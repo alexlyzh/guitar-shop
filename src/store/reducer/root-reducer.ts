@@ -1,8 +1,8 @@
-import {combineReducers} from '@reduxjs/toolkit';
-import {dataReducer} from './data-reducer/data-reducer';
-import {sortReducer} from './sort-reducer/sort-reducer';
-import {filterReducer} from './filter-reducer/filter-reducer';
-import {appReducer} from './app-reducer/app-reducer';
+import { combineReducers } from '@reduxjs/toolkit';
+import { dataReducer } from './data-reducer/data-reducer';
+import { sortReducer } from './sort-reducer/sort-reducer';
+import { filterReducer } from './filter-reducer/filter-reducer';
+import { appReducer } from './app-reducer/app-reducer';
 
 export type State = ReturnType<typeof rootReducer>;
 
