@@ -1,7 +1,7 @@
 import {datatype, internet} from 'faker';
 import {GUITARS_PER_PAGE, STARS_COUNT, stringOptions, typeOptions} from '../const';
 import {getRandomInteger} from './common';
-import {Comment, Guitar, RemoteDataByID, RequestStatus} from '../types/types';
+import {Comment, CommentPost, Guitar, RemoteDataByID, RequestStatus} from '../types/types';
 
 export const Mock = <const> {
   arrayLength: 3,
@@ -12,8 +12,8 @@ export const Mock = <const> {
     name: 'CURT',
     nameLikeQuery: '/guitars?name_like=CURT',
     sortQuery: '/guitars?_sort=price&_order=asc',
-    filterApiQuery: '/guitars?price_gte=23000&price_lte=23000&stringCount=4&type=electric',
-    filterAppSearch: 'price_gte=23000&price_lte=23000&stringCount=4&type=electric',
+    filterPathnameWithSearchParams: '/guitars?price_gte=23000&price_lte=23000&stringCount=4&type=electric',
+    filterSearchParamsOnly: 'price_gte=23000&price_lte=23000&stringCount=4&type=electric',
   },
   guitar: <const> {
     id: 10,
@@ -63,6 +63,7 @@ export const getMockGuitar = (): Guitar => ({
 });
 
 export const getMockComment = (guitarId: number): Comment => ({
+  guitarId,
   id: datatype.string(),
   userName: internet.userName(),
   advantage: datatype.string(),
@@ -70,7 +71,15 @@ export const getMockComment = (guitarId: number): Comment => ({
   comment: datatype.string(),
   rating: datatype.number(STARS_COUNT),
   createAt: new Date().toISOString(),
+});
+
+export const getMockCommentPost = (guitarId: number, comment: Comment): CommentPost => ({
   guitarId,
+  userName: comment.userName,
+  advantage: comment.advantage,
+  disadvantage: comment.disadvantage,
+  comment: comment.comment,
+  rating: comment.rating,
 });
 
 export const mockGuitarsWithComments = () => {

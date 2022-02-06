@@ -16,6 +16,15 @@ describe('Reducer: FilterContainer', () => {
       .toEqual(state);
   });
 
+  it('should change activity state', () => {
+    const isActive = Boolean(getRandomInteger());
+    expect(filterReducer(state, ActionCreator.setFilterActivity(isActive)))
+      .toEqual({
+        ...state,
+        isActive,
+      });
+  });
+
   it('should set specified filter settings to state', () => {
     const filterUpdate = {
       page: Mock.pagination.pageNumber.three,

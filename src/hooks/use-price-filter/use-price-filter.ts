@@ -1,8 +1,7 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {ChangeEvent} from 'react';
-import {ActionCreator} from '../../store/actions';
-import {ActionAPI} from '../../store/api-actions/api-actions';
-import {getCurrentFilter} from '../../store/reducer/filter-reducer/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { ChangeEvent } from 'react';
+import { ActionCreator } from '../../store/actions';
+import { getCurrentFilter } from '../../store/reducer/filter-reducer/selectors';
 
 type PriceChangeAction = ReturnType<typeof ActionCreator.setPriceMax> | ReturnType<typeof ActionCreator.setPriceMin>;
 type PriceChangeActionCreator = (price?: number) => PriceChangeAction;
@@ -25,11 +24,9 @@ export const usePriceFilter = (minPriceLimit?: number, maxPriceLimit?: number) =
       if (price !== limitedPrice) {
         target.value = limitedPrice.toString();
       }
-      dispatch(ActionAPI.updateFilter());
       return;
     }
     dispatch(callback());
-    dispatch(ActionAPI.updateFilter());
   };
 
   const onPriceMinInput = (evt: ChangeEvent<HTMLInputElement>) =>

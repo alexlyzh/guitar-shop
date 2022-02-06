@@ -2,6 +2,7 @@ import { useGuitars } from '../use-guitars/use-guitars';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ActionAPI } from '../../store/api-actions/api-actions';
+import { ActionCreator } from '../../store/actions';
 
 export const useGuitar = (id: number) => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ export const useGuitar = (id: number) => {
   useEffect(() => {
     if (shouldLoadGuitar) {
       dispatch(ActionAPI.getGuitarById(id));
+      dispatch(ActionCreator.setFilterActivity(false));
     }
   }, [shouldLoadGuitar, id, dispatch]);
 

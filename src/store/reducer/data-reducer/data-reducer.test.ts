@@ -11,6 +11,18 @@ describe('Reducer: Data', () => {
       .toEqual(state);
   });
 
+  it('should save guitar correctly', () => {
+    const newGuitar = getMockGuitar();
+    expect(dataReducer(state, ActionCreator.saveGuitar(newGuitar)))
+      .toEqual({
+        ...state,
+        guitars: {
+          requestStatus: RequestStatus.SUCCESS,
+          data: [newGuitar],
+        },
+      });
+  });
+
   it('should set request status "PENDING" with empty guitars data', () => {
     expect(dataReducer(state, ActionCreator.startLoadGuitars()))
       .toEqual({

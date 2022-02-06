@@ -93,6 +93,14 @@ const ActionAPI = {
       }
     },
 
+  updateFilter: (): ThunkActionResult =>
+    async (dispatch, getState, _api): Promise<void> => {
+      const state = getState();
+      const filter = checkStringsFilter(state.FILTER.currentFilter);
+      const params = new URLSearchParams(createCatalogAppUrl(filter).search);
+      await dispatch(ActionAPI.getGuitars(params));
+    },
+
   getGuitars: (searchParams: URLSearchParams): ThunkActionResult =>
     async (dispatch, _getState, api): Promise<void> => {
       dispatch(ActionCreator.startLoadGuitars());
@@ -101,7 +109,6 @@ const ActionAPI = {
         searchParams.delete(AppSearchParam.page);
         const {data} = await api.get<Guitar[]>(`${apiRoute.path.guitars}?${searchParams.toString()}`);
         dispatch(ActionCreator.saveGuitars(data));
-        dispatch(ActionCreator.setFilterActivity(true));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());
         throw e;
@@ -114,19 +121,10 @@ const ActionAPI = {
       try {
         const {data} = await api.get<Guitar>(generatePath(apiRoute.path.guitar, {id}));
         dispatch(ActionCreator.saveGuitar(data));
-        dispatch(ActionCreator.setFilterActivity(false));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());
         throw e;
       }
-    },
-
-  updateFilter: (): ThunkActionResult =>
-    async (dispatch, getState, _api): Promise<void> => {
-      const state = getState();
-      const filter = checkStringsFilter(state.FILTER.currentFilter);
-      const params = new URLSearchParams(createCatalogAppUrl(filter).search);
-      await dispatch(ActionAPI.getGuitars(params));
     },
 };
 

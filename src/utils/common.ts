@@ -1,4 +1,4 @@
-import {KeyboardKey} from '../const';
+import {KeyboardKey, screenTopOptions} from '../const';
 import {Comment, RemoteDataByID, RequestStatus} from '../types/types';
 
 export const isEscKeyDown = (evt: KeyboardEvent) => evt.key === KeyboardKey.ESC;
@@ -33,8 +33,4 @@ export const getCommentsCount = (id: number, comments: RemoteDataByID<Comment>) 
   }
 };
 
-export const scrollToPageTop = () => window.scrollTo({
-  top: 0,
-  left: 0,
-  behavior: 'smooth',
-});
+export const scrollToPageTop = () => window.scrollTo(screenTopOptions);

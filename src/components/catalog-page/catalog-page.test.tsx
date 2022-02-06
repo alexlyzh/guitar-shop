@@ -1,5 +1,4 @@
 import CatalogPage from './catalog-page';
-import thunk from 'redux-thunk';
 import { mockGuitarsWithComments } from '../../utils/mock';
 import { RequestStatus } from '../../types/types';
 import { render, screen } from '@testing-library/react';
@@ -7,15 +6,14 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { configureMockStore } from '@jedmao/redux-mock-store';
+import { initialAppState } from '../../store/reducer/app-reducer/app-reducer';
+import { initialDataState } from '../../store/reducer/data-reducer/data-reducer';
 import { initialSortState } from '../../store/reducer/sort-reducer/sort-reducer';
 import { initialFilterState } from '../../store/reducer/filter-reducer/filter-reducer';
 import { AppMessage } from '../../const';
-import { redirect } from '../../store/middleware/redirect/redirect';
-import {initialAppState} from '../../store/reducer/app-reducer/app-reducer';
-import {initialDataState} from '../../store/reducer/data-reducer/data-reducer';
 
 const history = createMemoryHistory();
-const mockStore = configureMockStore([thunk, redirect]);
+const mockStore = configureMockStore();
 
 describe('Component: CatalogPage', () => {
   it('should render correctly', () => {

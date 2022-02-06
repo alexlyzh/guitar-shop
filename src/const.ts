@@ -109,6 +109,13 @@ const monthMap: Record<string, string> = <const>{
   december: 'декабря',
 };
 
+const screenTopOptions = <const>{
+  top: 0,
+  left: 0,
+  behavior: 'smooth',
+};
+
+
 enum SortType {
   PRICE = 'price',
   RATING = 'rating',
@@ -169,5 +176,6 @@ export {
   typeOptions,
   siteRoutes,
   tabLabel,
-  monthMap
+  monthMap,
+  screenTopOptions
 };

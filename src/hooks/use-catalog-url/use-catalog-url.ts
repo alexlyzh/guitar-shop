@@ -25,6 +25,7 @@ export const useCatalogUrl = () => {
         types: searchParams.getAll(AppSearchParam.type),
         strings: searchParams.getAll(AppSearchParam.stringCount).map((string) => Number(string)),
       }));
+      dispatch(ActionCreator.setFilterActivity(true));
       dispatch(ActionAPI.getGuitars(searchParams));
     }
   }, [shouldParseCatalogUrl, searchParams, dispatch]);

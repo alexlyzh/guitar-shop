@@ -25,7 +25,7 @@ describe('Middlewares: redirect', () => {
   beforeEach(() => fakeHistory.push(''));
 
   it('should redirect to specified pathname', () => {
-    const mockPathname = `${AppPath.catalog}?${Mock.searchParams.filterAppSearch}`;
+    const mockPathname = `${AppPath.catalog}?${Mock.searchParams.filterSearchParamsOnly}`;
     store.dispatch(ActionCreator.updateFilterUrl(mockPathname));
     expect(fakeHistory.location.pathname).toBe(mockPathname);
     expect(store.getActions()).toEqual([ActionCreator.updateFilterUrl(mockPathname)]);
