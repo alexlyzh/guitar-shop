@@ -1,6 +1,6 @@
-import { useGuitars } from '../use-guitars/use-guitars';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useGuitars } from '../use-guitars/use-guitars';
 import { ActionAPI } from '../../store/api-actions/api-actions';
 import { ActionCreator } from '../../store/actions';
 

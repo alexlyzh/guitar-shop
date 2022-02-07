@@ -141,6 +141,7 @@ enum HttpCode {
 enum AppMessage {
   ErrorOnGetGuitars = 'Что-то сломалось, попробуйте перезагрузить страницу',
   ErrorPostingReview = 'Нужно заполнить все поля формы отзыва',
+  ErrorOnFilterUpdate = 'Ошибка при обновлении фильтра',
   CatalogPageHeading = 'Каталог гитар',
   CatalogFilterHeading = 'Фильтр',
   CatalogSortHeading = 'Сортировать',

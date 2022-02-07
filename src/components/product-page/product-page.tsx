@@ -9,21 +9,25 @@ import Description from './description/description';
 import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { AppMessage, tabLabel } from '../../const';
-import { useBreadcrumbRoutes } from '../../hooks/use-breadcrumb-routes/use-breadcrumb-routes';
 import { useGuitar } from '../../hooks/use-guitar/use-guitar';
 import { useComments } from '../../hooks/use-comments/use-comments';
-import { scrollToPageTop } from '../../utils/common';
+import { getBreadcrumbRoutes, scrollToPageTop } from '../../utils/common';
 
 type PageParams = {
   id: string,
 }
 
-function ProductPage(): JSX.Element {
+type Props = {
+  productId?: number | string,
+}
+
+function ProductPage({productId}: Props): JSX.Element {
   const params: PageParams = useParams();
-  const id = Number(params.id);
-  const {product, isErrorLoadingGuitars, isFetchingGuitars} = useGuitar(id);
+  const id = Number(productId ? productId : params.id);
+  const { product, isErrorLoadingGuitars, isFetchingGuitars } = useGuitar(id);
   const comments = useComments([], id);
-  const routes = useBreadcrumbRoutes('Товар');
+  const routes = getBreadcrumbRoutes('Товар');
+
   if (product) {
     routes[routes.length - 1].title = product.name;
   }

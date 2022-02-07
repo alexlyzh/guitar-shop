@@ -41,8 +41,9 @@ const ActionAPI = {
         const {data} = await api.post<Comment>(apiRoute.path.comments, {...comment});
         dispatch(ActionCreator.addComment(comment.guitarId, data));
         onSuccess && onSuccess();
-      } catch {
+      } catch (e) {
         toast.info(AppMessage.ErrorPostingReview);
+        throw e;
       }
       finally {
         dispatch(ActionCreator.setSubmitting(false));
@@ -88,8 +89,9 @@ const ActionAPI = {
         const {minPrice, maxPrice} = parseGuitarsData(data);
         dispatch(ActionCreator.setPriceRange(minPrice, maxPrice));
         dispatch(ActionCreator.initializeCatalog());
-      } catch {
+      } catch (e) {
         toast.error(AppMessage.ErrorOnGetGuitars);
+        throw e;
       }
     },
 
@@ -98,15 +100,20 @@ const ActionAPI = {
       const state = getState();
       const filter = checkStringsFilter(state.FILTER.currentFilter);
       const params = new URLSearchParams(createCatalogAppUrl(filter).search);
-      await dispatch(ActionAPI.getGuitars(params));
+      try {
+        await dispatch(ActionAPI.getGuitars(params));
+      } catch (e) {
+        toast.error(AppMessage.ErrorOnFilterUpdate);
+        throw e;
+      }
     },
 
   getGuitars: (searchParams: URLSearchParams): ThunkActionResult =>
     async (dispatch, _getState, api): Promise<void> => {
       dispatch(ActionCreator.startLoadGuitars());
       dispatch(ActionCreator.updateFilterUrl(`${AppPath.catalog}?${searchParams.toString()}`));
+      searchParams.delete(AppSearchParam.page);
       try {
-        searchParams.delete(AppSearchParam.page);
         const {data} = await api.get<Guitar[]>(`${apiRoute.path.guitars}?${searchParams.toString()}`);
         dispatch(ActionCreator.saveGuitars(data));
       } catch (e) {

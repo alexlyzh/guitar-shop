@@ -1,12 +1,10 @@
 import TabContainer from './tab-container';
 import userEvent from '@testing-library/user-event';
-
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render, screen } from '@testing-library/react';
 
 const history = createMemoryHistory();
-
 
 type TabChildProps = {
   label: string,

@@ -8,16 +8,13 @@ class IntersectionObserver {
   observe = jest.fn();
 
   disconnect = jest.fn();
+
+  unobserve = jest.fn();
 }
 
 Object.defineProperty(window, 'IntersectionObserver', {
   value: IntersectionObserver,
 });
 
-Object.defineProperty(global, 'IntersectionObserver', {
-  value: IntersectionObserver,
-});
-
 const scrollTo = jest.fn();
 Object.defineProperty(window, 'scrollTo', {value: scrollTo});
-Object.defineProperty(global, 'scrollTo', {value: scrollTo});

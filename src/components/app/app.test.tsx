@@ -40,8 +40,6 @@ describe('Application routing', () => {
           },
         },
       },
-      SORT: initialSortState,
-      FILTER: initialFilterState,
     });
 
     render(

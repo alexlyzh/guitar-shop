@@ -5,15 +5,15 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
 import { render } from '@testing-library/react';
+import { AppPath } from '../../const';
+import { getMockGuitar } from '../../utils/mock';
+import { RequestStatus } from '../../types/types';
 import { initialAppState } from '../../store/reducer/app-reducer/app-reducer';
 import { initialDataState } from '../../store/reducer/data-reducer/data-reducer';
-import { initialFilterState } from '../../store/reducer/filter-reducer/filter-reducer';
-import { initialSortState } from '../../store/reducer/sort-reducer/sort-reducer';
-import { AppPath } from '../../const';
-import { getMockComment, getMockGuitar } from '../../utils/mock';
-import { RequestStatus } from '../../types/types';
 
+const guitar = getMockGuitar();
 const history = createMemoryHistory();
+history.push(generatePath(AppPath.product, {id: guitar.id}));
 const mockStore = configureMockStore([thunk]);
 
 const modalRoot = document.createElement('div');
@@ -22,10 +22,6 @@ document.body.appendChild(modalRoot);
 
 describe('Component: ProductPage', () => {
   it('should render correctly', () => {
-    const guitar = getMockGuitar();
-    const comment = getMockComment(guitar.id);
-    history.replace(generatePath(AppPath.product, { id: guitar.id }));
-
     const store = mockStore({
       APP: initialAppState,
       DATA: {
@@ -37,22 +33,19 @@ describe('Component: ProductPage', () => {
         comments: {
           [guitar.id]: {
             requestStatus: RequestStatus.SUCCESS,
-            data: [comment],
+            data: [],
           },
         },
       },
-      SORT: initialSortState,
-      FILTER: initialFilterState,
     });
+
 
     render(
       <Provider store={store}>
         <Router history={history}>
-          <ProductPage />
+          <ProductPage productId={guitar.id} />
         </Router>
       </Provider>,
     );
   });
 });
-
-export {};

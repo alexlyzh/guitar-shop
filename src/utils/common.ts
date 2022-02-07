@@ -1,5 +1,5 @@
-import {KeyboardKey, screenTopOptions} from '../const';
-import {Comment, RemoteDataByID, RequestStatus} from '../types/types';
+import { KeyboardKey, screenTopOptions, siteRoutes } from '../const';
+import { Comment, RemoteDataByID, RequestStatus, SiteRoute } from '../types/types';
 
 export const isEscKeyDown = (evt: KeyboardEvent) => evt.key === KeyboardKey.ESC;
 
@@ -34,3 +34,15 @@ export const getCommentsCount = (id: number, comments: RemoteDataByID<Comment>) 
 };
 
 export const scrollToPageTop = () => window.scrollTo(screenTopOptions);
+
+export const getBreadcrumbRoutes = (currentPageTitle: string) => {
+  const routes: SiteRoute[] = [];
+  for (const route of siteRoutes) {
+    if (route.title === currentPageTitle) {
+      routes.push(route);
+      break;
+    }
+    routes.push(route);
+  }
+  return routes;
+};
