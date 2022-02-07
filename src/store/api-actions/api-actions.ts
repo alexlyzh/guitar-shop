@@ -2,7 +2,7 @@ import { ThunkAction } from 'redux-thunk';
 import { Comment, CommentPost, Guitar } from '../../types/types';
 import { AxiosInstance } from 'axios';
 import { Action } from '@reduxjs/toolkit';
-import {apiRoute, AppMessage, AppPath, AppSearchParam} from '../../const';
+import { apiRoute, AppMessage, AppPath, AppSearchParam } from '../../const';
 import { ActionCreator } from '../actions';
 import { State } from '../reducer/root-reducer';
 import { Dispatch, SetStateAction } from 'react';
@@ -100,12 +100,7 @@ const ActionAPI = {
       const state = getState();
       const filter = checkStringsFilter(state.FILTER.currentFilter);
       const params = new URLSearchParams(createCatalogAppUrl(filter).search);
-      try {
-        await dispatch(ActionAPI.getGuitars(params));
-      } catch (e) {
-        toast.error(AppMessage.ErrorOnFilterUpdate);
-        throw e;
-      }
+      await dispatch(ActionAPI.getGuitars(params));
     },
 
   getGuitars: (searchParams: URLSearchParams): ThunkActionResult =>

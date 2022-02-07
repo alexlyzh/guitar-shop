@@ -4,7 +4,7 @@ import { generatePath, Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { AppPath } from '../../const';
 import { getMockGuitar } from '../../utils/mock';
 import { RequestStatus } from '../../types/types';
@@ -39,7 +39,6 @@ describe('Component: ProductPage', () => {
       },
     });
 
-
     render(
       <Provider store={store}>
         <Router history={history}>
@@ -47,5 +46,10 @@ describe('Component: ProductPage', () => {
         </Router>
       </Provider>,
     );
+
+    expect(screen.getByText(/Характеристики/)).toBeInTheDocument();
+    expect(screen.getByText(/Описание/)).toBeInTheDocument();
+    expect(screen.getByText(/Добавить в корзину/)).toBeInTheDocument();
+    expect(screen.getByText(/Отзывы/)).toBeInTheDocument();
   });
 });
