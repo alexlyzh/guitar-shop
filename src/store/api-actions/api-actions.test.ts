@@ -1,15 +1,15 @@
-import { Action, AnyAction } from '@reduxjs/toolkit';
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
 import thunk, { ThunkDispatch } from 'redux-thunk';
+import { generatePath } from 'react-router-dom';
+import { Action, AnyAction } from '@reduxjs/toolkit';
+import { configureMockStore } from '@jedmao/redux-mock-store';
 import { State } from '../reducer/root-reducer';
 import { BASE_API_URL, createApi } from '../../api';
-import { apiRoute, AppPath, HttpCode, SortOrder, SortType } from '../../const';
+import { apiRoute, AppPath, FIRST_PAGE, HttpCode, SortOrder, SortType } from '../../const';
 import { getMockComment, getMockCommentPost, getMockGuitar, Mock } from '../../utils/mock';
 import { ActionAPI } from './api-actions';
 import { ActionCreator } from '../actions';
-import { parseGuitarsData } from './utils';
-import { generatePath } from 'react-router-dom';
+import { createCatalogApiUrl, createCatalogAppUrl, parseGuitarsData } from './utils';
 import { initialSortState } from '../reducer/sort-reducer/sort-reducer';
 import { initialFilterState } from '../reducer/filter-reducer/filter-reducer';
 import { getRandomInteger } from '../../utils/common';
@@ -39,18 +39,59 @@ describe('Async actions', () => {
     ]);
   });
 
-  it('should dispatch correct actions calling getGuitars', async () => {
-    const store = mockStore();
+  it('should dispatch correct actions calling updateFilter', async () => {
+    const filter = {
+      page: FIRST_PAGE,
+      priceMin: Mock.guitar.price,
+      priceMax: Mock.guitar.price,
+      strings: [Mock.guitar.stringCount],
+      types: [Mock.guitar.type],
+    };
+    const store = mockStore({
+      FILTER: {
+        currentFilter: filter,
+      },
+      SORT: initialSortState,
+    });
+
     const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
     mockApi
-      .onGet(`${apiRoute.path.guitars}?${Mock.searchParams.filterSearchParamsOnly}`)
+      .onGet(createCatalogApiUrl(filter, initialSortState.currentSort).href)
       .reply(HttpCode.OK, guitars);
 
-    await store.dispatch(ActionAPI.getGuitars(new URLSearchParams(Mock.searchParams.filterSearchParamsOnly)));
+    await store.dispatch(ActionAPI.updateFilter());
+
+    expect(store.getActions()).toEqual([
+      ActionCreator.updateFilterUrl(`${AppPath.catalog}?${createCatalogAppUrl(filter).search}`),
+      ActionCreator.startLoadGuitars(),
+      ActionCreator.saveGuitars(guitars),
+    ]);
+  });
+
+  it('should dispatch correct actions calling getGuitars', async () => {
+    const filter = {
+      page: FIRST_PAGE,
+      priceMin: Mock.guitar.price,
+      priceMax: Mock.guitar.price,
+      strings: [Mock.guitar.stringCount],
+      types: [Mock.guitar.type],
+    };
+    const store = mockStore({
+      FILTER: {
+        currentFilter: filter,
+      },
+      SORT: initialSortState,
+    });
+    const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
+    const apiUrl = createCatalogApiUrl(filter, initialSortState.currentSort);
+    mockApi
+      .onGet(apiUrl.href)
+      .reply(HttpCode.OK, guitars);
+
+    await store.dispatch(ActionAPI.getGuitars(new URLSearchParams(apiUrl.search)));
 
     expect(store.getActions()).toEqual([
       ActionCreator.startLoadGuitars(),
-      ActionCreator.updateFilterUrl(`${AppPath.catalog}?${Mock.searchParams.filterSearchParamsOnly}`),
       ActionCreator.saveGuitars(guitars),
     ]);
   });
