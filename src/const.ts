@@ -84,14 +84,8 @@ const guitarType: Record<string, Record<string, string>> = <const>{
 };
 
 const tabLabel = <const>{
-  characteristics: <const>{
-    en: 'characteristics',
-    ru: 'Характеристики',
-  },
-  description: <const>{
-    en: 'description',
-    ru: 'Описание',
-  },
+  characteristics: 'Характеристики',
+  description: 'Описание',
 };
 
 const monthMap: Record<string, string> = <const>{

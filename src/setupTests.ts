@@ -3,3 +3,21 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+
+class IntersectionObserver {
+  observe = jest.fn();
+
+  disconnect = jest.fn();
+}
+
+Object.defineProperty(window, 'IntersectionObserver', {
+  value: IntersectionObserver,
+});
+
+Object.defineProperty(global, 'IntersectionObserver', {
+  value: IntersectionObserver,
+});
+
+const scrollTo = jest.fn();
+Object.defineProperty(window, 'scrollTo', {value: scrollTo});
+Object.defineProperty(global, 'scrollTo', {value: scrollTo});

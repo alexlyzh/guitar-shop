@@ -1,12 +1,12 @@
-import {render, screen} from '@testing-library/react';
-import {createMemoryHistory} from 'history';
-import {Router} from 'react-router-dom';
-import {Provider} from 'react-redux';
 import Cards from './cards';
-import {configureMockStore} from '@jedmao/redux-mock-store';
-import {mockGuitarsWithComments} from '../../../utils/mock';
-import {Guitar, RequestStatus} from '../../../types/types';
-import {AppMessage} from '../../../const';
+import { render, screen } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { mockGuitarsWithComments } from '../../../utils/mock';
+import { Guitar, RequestStatus } from '../../../types/types';
+import { AppMessage } from '../../../const';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();

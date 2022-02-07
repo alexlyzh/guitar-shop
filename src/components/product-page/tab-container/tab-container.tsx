@@ -1,6 +1,5 @@
 import TabLink from './tab-link/tab-link';
 import { Children, isValidElement, ReactNode, useState } from 'react';
-import { tabLabel } from '../../../const';
 
 type Props = {
   children: ReactNode,
@@ -16,16 +15,16 @@ function TabContainer({children, initialTab}: Props): JSX.Element {
         if (!isValidElement(child)) {
           return;
         }
-        const label = (child.props.label) as keyof typeof tabLabel;
+        const label = (child.props.label);
         return (
           <TabLink
-            isActive={activeTab === tabLabel[label].en}
-            label={tabLabel[label].ru}
-            onLinkClick={() => setActiveTab(tabLabel[label].en)}
+            isActive={activeTab === label}
+            label={label}
+            onLinkClick={() => setActiveTab(label)}
           />);
       })}
 
-      <div className="tabs__content">
+      <div className="tabs__content" aria-label="tabs-content">
         {Children.map(children, (child) => {
           if (!isValidElement(child)) {
             return;

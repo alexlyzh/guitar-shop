@@ -31,6 +31,7 @@ function ReviewModal({product}: Props): JSX.Element {
       <Link className="button button--red-border button--big reviews__submit-button"
         to="#"
         onClick={showModal}
+        aria-label="open-review-form"
       >
         Оставить отзыв
       </Link>

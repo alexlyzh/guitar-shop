@@ -2,14 +2,14 @@ import MainLayout from '../main-layout/main-layout';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Spinner from '../common/spinner/spinner';
 import StarRating from '../common/star-rating/star-rating';
-import Reviews from './reviews/reviews';
+import ReviewsContainer from './reviews-container/reviews-container';
 import TabContainer from './tab-container/tab-container';
 import Characteristics from './characteristics/characteristics';
 import Description from './description/description';
-import { AppMessage, tabLabel } from '../../const';
-import { useEffect} from 'react';
-import { useBreadcrumbRoutes } from '../../hooks/use-breadcrumb-routes/use-breadcrumb-routes';
+import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { AppMessage, tabLabel } from '../../const';
+import { useBreadcrumbRoutes } from '../../hooks/use-breadcrumb-routes/use-breadcrumb-routes';
 import { useGuitar } from '../../hooks/use-guitar/use-guitar';
 import { useComments } from '../../hooks/use-comments/use-comments';
 import { scrollToPageTop } from '../../utils/common';
@@ -53,7 +53,7 @@ function ProductPage(): JSX.Element {
     <MainLayout>
       {isFetchingGuitars || !product ? <Spinner marginTop={'5em'} /> :
         <>
-          <h1 className="page-content__title title title--bigger">{product.name}</h1>
+          <h1 className="page-content__title title title--bigger" aria-label="product-page">{product.name}</h1>
           <Breadcrumbs routes={routes} />
 
           <div className="product-container">
@@ -65,9 +65,9 @@ function ProductPage(): JSX.Element {
                 <StarRating rating={product.rating || 0} starHeight={14} starWidth={14}/>
 
               </div>
-              <TabContainer initialTab={tabLabel.characteristics.en}>
-                <Characteristics product={product} label={tabLabel.characteristics.en}/>
-                <Description product={product} label={tabLabel.description.en}/>
+              <TabContainer initialTab={tabLabel.characteristics}>
+                <Characteristics product={product} label={tabLabel.characteristics}/>
+                <Description product={product} label={tabLabel.description}/>
               </TabContainer>
 
             </div>
@@ -78,7 +78,7 @@ function ProductPage(): JSX.Element {
             </div>
           </div>
 
-          {comments[id] ? <Reviews comments={comments[id]} product={product}/> : <Spinner />}
+          {comments[id] ? <ReviewsContainer comments={comments[id]} product={product}/> : <Spinner />}
         </>}
     </MainLayout>
   );

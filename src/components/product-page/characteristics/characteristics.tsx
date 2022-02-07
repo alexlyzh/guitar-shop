@@ -1,9 +1,9 @@
-import {guitarType, tabLabel} from '../../../const';
-import {Guitar} from '../../../types/types';
+import { guitarType } from '../../../const';
+import { Guitar } from '../../../types/types';
 
 type Props = {
   product: Guitar,
-  label: keyof typeof tabLabel,
+  label: string,
 }
 
 function Characteristics({product, label}: Props): JSX.Element {

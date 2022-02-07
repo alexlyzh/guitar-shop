@@ -14,10 +14,10 @@ function Modal({children, className, isOpen, onModalClose}: ModalProps) {
   useTabKeyFocusTrap(focusTrapRef);
 
   return ReactDOM.createPortal(
-    <div className={`modal ${isOpen ? 'is-active' : ''} ${className}`}>
+    <div className={`modal ${isOpen ? 'is-active' : ''} ${className}`} aria-label="modal">
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={onModalClose}/>
-        <div className="modal__content" ref={focusTrapRef}>
+        <div className="modal__content" ref={focusTrapRef} >
           {children}
           <button className="modal__close-btn button-cross" type="button" aria-label="Закрыть" onClick={onModalClose}>
             <span className="button-cross__icon"/><span className="modal__close-btn-interactive-area"/>

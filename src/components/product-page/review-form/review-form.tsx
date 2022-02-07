@@ -3,8 +3,8 @@ import { getIsSubmitting } from '../../../store/reducer/app-reducer/selectors';
 import { useFormState } from '../../../hooks/use-form-state/use-form-state';
 import { Guitar, ReviewFormState } from '../../../types/types';
 import { usePostReview } from '../../../hooks/use-post-review/use-post-review';
-import {useEffect} from 'react';
-import {MODAL_FADE_OUT_DURATION} from '../../../const';
+import { useEffect } from 'react';
+import { MODAL_FADE_OUT_DURATION } from '../../../const';
 
 const initialState: ReviewFormState = {
   'user-name': '',

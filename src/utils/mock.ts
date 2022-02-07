@@ -1,7 +1,7 @@
-import {datatype, internet} from 'faker';
-import {GUITARS_PER_PAGE, STARS_COUNT, stringOptions, typeOptions} from '../const';
-import {getRandomInteger} from './common';
-import {Comment, CommentPost, Guitar, RemoteDataByID, RequestStatus} from '../types/types';
+import { datatype, internet } from 'faker';
+import { GUITARS_PER_PAGE, STARS_COUNT, stringOptions, typeOptions } from '../const';
+import { getRandomInteger } from './common';
+import { Comment, CommentPost, Guitar, RemoteDataByID, RequestStatus } from '../types/types';
 
 export const Mock = <const> {
   arrayLength: 3,
