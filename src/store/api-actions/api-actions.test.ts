@@ -164,8 +164,10 @@ describe('Async actions', () => {
       type: SortType.PRICE,
     };
 
+    const url = createCatalogApiUrl(initialFilterState.currentFilter, sortUpdate);
+    embedComments(url.searchParams);
     mockApi
-      .onGet(`${BASE_API_URL}${Mock.searchParams.sortQuery}`)
+      .onGet(url.href)
       .reply(HttpCode.OK, guitars);
 
     expect(store.getActions()).toEqual([]);

@@ -25,10 +25,8 @@ type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance,
 const ActionAPI = {
   postComment: (comment: CommentPost, onSuccess?: () => void): ThunkActionResult =>
     async (dispatch, _getState, api): Promise<void> => {
-      console.log(comment) // eslint-disable-line
       dispatch(ActionCreator.setSubmitting(true));
       try {
-        console.log(apiRoute.path.comments) // eslint-disable-line
         const {data} = await api.post<Comment>(apiRoute.path.comments, {...comment});
         dispatch(ActionCreator.addComment(comment.guitarId, data));
         onSuccess && onSuccess();
@@ -64,6 +62,7 @@ const ActionAPI = {
       dispatch(ActionCreator.startLoadGuitars());
       try {
         const url = createCatalogApiUrl(currentFilter, sort);
+        embedComments(url.searchParams);
         const {data} = await api.get<GuitarWithComments[]>(url.href);
         dispatch(ActionCreator.saveGuitars(data));
       } catch (e) {
