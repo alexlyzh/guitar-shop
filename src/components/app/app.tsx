@@ -7,10 +7,12 @@ import ProductPage from '../product-page/product-page';
 function App(): JSX.Element {
   return (
     <Switch>
-      <Route exact path={AppPath.root} component={() => <Redirect to={AppPath.catalog} />} />
-      <Route exact path={AppPath.catalog} component={() => <CatalogPage />} />
-      <Route exact path={AppPath.product} component={() => <ProductPage />} />
-      <Route component={() => <NotFoundPage />} />
+      <Route exact path={AppPath.root}>
+        <Redirect to={AppPath.catalog} />
+      </Route>
+      <Route exact path={AppPath.catalog} component={CatalogPage} />
+      <Route exact path={AppPath.product} component={ProductPage} />
+      <Route component={NotFoundPage} />
     </Switch>
   );
 }

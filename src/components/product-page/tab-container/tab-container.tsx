@@ -16,11 +16,12 @@ function TabContainer({children, initialTab}: Props): JSX.Element {
           return;
         }
         const label = (child.props.label);
+        const onLinkClick = () => setActiveTab(label);
         return (
           <TabLink
             isActive={activeTab === label}
             label={label}
-            onLinkClick={() => setActiveTab(label)}
+            onLinkClick={onLinkClick}
           />);
       })}
 

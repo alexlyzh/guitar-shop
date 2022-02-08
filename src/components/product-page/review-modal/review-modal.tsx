@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useModal } from '../../../hooks/use-modal/use-modal';
 import { Link } from 'react-router-dom';
 import { Guitar } from '../../../types/types';
@@ -20,11 +20,14 @@ function ReviewModal({product}: Props): JSX.Element {
   const [isModalOpen, showModal, hideModal] = useModal();
   const [shouldShowSuccess, setShouldShowSuccess] = useState(false);
 
+  const showSuccessForm = useCallback(() => setShouldShowSuccess(true), [setShouldShowSuccess]);
+  const hideSuccessForm = useCallback(() => setShouldShowSuccess(false), [setShouldShowSuccess]);
+
   useEffect(() => {
     if (!isModalOpen) {
-      setTimeout(() => setShouldShowSuccess(false), MODAL_FADE_OUT_DURATION);
+      setTimeout(hideSuccessForm, MODAL_FADE_OUT_DURATION);
     }
-  }, [isModalOpen, setShouldShowSuccess]);
+  }, [isModalOpen, hideSuccessForm]);
 
   return (
     <>
@@ -37,7 +40,7 @@ function ReviewModal({product}: Props): JSX.Element {
       </Link>
       <Modal isOpen={isModalOpen} onModalClose={hideModal} className={shouldShowSuccess ? ClassName.success : ClassName.review}>
         {!shouldShowSuccess
-          ? <ReviewForm isModalOpen={isModalOpen} product={product} onSubmitSuccess={() => setShouldShowSuccess(true)} />
+          ? <ReviewForm isModalOpen={isModalOpen} product={product} onSubmitSuccess={showSuccessForm} />
           : <ReviewSuccess onButtonClick={hideModal} />}
       </Modal>
     </>

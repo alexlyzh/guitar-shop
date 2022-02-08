@@ -29,7 +29,7 @@ function ReviewsContainer({comments, product}: Props): JSX.Element {
         <ShowMoreBtn
           ref={observerRef}
           label={'Показать еще отзывы'}
-          onBtnClick={() => renderNextReviews()}
+          onBtnClick={renderNextReviews}
         /> : null}
       {reviews.length ?
         <Link

@@ -1,6 +1,6 @@
-import {stringOptions} from '../../../../const';
 import FilterCheckbox from '../filter-checkbox/filter-checkbox';
-import {useStringFilter} from '../../../../hooks/use-string-filter/use-string-filter';
+import { stringOptions } from '../../../../const';
+import { useStringFilter } from '../../../../hooks/use-string-filter/use-string-filter';
 
 type Props = {
   types: string[],
@@ -17,14 +17,14 @@ function FilterString({types, selectedStrings, availableStringsForSelectedTypes}
       {stringOptions.map((stringCount) => {
         const isChecked = selectedStrings.includes(stringCount);
         const isDisabled = Boolean(types.length && !availableStringsForSelectedTypes.includes(stringCount));
-
+        const setStringFilter = () => handleStringFilterChange(stringCount);
         return (
           <FilterCheckbox
             key={`${stringCount}-strings`}
             id={`${stringCount}-strings`}
             name={`${stringCount}-strings`}
             labelText={stringCount}
-            onInputChange={() => handleStringFilterChange(stringCount)}
+            onInputChange={setStringFilter}
             isChecked={isChecked}
             isDisabled={isDisabled}
           />

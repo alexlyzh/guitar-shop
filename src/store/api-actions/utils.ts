@@ -1,8 +1,8 @@
-import {SortSettings} from '../reducer/sort-reducer/sort-reducer';
-import {FilterSettings} from '../reducer/filter-reducer/filter-reducer';
-import {apiRoute, AppSearchParam, initialSort, stringCount} from '../../const';
-import {BASE_API_URL} from '../../api';
-import {Guitar} from '../../types/types';
+import { SortSettings } from '../reducer/sort-reducer/sort-reducer';
+import { FilterSettings } from '../reducer/filter-reducer/filter-reducer';
+import { apiRoute, AppSearchParam, initialSort, stringCount } from '../../const';
+import { BASE_API_URL } from '../../api';
+import { Guitar } from '../../types/types';
 
 export const sortByNameStartingWithTemplate = (data: Guitar[], template: string) =>
   data.slice().sort((a, b) => {

@@ -1,8 +1,8 @@
-import {Guitar} from '../../../types/types';
-import {ChangeEvent} from 'react';
 import SearchItem from './search-item/search-item';
-import {generatePath, useHistory} from 'react-router-dom';
-import {AppPath, KeyboardKey} from '../../../const';
+import { ChangeEvent, KeyboardEvent } from 'react';
+import { generatePath, useHistory} from 'react-router-dom';
+import { Guitar } from '../../../types/types';
+import { AppPath, KeyboardKey } from '../../../const';
 
 type Props = {
   search: string,
@@ -40,17 +40,21 @@ function SearchForm({search, onInputChange, isDropdownVisible, foundGuitars}: Pr
         className={`form-search__select-list ${isDropdownVisible ? '': 'hidden'}`}
         style={{zIndex: '1'}}
       >
-        {foundGuitars.map((guitar) => (
-          <SearchItem
-            key={`search-${guitar.id}`}
-            guitar={guitar}
-            onItemKeyDown={(evt) => {
-              if (evt.key === KeyboardKey.ENTER) {
-                redirectToProductPage(guitar.id);
-              }
-            }}
-            onItemClick={() => redirectToProductPage(guitar.id)}
-          />))}
+        {foundGuitars.map((guitar) => {
+          const onItemKeyDown = (evt: KeyboardEvent<HTMLLIElement>) => {
+            if (evt.key === KeyboardKey.ENTER) {
+              redirectToProductPage(guitar.id);
+            }
+          };
+          const onItemClick = () => redirectToProductPage(guitar.id);
+          return (
+            <SearchItem
+              key={`search-${guitar.id}`}
+              guitar={guitar}
+              onItemKeyDown={onItemKeyDown}
+              onItemClick={onItemClick}
+            />);
+        })}
       </ul>
     </div>
   );

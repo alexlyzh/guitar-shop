@@ -1,5 +1,5 @@
-import {FIRST_PAGE} from '../../../const';
 import PaginationItem from './pagination-page/pagination-item';
+import { FIRST_PAGE } from '../../../const';
 
 type Props = {
   totalCards: number,
@@ -9,11 +9,13 @@ type Props = {
 }
 
 function Pagination({totalCards, currentPage, guitarsPerPage, paginate}: Props): JSX.Element | null {
-  const lastPage = Math.ceil(totalCards / guitarsPerPage);
-
   if (totalCards <= guitarsPerPage) {
     return null;
   }
+
+  const goNextPage = () => paginate(currentPage + 1);
+  const goPrevPage = () => paginate(currentPage - 1);
+  const lastPage = Math.ceil(totalCards / guitarsPerPage);
 
   const pages: number[] = [];
   for (let i = FIRST_PAGE; i <= lastPage; i++) {
@@ -27,15 +29,16 @@ function Pagination({totalCards, currentPage, guitarsPerPage, paginate}: Props):
           <PaginationItem
             className={'pagination__page pagination__page--prev'}
             linkText={'Назад'}
-            onLinkClick={() => paginate(currentPage - 1)}
+            onLinkClick={goPrevPage}
           />  : null}
         {pages.map((page) => {
           const isActive = currentPage === page;
+          const goToPage = () => paginate(page);
           return (
             <PaginationItem
               className={`pagination__page ${isActive ? 'pagination__page--active' : ''}`}
               linkText={page}
-              onLinkClick={() => paginate(page)}
+              onLinkClick={goToPage}
               isActive={isActive}
               isPage
               key={page}
@@ -46,7 +49,7 @@ function Pagination({totalCards, currentPage, guitarsPerPage, paginate}: Props):
           <PaginationItem
             className={'pagination__page pagination__page--next'}
             linkText={'Далее'}
-            onLinkClick={() => paginate(currentPage + 1)}
+            onLinkClick={goNextPage}
           /> : null}
       </ul>
     </div>
