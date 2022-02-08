@@ -14,6 +14,17 @@ type RemoteData<Type> = {
 
 type RemoteDataByID<Type> = Record<number, RemoteData<Type>>;
 
+type Comment = {
+  id: string,
+  userName: string,
+  advantage: string,
+  disadvantage: string,
+  comment: string,
+  rating: number,
+  createAt: string,
+  guitarId: number,
+}
+
 type Guitar = {
   id: number,
   name: string,
@@ -26,15 +37,8 @@ type Guitar = {
   price: number,
 }
 
-type Comment = {
-  id: string,
-  userName: string,
-  advantage: string,
-  disadvantage: string,
-  comment: string,
-  rating: number,
-  createAt: string,
-  guitarId: number,
+type GuitarWithComments = Guitar & {
+  comments: Comment[],
 }
 
 type CommentPost = {
@@ -64,6 +68,7 @@ export type {
   RemoteData,
   RemoteDataByID,
   Guitar,
+  GuitarWithComments,
   Comment,
   CommentPost,
   ReviewFormState,

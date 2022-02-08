@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { RemoteData, Comment, Guitar } from '../../../types/types';
+import { GuitarWithComments } from '../../../types/types';
 import { useReviewFeed } from '../../../hooks/use-review-feed/use-review-feed';
 import { scrollToPageTop } from '../../../utils/common';
 import ReviewModal from '../review-modal/review-modal';
@@ -10,13 +10,12 @@ import ReviewList from './review-list/review-list';
 const COMMENTS_STEP = 3;
 
 type Props = {
-  comments: RemoteData<Comment>,
-  product: Guitar,
+  product: GuitarWithComments,
 }
 
-function ReviewsContainer({comments, product}: Props): JSX.Element {
+function ReviewsContainer({product}: Props): JSX.Element {
   const observerRef = useRef<HTMLButtonElement | null>(null);
-  const [reviews, renderNextReviews, isAllRendered] = useReviewFeed(comments, COMMENTS_STEP, observerRef);
+  const [reviews, renderNextReviews, isAllRendered] = useReviewFeed(product.comments, COMMENTS_STEP, observerRef);
 
   return (
     <section className="reviews">

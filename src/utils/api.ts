@@ -1,8 +1,8 @@
-import { SortSettings } from '../reducer/sort-reducer/sort-reducer';
-import { FilterSettings } from '../reducer/filter-reducer/filter-reducer';
-import { apiRoute, AppSearchParam, initialSort, stringCount } from '../../const';
-import { BASE_API_URL } from '../../api';
-import { Guitar } from '../../types/types';
+import { SortSettings } from '../store/reducer/sort-reducer/sort-reducer';
+import { FilterSettings } from '../store/reducer/filter-reducer/filter-reducer';
+import {apiRoute, AppPath, AppSearchParam, initialSort, stringCount} from '../const';
+import { BASE_API_URL } from '../api';
+import { Guitar } from '../types/types';
 
 export const sortByNameStartingWithTemplate = (data: Guitar[], template: string) =>
   data.slice().sort((a, b) => {
@@ -43,6 +43,11 @@ export const appendFilterParams = (url: URL, filter: FilterSettings) => {
   });
 };
 
+export const embedComments = (params: URLSearchParams) => {
+  params.append(apiRoute.search.embed, 'comments');
+  return params;
+};
+
 export const createCatalogApiUrl = (filter: FilterSettings, sort: SortSettings) => {
   const url = new URL(apiRoute.path.guitars, BASE_API_URL);
   appendFilterParams(url, filter);
@@ -52,7 +57,7 @@ export const createCatalogApiUrl = (filter: FilterSettings, sort: SortSettings) 
 };
 
 export const createCatalogAppUrl = (filter: FilterSettings) => {
-  const url = new URL(apiRoute.path.guitars, BASE_API_URL);
+  const url = new URL(AppPath.catalog, BASE_API_URL);
   url.searchParams.set(AppSearchParam.page, filter.page.toString());
   appendFilterParams(url, checkStringsFilter(filter));
   return url;

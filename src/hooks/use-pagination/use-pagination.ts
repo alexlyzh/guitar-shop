@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from 'react';
-import { Guitar, RemoteData, RequestStatus } from '../../types/types';
-import { FIRST_PAGE } from '../../const';
+import { GuitarWithComments, RemoteData, RequestStatus } from '../../types/types';
+import { AppPath, FIRST_PAGE } from '../../const';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentFilter } from '../../store/reducer/filter-reducer/selectors';
 import { ActionCreator } from '../../store/actions';
-import { createCatalogAppUrl } from '../../store/api-actions/utils';
+import { createCatalogAppUrl } from '../../utils/api';
 
 export const usePagination = (
-  guitars: RemoteData<Guitar>,
+  guitars: RemoteData<GuitarWithComments>,
   guitarsPerPage: number,
   isAppInitialized: boolean,
 ) => {
@@ -24,7 +24,8 @@ export const usePagination = (
 
   const paginate = useCallback((page: number) => {
     dispatch(ActionCreator.setCatalogPage(page));
-    dispatch(ActionCreator.updateFilterUrl(createCatalogAppUrl({...currentFilter, page}).search));
+    const search = createCatalogAppUrl({...currentFilter, page}).search;
+    dispatch(ActionCreator.updateCatalogUrl(`${AppPath.catalog}${search}`));
   }, [currentFilter, dispatch]);
 
 

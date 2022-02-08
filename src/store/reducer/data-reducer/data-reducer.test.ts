@@ -1,7 +1,7 @@
 import { dataReducer, initialDataState } from './data-reducer';
 import { ActionCreator } from '../../actions';
 import { RequestStatus } from '../../../types/types';
-import { getMockComment, getMockGuitar, Mock } from '../../../utils/mock';
+import { getMockGuitar, Mock } from '../../../utils/mock';
 
 describe('Reducer: Data', () => {
   const state = initialDataState;
@@ -53,46 +53,6 @@ describe('Reducer: Data', () => {
         guitars: {
           requestStatus: RequestStatus.SUCCESS,
           data: guitars,
-        },
-      });
-  });
-
-  it('should set request status "PENDING" with empty comments data', () => {
-    expect(dataReducer(state, ActionCreator.startLoadComments(Mock.id)))
-      .toEqual({
-        ...state,
-        comments: {
-          [Mock.id]: {
-            requestStatus: RequestStatus.PENDING,
-            data: [],
-          },
-        },
-      });
-  });
-
-  it('should set request status "ERROR" with empty comments data', () => {
-    expect(dataReducer(state, ActionCreator.setErrorLoadComments(Mock.id)))
-      .toEqual({
-        ...state,
-        comments: {
-          [Mock.id]: {
-            requestStatus: RequestStatus.ERROR,
-            data: [],
-          },
-        },
-      });
-  });
-
-  it('should set request status "SUCCESS" with correct comments data', () => {
-    const comments = Array.from({length: Mock.arrayLength}, () => getMockComment(Mock.id));
-    expect(dataReducer(state, ActionCreator.saveComments(Mock.id, comments)))
-      .toEqual({
-        ...state,
-        comments: {
-          [Mock.id]: {
-            requestStatus: RequestStatus.SUCCESS,
-            data: comments,
-          },
         },
       });
   });

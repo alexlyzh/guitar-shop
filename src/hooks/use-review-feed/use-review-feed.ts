@@ -1,5 +1,5 @@
 import { useMemo, MutableRefObject, useState, useEffect, useCallback } from 'react';
-import { Comment, RemoteData } from '../../types/types';
+import { Comment } from '../../types/types';
 
 const observerOptions = <const>{
   root: null,
@@ -8,15 +8,15 @@ const observerOptions = <const>{
 };
 
 export const useReviewFeed = (
-  comments: RemoteData<Comment>,
+  comments: Comment[],
   renderStep: number,
   observedRef?: MutableRefObject<HTMLButtonElement | null>,
 ) => {
   const [renderCount, setRenderCount] = useState(renderStep);
-  const sortedComments = useMemo(() => [...comments.data]
+  const sortedComments = useMemo(() => [...comments]
     .sort((a, b) => Date.parse(b.createAt) - Date.parse(a.createAt)), [comments]);
   const reviews = sortedComments.slice(0, renderCount);
-  const isAllRendered = renderCount >= comments.data.length;
+  const isAllRendered = renderCount >= comments.length;
 
   const renderNextReviews = useCallback(() => {
     !isAllRendered && setRenderCount((prev) => prev + renderStep);

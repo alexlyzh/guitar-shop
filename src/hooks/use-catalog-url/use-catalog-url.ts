@@ -6,6 +6,7 @@ import { useEffect, useMemo } from 'react';
 import { ActionAPI } from '../../store/api-actions/api-actions';
 import { getIsCatalogInitialized } from '../../store/reducer/app-reducer/selectors';
 import { getFilterIsActive } from '../../store/reducer/filter-reducer/selectors';
+import { embedComments } from '../../utils/api';
 
 export const useCatalogUrl = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export const useCatalogUrl = () => {
         strings: searchParams.getAll(AppSearchParam.stringCount).map((string) => Number(string)),
       }));
       dispatch(ActionCreator.setFilterActivity(true));
-      dispatch(ActionAPI.getGuitars(searchParams));
+      dispatch(ActionAPI.getGuitars(embedComments(searchParams)));
     }
   }, [shouldParseCatalogUrl, searchParams, dispatch]);
 

@@ -1,11 +1,10 @@
 import ProductPage from './product-page';
 import thunk from 'redux-thunk';
-import { generatePath, Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
 import { render, screen } from '@testing-library/react';
-import { AppPath } from '../../const';
 import { getMockGuitar } from '../../utils/mock';
 import { RequestStatus } from '../../types/types';
 import { initialAppState } from '../../store/reducer/app-reducer/app-reducer';
@@ -13,7 +12,6 @@ import { initialDataState } from '../../store/reducer/data-reducer/data-reducer'
 
 const guitar = getMockGuitar();
 const history = createMemoryHistory();
-history.push(generatePath(AppPath.product, {id: guitar.id}));
 const mockStore = configureMockStore([thunk]);
 
 const modalRoot = document.createElement('div');

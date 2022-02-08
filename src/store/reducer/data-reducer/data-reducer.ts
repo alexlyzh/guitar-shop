@@ -1,10 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { Comment, Guitar, RemoteData, RemoteDataByID, RequestStatus } from '../../../types/types';
+import { GuitarWithComments, RemoteData, RequestStatus } from '../../../types/types';
 import { ActionCreator } from '../../actions';
 
 type DataState = {
-  guitars: RemoteData<Guitar>,
-  comments: RemoteDataByID<Comment>,
+  guitars: RemoteData<GuitarWithComments>,
   priceRange: {
     min?: number,
     max?: number,
@@ -16,7 +15,6 @@ const initialState: DataState = {
     requestStatus: RequestStatus.IDLE,
     data: [],
   },
-  comments: {},
   priceRange: {},
 };
 
@@ -44,26 +42,13 @@ export const dataReducer = createReducer(initialState, (builder) => {
         data: [],
       };
     })
-    .addCase(ActionCreator.startLoadComments, (state, action) => {
-      state.comments[action.payload] = {
-        requestStatus: RequestStatus.PENDING,
-        data: [],
-      };
-    })
-    .addCase(ActionCreator.saveComments, (state, action) => {
-      state.comments[action.payload.guitarId] = {
-        requestStatus: RequestStatus.SUCCESS,
-        data: action.payload.comments,
-      };
-    })
-    .addCase(ActionCreator.setErrorLoadComments, (state, action) => {
-      state.comments[action.payload] = {
-        requestStatus: RequestStatus.ERROR,
-        data: [],
-      };
-    })
     .addCase(ActionCreator.addComment, (state, action) => {
-      state.comments[action.payload.guitarId].data.push(action.payload.comment);
+      for (const guitar of state.guitars.data) {
+        if (guitar.id === action.payload.guitarId) {
+          guitar.comments.push(action.payload.comment);
+          break;
+        }
+      }
     })
     .addCase(ActionCreator.setPriceRange, (state, action) => {
       state.priceRange = action.payload;

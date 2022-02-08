@@ -4,8 +4,7 @@ import { Provider } from 'react-redux';
 import { createMemoryHistory } from 'history';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
-import { RequestStatus } from '../../../types/types';
-import { getMockComment, getMockGuitar, Mock } from '../../../utils/mock';
+import { getMockGuitar } from '../../../utils/mock';
 import { initialAppState } from '../../../store/reducer/app-reducer/app-reducer';
 
 const mockStore = configureMockStore();
@@ -19,15 +18,10 @@ describe('Component: Reviews', () => {
 
   it('should render correctly', () => {
     const guitar = getMockGuitar();
-    const comments = Array.from({length: Mock.arrayLength}, () => getMockComment(guitar.id));
     render(
       <Provider store={store} >
         <Router history={history} >
           <ReviewsContainer
-            comments={{
-              requestStatus: RequestStatus.SUCCESS,
-              data: comments,
-            }}
             product={guitar}
           />
         </Router>

@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { AppMessage, tabLabel } from '../../const';
 import { useGuitar } from '../../hooks/use-guitar/use-guitar';
-import { useComments } from '../../hooks/use-comments/use-comments';
 import { getBreadcrumbRoutes, scrollToPageTop } from '../../utils/common';
 
 type PageParams = {
@@ -25,7 +24,6 @@ function ProductPage({productId}: Props): JSX.Element {
   const params: PageParams = useParams();
   const id = Number(productId ? productId : params.id);
   const { product, isErrorLoadingGuitars, isFetchingGuitars } = useGuitar(id);
-  const comments = useComments([], id);
   const routes = getBreadcrumbRoutes('Товар');
 
   if (product) {
@@ -81,8 +79,8 @@ function ProductPage({productId}: Props): JSX.Element {
               <Link className="button button--red button--big product-container__button" to="#">Добавить в корзину</Link>
             </div>
           </div>
+          <ReviewsContainer product={product}/>
 
-          {comments[id] ? <ReviewsContainer comments={comments[id]} product={product}/> : <Spinner />}
         </>}
     </MainLayout>
   );

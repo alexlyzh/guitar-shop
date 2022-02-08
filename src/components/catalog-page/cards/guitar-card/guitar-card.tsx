@@ -1,15 +1,13 @@
 import StarRating from '../../../common/star-rating/star-rating';
-import {generatePath, Link} from 'react-router-dom';
-import {Comment, Guitar, RemoteDataByID} from '../../../../types/types';
-import {getCommentsCount} from '../../../../utils/common';
-import {AppPath} from '../../../../const';
+import { generatePath, Link } from 'react-router-dom';
+import { GuitarWithComments } from '../../../../types/types';
+import { AppPath } from '../../../../const';
 
 type Props = {
-  guitar: Guitar,
-  comments: RemoteDataByID<Comment>,
+  guitar: GuitarWithComments,
 }
 
-function GuitarCard({guitar, comments}: Props): JSX.Element {
+function GuitarCard({guitar}: Props): JSX.Element {
   const {id, name, price, rating, previewImg} = guitar;
   return (
     <div className="product-card" key={id} data-testid={'product-card'}>
@@ -20,7 +18,7 @@ function GuitarCard({guitar, comments}: Props): JSX.Element {
           <StarRating rating={rating} starWidth={12} starHeight={11} />
 
           <span className="rate__count" data-testid="guitar-rate-count">
-            {getCommentsCount(guitar.id, comments)}
+            {guitar.comments.length}
           </span>
           <span className="rate__message"/>
         </div>

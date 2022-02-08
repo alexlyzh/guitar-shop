@@ -1,5 +1,5 @@
-import {Link} from 'react-router-dom';
-import {AppPath} from '../../../const';
+import { Link } from 'react-router-dom';
+import { AppPath } from '../../../const';
 
 function Logo(): JSX.Element {
   return (

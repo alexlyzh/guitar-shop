@@ -5,7 +5,7 @@ import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { mockGuitarsWithComments } from '../../../utils/mock';
-import { Guitar, RequestStatus } from '../../../types/types';
+import { GuitarWithComments, RequestStatus } from '../../../types/types';
 import { AppMessage } from '../../../const';
 
 const history = createMemoryHistory();
@@ -36,17 +36,12 @@ describe('Component: NotFoundPage', () => {
   });
 
   it('should render correctly if guitars not found', () => {
-    const guitars: Guitar[] = [];
-    const comments: Comment[] = [];
+    const guitars: GuitarWithComments[] = [];
     const store = mockStore({
       DATA: {
         guitars: {
           requestStatus: RequestStatus.SUCCESS,
           data: guitars,
-        },
-        comments: {
-          requestStatus: RequestStatus.SUCCESS,
-          data: comments,
         },
       },
     });

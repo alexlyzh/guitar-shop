@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import { Comment, CommentPost, Guitar } from '../../types/types';
+import { Comment, CommentPost, Guitar, GuitarWithComments } from '../../types/types';
 import { AxiosInstance } from 'axios';
 import { Action } from '@reduxjs/toolkit';
 import { apiRoute, AppMessage, AppPath, AppSearchParam } from '../../const';
@@ -14,30 +14,21 @@ import {
   checkStringsFilter,
   createCatalogApiUrl,
   createCatalogAppUrl,
+  embedComments,
   parseGuitarsData,
   prepareSortAction,
   sortByNameStartingWithTemplate
-} from './utils';
+} from '../../utils/api';
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
 const ActionAPI = {
-  getComments: (guitarId: number): ThunkActionResult =>
-    async (dispatch, getState, api): Promise<void> => {
-      dispatch(ActionCreator.startLoadComments(guitarId));
-      try {
-        const {data} = await api.get<Comment[]>(generatePath(apiRoute.path.guitarComments, {id: guitarId}));
-        dispatch(ActionCreator.saveComments(guitarId, data));
-      } catch (e) {
-        dispatch(ActionCreator.setErrorLoadComments(guitarId));
-        throw e;
-      }
-    },
-
   postComment: (comment: CommentPost, onSuccess?: () => void): ThunkActionResult =>
     async (dispatch, _getState, api): Promise<void> => {
+      console.log(comment) // eslint-disable-line
       dispatch(ActionCreator.setSubmitting(true));
       try {
+        console.log(apiRoute.path.comments) // eslint-disable-line
         const {data} = await api.post<Comment>(apiRoute.path.comments, {...comment});
         dispatch(ActionCreator.addComment(comment.guitarId, data));
         onSuccess && onSuccess();
@@ -70,10 +61,10 @@ const ActionAPI = {
       const {currentSort} = state.SORT;
       const sort = prepareSortAction(currentSort, update);
       dispatch(ActionCreator.setSort(sort));
-      const url = createCatalogApiUrl(currentFilter, sort);
       dispatch(ActionCreator.startLoadGuitars());
       try {
-        const {data} = await api.get<Guitar[]>(url.href);
+        const url = createCatalogApiUrl(currentFilter, sort);
+        const {data} = await api.get<GuitarWithComments[]>(url.href);
         dispatch(ActionCreator.saveGuitars(data));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());
@@ -83,7 +74,6 @@ const ActionAPI = {
 
   getGuitarsPriceRange: (): ThunkActionResult =>
     async (dispatch, _getState, api): Promise<void> => {
-      dispatch(ActionCreator.startLoadGuitars());
       try {
         const {data} = await api.get<Guitar[]>(apiRoute.path.guitars);
         const {minPrice, maxPrice} = parseGuitarsData(data);
@@ -99,12 +89,10 @@ const ActionAPI = {
     async (dispatch, getState, _api): Promise<void> => {
       const state = getState();
       const filter = checkStringsFilter(state.FILTER.currentFilter);
-      dispatch(ActionCreator.updateFilterUrl(
-        `${AppPath.catalog}?${createCatalogAppUrl(filter).search.toString()}`,
-      ));
+      dispatch(ActionCreator.updateCatalogUrl(`${AppPath.catalog}${createCatalogAppUrl(filter).search}`));
       const sort = state.SORT.currentSort;
       const params = new URLSearchParams(createCatalogApiUrl(filter, sort).search);
-      await dispatch(ActionAPI.getGuitars(params));
+      await dispatch(ActionAPI.getGuitars(embedComments(params)));
     },
 
   getGuitars: (searchParams: URLSearchParams): ThunkActionResult =>
@@ -112,7 +100,8 @@ const ActionAPI = {
       dispatch(ActionCreator.startLoadGuitars());
       searchParams.delete(AppSearchParam.page);
       try {
-        const {data} = await api.get<Guitar[]>(`${apiRoute.path.guitars}?${searchParams.toString()}`);
+        const endpoint = `${apiRoute.path.guitars}?${searchParams.toString()}`;
+        const {data} = await api.get<GuitarWithComments[]>(endpoint);
         dispatch(ActionCreator.saveGuitars(data));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());
@@ -120,11 +109,13 @@ const ActionAPI = {
       }
     },
 
-  getGuitarById: (id: number): ThunkActionResult =>
+  getGuitarWithCommentsById: (id: number): ThunkActionResult =>
     async (dispatch, _getState, api): Promise<void> => {
       dispatch(ActionCreator.startLoadGuitars());
       try {
-        const {data} = await api.get<Guitar>(generatePath(apiRoute.path.guitar, {id}));
+        const params = new URLSearchParams();
+        const endpoint = `${generatePath(apiRoute.path.guitar, {id})}?${embedComments(params)}`;
+        const {data} = await api.get<GuitarWithComments>(endpoint);
         dispatch(ActionCreator.saveGuitar(data));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());

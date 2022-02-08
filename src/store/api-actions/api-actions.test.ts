@@ -9,7 +9,7 @@ import { apiRoute, AppPath, FIRST_PAGE, HttpCode, SortOrder, SortType } from '..
 import { getMockComment, getMockCommentPost, getMockGuitar, Mock } from '../../utils/mock';
 import { ActionAPI } from './api-actions';
 import { ActionCreator } from '../actions';
-import { createCatalogApiUrl, createCatalogAppUrl, parseGuitarsData } from './utils';
+import { createCatalogApiUrl, createCatalogAppUrl, embedComments, parseGuitarsData } from '../../utils/api';
 import { initialSortState } from '../reducer/sort-reducer/sort-reducer';
 import { initialFilterState } from '../reducer/filter-reducer/filter-reducer';
 import { getRandomInteger } from '../../utils/common';
@@ -33,7 +33,6 @@ describe('Async actions', () => {
     await store.dispatch(ActionAPI.getGuitarsPriceRange());
 
     expect(store.getActions()).toEqual([
-      ActionCreator.startLoadGuitars(),
       ActionCreator.setPriceRange(minPrice, maxPrice),
       ActionCreator.initializeCatalog(),
     ]);
@@ -56,13 +55,13 @@ describe('Async actions', () => {
 
     const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
     mockApi
-      .onGet(createCatalogApiUrl(filter, initialSortState.currentSort).href)
+      .onGet(`${createCatalogApiUrl(filter, initialSortState.currentSort).href}&${apiRoute.search.embed}=comments`)
       .reply(HttpCode.OK, guitars);
 
     await store.dispatch(ActionAPI.updateFilter());
 
     expect(store.getActions()).toEqual([
-      ActionCreator.updateFilterUrl(`${AppPath.catalog}?${createCatalogAppUrl(filter).search}`),
+      ActionCreator.updateCatalogUrl(`${AppPath.catalog}${createCatalogAppUrl(filter).search}`),
       ActionCreator.startLoadGuitars(),
       ActionCreator.saveGuitars(guitars),
     ]);
@@ -96,34 +95,20 @@ describe('Async actions', () => {
     ]);
   });
 
-  it('should dispatch correct actions calling getCommentsById', async () => {
+  it('should dispatch correct actions calling getGuitarWithCommentsById', async () => {
     const store = mockStore();
     const guitar = getMockGuitar();
+    const params = new URLSearchParams();
+    const endpoint = `${generatePath(apiRoute.path.guitar, {id: guitar.id})}?${embedComments(params)}`;
     mockApi
-      .onGet(generatePath(apiRoute.path.guitar, {id: guitar.id}))
+      .onGet(generatePath(endpoint))
       .reply(HttpCode.OK, guitar);
 
-    await store.dispatch(ActionAPI.getGuitarById(guitar.id));
+    await store.dispatch(ActionAPI.getGuitarWithCommentsById(guitar.id));
 
     expect(store.getActions()).toEqual([
       ActionCreator.startLoadGuitars(),
       ActionCreator.saveGuitar(guitar),
-    ]);
-  });
-
-  it('should dispatch correct actions on GET/comments', async () => {
-    const store = mockStore();
-    const comments = Array.from({length: Mock.arrayLength}, () => getMockComment(Mock.id));
-
-    mockApi.onGet(generatePath(apiRoute.path.guitarComments, {id: Mock.id})).reply(HttpCode.OK, comments);
-
-    expect(store.getActions()).toEqual([]);
-
-    await store.dispatch(ActionAPI.getComments(Mock.id));
-
-    expect(store.getActions()).toEqual([
-      ActionCreator.startLoadComments(Mock.id),
-      ActionCreator.saveComments(Mock.id, comments),
     ]);
   });
 

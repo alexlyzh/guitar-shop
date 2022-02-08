@@ -1,16 +1,13 @@
-import './cards.css';
-import {Guitar} from '../../../types/types';
-import {useComments} from '../../../hooks/use-comments/use-comments';
-import {AppMessage} from '../../../const';
 import GuitarCard from './guitar-card/guitar-card';
+import './cards.css';
+import { GuitarWithComments } from '../../../types/types';
+import { AppMessage } from '../../../const';
 
 type Props = {
-  guitars: Guitar[],
+  guitars: GuitarWithComments[],
 }
 
 function Cards({guitars}: Props): JSX.Element {
-  const comments = useComments(guitars);
-
   return (
     <div className={`cards catalog__cards ${!guitars.length ? 'catalog__cards--empty': ''}`}
       data-testid="guitar-cards"
@@ -18,7 +15,7 @@ function Cards({guitars}: Props): JSX.Element {
       {guitars.length
         ?
         guitars.map((guitar) => (
-          <GuitarCard key={guitar.id} guitar={guitar} comments={comments} />
+          <GuitarCard key={guitar.id} guitar={guitar} />
         )) : AppMessage.NothingFound}
     </div>
   );

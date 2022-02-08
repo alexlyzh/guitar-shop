@@ -26,9 +26,9 @@ describe('Middlewares: redirect', () => {
 
   it('should redirect to specified pathname', () => {
     const mockPathname = `${AppPath.catalog}?${Mock.searchParams.filterSearchParamsOnly}`;
-    store.dispatch(ActionCreator.updateFilterUrl(mockPathname));
+    store.dispatch(ActionCreator.updateCatalogUrl(mockPathname));
     expect(fakeHistory.location.pathname).toBe(mockPathname);
-    expect(store.getActions()).toEqual([ActionCreator.updateFilterUrl(mockPathname)]);
+    expect(store.getActions()).toEqual([ActionCreator.updateCatalogUrl(mockPathname)]);
   });
 
   it('should not redirect to /catalog with unknown actions', () => {

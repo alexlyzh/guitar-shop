@@ -1,5 +1,5 @@
 import { KeyboardKey, screenTopOptions, siteRoutes } from '../const';
-import { Comment, RemoteDataByID, RequestStatus, SiteRoute } from '../types/types';
+import { SiteRoute } from '../types/types';
 
 export const isEscKeyDown = (evt: KeyboardEvent) => evt.key === KeyboardKey.ESC;
 
@@ -20,17 +20,6 @@ export const getRandomInteger = (min = 0, max = 1): number => {
   const upper = Math.floor(Math.max(min, max));
 
   return Math.floor(lower + Math.random() * (upper - lower + 1));
-};
-
-export const getCommentsCount = (id: number, comments: RemoteDataByID<Comment>) => {
-  switch (true) {
-    case (Boolean(comments[id]) && comments[id].requestStatus === RequestStatus.PENDING):
-      return 'Загрузка...';
-    case (Boolean(comments[id]) && comments[id].requestStatus === RequestStatus.SUCCESS):
-      return comments[id].data.length;
-    default:
-      return null;
-  }
 };
 
 export const scrollToPageTop = () => window.scrollTo(screenTopOptions);

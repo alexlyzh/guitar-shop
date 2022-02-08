@@ -51,6 +51,7 @@ const apiRoute = <const>{
     priceMax: 'price_lte',
     stringCount: 'stringCount',
     type: 'type',
+    embed: '_embed',
   },
 };
 
@@ -140,7 +141,7 @@ enum HttpCode {
 
 enum AppMessage {
   ErrorOnGetGuitars = 'Что-то сломалось, попробуйте перезагрузить страницу',
-  ErrorPostingReview = 'Нужно заполнить все поля формы отзыва',
+  ErrorPostingReview = 'Попробуйте заполнить все поля формы',
   ErrorOnFilterUpdate = 'Ошибка при обновлении фильтра',
   CatalogPageHeading = 'Каталог гитар',
   CatalogFilterHeading = 'Фильтр',

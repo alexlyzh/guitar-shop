@@ -10,7 +10,7 @@ import { usePagination } from '../../hooks/use-pagination/use-pagination';
 import { useSort } from '../../hooks/use-sort/use-sort';
 import { useCatalogUrl } from '../../hooks/use-catalog-url/use-catalog-url';
 import { useGuitars } from '../../hooks/use-guitars/use-guitars';
-import {getBreadcrumbRoutes} from '../../utils/common';
+import { getBreadcrumbRoutes } from '../../utils/common';
 
 function CatalogPage(): JSX.Element {
   const isCatalogInitialized = useCatalogUrl();
