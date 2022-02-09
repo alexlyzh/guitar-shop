@@ -2500,14 +2500,12 @@ button,
 
 .rate {
   position: relative;
-
   display: flex;
   align-items: center;
   justify-content: flex-start;
-
   width: 100%;
-
   color: #c90606;
+  padding-bottom: 6px;
 }
 
 .rate--reverse {
@@ -2526,51 +2524,14 @@ button,
 }
 
 .rate__label {
-  margin-left: 3px;
+  width: 20px;
+  height: 20px;
 }
 
 .rate__count {
   margin-right: auto;
 
   color: #585757;
-}
-
-.rate:not(:checked) > label {
-  float: right;
-  overflow: hidden;
-
-  width: 18px;
-  height: 20px;
-
-  font-size: 30px;
-
-  color: #ffffff;
-
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.rate:not(:checked) > label::before {
-  position: absolute;
-
-  width: 24px;
-  height: 20px;
-
-  background: url("../img/sprite/icon-star.svg") no-repeat top 0 left 0;
-  background-size: 18px 20px;
-
-  content: "";
-}
-
-.rate > input:checked ~ label {
-  background: url("../img/sprite/icon-full-star.svg") no-repeat top 0 left 0;
-  background-size: 18px 20px;
-}
-
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-  background: url("../img/sprite/icon-full-star.svg") no-repeat top 0 left 0;
-  background-size: 18px 20px;
 }
 
 .rate > input:focus + label {

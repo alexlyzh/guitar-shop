@@ -1,4 +1,4 @@
-import { SiteRoute } from './types/types';
+import {SiteRoute} from './types/types';
 
 const MIN_PRICE = 0;
 const MIN_CATALOG_HEIGHT = '745px';
@@ -149,6 +149,11 @@ enum AppMessage {
   NothingFound = 'Ничего не нашлось',
 }
 
+enum StarSpriteID {
+  FULL = '#icon-full-star',
+  EMPTY = '#icon-star',
+}
+
 export {
   MIN_PRICE,
   MIN_CATALOG_HEIGHT,
@@ -160,6 +165,7 @@ export {
   AppPath,
   AppSearchParam,
   AppMessage,
+  StarSpriteID,
   apiRoute,
   debounceDelay,
   KeyboardKey,
@@ -175,3 +181,4 @@ export {
   monthMap,
   screenTopOptions
 };
+

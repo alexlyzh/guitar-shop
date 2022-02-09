@@ -1,9 +1,5 @@
-import {STARS_COUNT} from '../../../const';
-
-enum StarSpriteID {
-  FULL = '#icon-full-star',
-  EMPTY = '#icon-star',
-}
+import { StarSpriteID } from '../../../const';
+import {getStarRatingSpriteIDs} from '../../../utils/common';
 
 type Props = {
   rating: number,
@@ -12,12 +8,7 @@ type Props = {
 }
 
 export default function StarRating({rating, starWidth, starHeight}  : Props): JSX.Element {
-  const stars = new Array(STARS_COUNT).fill(null).map((star, i) => {
-    if (i < rating) {
-      return StarSpriteID.FULL;
-    }
-    return StarSpriteID.EMPTY;
-  });
+  const stars = getStarRatingSpriteIDs(rating);
 
   return (
     <>

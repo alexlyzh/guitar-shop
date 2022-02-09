@@ -3,8 +3,9 @@ import { getIsSubmitting } from '../../../store/reducer/app-reducer/selectors';
 import { useFormState } from '../../../hooks/use-form-state/use-form-state';
 import { Guitar, ReviewFormState } from '../../../types/types';
 import { usePostReview } from '../../../hooks/use-post-review/use-post-review';
-import {useCallback, useEffect} from 'react';
+import { useCallback, useEffect } from 'react';
 import { MODAL_FADE_OUT_DURATION } from '../../../const';
+import RadioStarRating from '../../common/radio-star-rating/radio-star-rating';
 
 const initialState: ReviewFormState = {
   'user-name': '',
@@ -22,7 +23,12 @@ type Props = {
 function ReviewForm({product, isModalOpen, onSubmitSuccess}: Props): JSX.Element {
   const isSubmitting = useSelector(getIsSubmitting);
   const [state, setState, onFormElementChange] = useFormState<ReviewFormState>(initialState);
-  const [shouldShowUsernameWarning, shouldShowRateWarning, setHasFormBeenSent, onReviewFormSubmit] = usePostReview(product.id, state, onSubmitSuccess);
+  const [
+    shouldShowUsernameWarning,
+    shouldShowRateWarning,
+    setHasFormBeenSent,
+    onReviewFormSubmit,
+  ] = usePostReview(product.id, state, onSubmitSuccess);
 
   const resetForm = useCallback(() => {
     setState(initialState);
@@ -55,43 +61,12 @@ function ReviewForm({product, isModalOpen, onSubmitSuccess}: Props): JSX.Element
             </span>
           </div>
           <div>
-            <span className="form-review__label form-review__label--required">Ваша Оценка</span>
-            <div className="rate rate--reverse">
-              <input className="visually-hidden" type="radio" id="star-5" name="rate" value="5"
-                checked={state.rate === '5'}
-                disabled={isSubmitting}
-                onChange={onFormElementChange}
-              />
-              <label className="rate__label" htmlFor="star-5" title="Отлично"/>
-              <input className="visually-hidden" type="radio" id="star-4" name="rate" value="4"
-                checked={state.rate === '4'}
-                disabled={isSubmitting}
-                onChange={onFormElementChange}
-              />
-              <label className="rate__label" htmlFor="star-4" title="Хорошо"/>
-              <input className="visually-hidden" type="radio" id="star-3" name="rate" value="3"
-                checked={state.rate === '3'}
-                disabled={isSubmitting}
-                onChange={onFormElementChange}
-              />
-              <label className="rate__label" htmlFor="star-3" title="Нормально"/>
-              <input className="visually-hidden" type="radio" id="star-2" name="rate" value="2"
-                checked={state.rate === '2'}
-                disabled={isSubmitting}
-                onChange={onFormElementChange}
-              />
-              <label className="rate__label" htmlFor="star-2" title="Плохо"/>
-              <input className="visually-hidden" type="radio" id="star-1" name="rate" value="1"
-                checked={state.rate === '1'}
-                disabled={isSubmitting}
-                onChange={onFormElementChange}
-              />
-              <label className="rate__label" htmlFor="star-1" title="Ужасно"/>
-              <span className="rate__count visually-hidden">{state.rate}</span>
-              <span className="rate__message">
-                { shouldShowRateWarning ? 'Поставьте оценку' : null }
-              </span>
-            </div>
+            <RadioStarRating
+              rating={state.rate}
+              isDisabled={isSubmitting}
+              onInputChange={onFormElementChange}
+              shouldShowRateWarning={shouldShowRateWarning}
+            />
           </div>
         </div>
         <label className="form-review__label" htmlFor="advantage">Достоинства</label>

@@ -1,4 +1,4 @@
-import { KeyboardKey, screenTopOptions, siteRoutes } from '../const';
+import {KeyboardKey, screenTopOptions, siteRoutes, STARS_COUNT, StarSpriteID} from '../const';
 import { SiteRoute } from '../types/types';
 
 export const isEscKeyDown = (evt: KeyboardEvent) => evt.key === KeyboardKey.ESC;
@@ -35,3 +35,11 @@ export const getBreadcrumbRoutes = (currentPageTitle: string) => {
   }
   return routes;
 };
+
+export const getStarRatingSpriteIDs = (rating: number) =>
+  new Array(STARS_COUNT).fill(null).map((star, i) => {
+    if (i < rating) {
+      return StarSpriteID.FULL;
+    }
+    return StarSpriteID.EMPTY;
+  });
