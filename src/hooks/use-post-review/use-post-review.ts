@@ -1,7 +1,9 @@
 import { CommentPost, ReviewFormState } from '../../types/types';
 import { useDispatch } from 'react-redux';
-import { FormEvent } from 'react';
+import { FormEvent, useState, Dispatch, SetStateAction } from 'react';
 import { ActionAPI } from '../../store/api-actions/api-actions';
+
+type HooKReturnType = [boolean, boolean, Dispatch<SetStateAction<boolean>>,(evt: FormEvent<HTMLFormElement>) => void]
 
 const adaptFormData = (guitarId: number, data: ReviewFormState) => ({
   guitarId,
@@ -16,14 +18,17 @@ export const usePostReview = (
   id: number,
   data: ReviewFormState,
   onSubmitSuccess?: () => void,
-) => {
+): HooKReturnType => {
   const dispatch = useDispatch();
-  const isDataValid = Boolean(data['user-name'] && data.rate);
+  const [hasFormBeenSent, setHasFormBeenSent] = useState<boolean>(false);
+  const shouldShowUsernameWarning = hasFormBeenSent && !data['user-name'];
+  const shouldShowRateWarning = hasFormBeenSent && !data.rate;
 
   const postReview = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    isDataValid && dispatch(ActionAPI.postComment(adaptFormData(id, data), onSubmitSuccess));
+    setHasFormBeenSent(true);
+    dispatch(ActionAPI.postComment(adaptFormData(id, data), onSubmitSuccess));
   };
 
-  return [isDataValid, postReview] as [boolean, (evt: FormEvent<HTMLFormElement>) => void];
+  return [shouldShowUsernameWarning, shouldShowRateWarning, setHasFormBeenSent, postReview];
 };

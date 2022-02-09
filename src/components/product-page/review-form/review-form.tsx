@@ -3,7 +3,7 @@ import { getIsSubmitting } from '../../../store/reducer/app-reducer/selectors';
 import { useFormState } from '../../../hooks/use-form-state/use-form-state';
 import { Guitar, ReviewFormState } from '../../../types/types';
 import { usePostReview } from '../../../hooks/use-post-review/use-post-review';
-import { useEffect } from 'react';
+import {useCallback, useEffect} from 'react';
 import { MODAL_FADE_OUT_DURATION } from '../../../const';
 
 const initialState: ReviewFormState = {
@@ -22,13 +22,18 @@ type Props = {
 function ReviewForm({product, isModalOpen, onSubmitSuccess}: Props): JSX.Element {
   const isSubmitting = useSelector(getIsSubmitting);
   const [state, setState, onFormElementChange] = useFormState<ReviewFormState>(initialState);
-  const [isDataValid, onReviewFormSubmit] = usePostReview(product.id, state, onSubmitSuccess);
+  const [shouldShowUsernameWarning, shouldShowRateWarning, setHasFormBeenSent, onReviewFormSubmit] = usePostReview(product.id, state, onSubmitSuccess);
+
+  const resetForm = useCallback(() => {
+    setState(initialState);
+    setHasFormBeenSent(false);
+  }, [setState, setHasFormBeenSent]);
 
   useEffect(() => {
     if (!isModalOpen) {
-      setTimeout(() => setState(initialState), MODAL_FADE_OUT_DURATION);
+      setTimeout(resetForm, MODAL_FADE_OUT_DURATION);
     }
-  }, [isModalOpen, setState]);
+  }, [isModalOpen, resetForm]);
 
   return (
     <>
@@ -41,12 +46,13 @@ function ReviewForm({product, isModalOpen, onSubmitSuccess}: Props): JSX.Element
             <input className="form-review__input form-review__input--name" id="user-name" name="user-name" type="text"
               autoComplete="off"
               autoFocus
-              required
               disabled={isSubmitting}
               value={state['user-name']}
               onChange={onFormElementChange}
             />
-            <span className="form-review__warning" style={{height: '15px'}}>{state['user-name']?.length ? null : 'Заполните поле'}</span>
+            <span className="form-review__warning" style={{height: '15px'}}>
+              { shouldShowUsernameWarning ? 'Заполните поле' : null }
+            </span>
           </div>
           <div>
             <span className="form-review__label form-review__label--required">Ваша Оценка</span>
@@ -82,7 +88,9 @@ function ReviewForm({product, isModalOpen, onSubmitSuccess}: Props): JSX.Element
               />
               <label className="rate__label" htmlFor="star-1" title="Ужасно"/>
               <span className="rate__count visually-hidden">{state.rate}</span>
-              <span className="rate__message">{state.rate ? null : 'Поставьте оценку'}</span>
+              <span className="rate__message">
+                { shouldShowRateWarning ? 'Поставьте оценку' : null }
+              </span>
             </div>
           </div>
         </div>
@@ -104,7 +112,7 @@ function ReviewForm({product, isModalOpen, onSubmitSuccess}: Props): JSX.Element
           onChange={onFormElementChange}
         />
         <button className="button button--medium-20 form-review__button" type="submit"
-          disabled={!isDataValid || isSubmitting}
+          disabled={isSubmitting}
         >
           Отправить отзыв
         </button>
