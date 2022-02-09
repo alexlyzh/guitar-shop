@@ -11,7 +11,7 @@ type ModalProps = {
 
 function Modal({children, className, isOpen, onModalClose}: ModalProps) {
   const focusTrapRef = useRef<HTMLDivElement | null>(null);
-  useTabKeyFocusTrap(focusTrapRef);
+  useTabKeyFocusTrap(focusTrapRef, isOpen);
 
   return ReactDOM.createPortal(
     <div className={`modal ${isOpen ? 'is-active' : ''} ${className}`} aria-label="modal">

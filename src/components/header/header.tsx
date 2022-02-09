@@ -1,10 +1,11 @@
-import {Link} from 'react-router-dom';
-import {AppPath} from '../../const';
-import SearchForm from './search-form/search-form';
 import Logo from '../common/logo/logo';
-import {useSearch} from '../../hooks/use-search/use-search';
+import SearchForm from './search-form/search-form';
+import { Link, useLocation } from 'react-router-dom';
+import { AppPath } from '../../const';
+import { useSearch } from '../../hooks/use-search/use-search';
 
 function Header(): JSX.Element {
+  const location = useLocation();
   const {search, changeSearch, isDropdownVisible, foundGuitars} = useSearch();
   return (
     <header className="header" id="header" data-testid="header">
@@ -14,7 +15,7 @@ function Header(): JSX.Element {
         <nav className="main-nav">
           <ul className="main-nav__list">
             <li>
-              <Link className="link main-nav__link link--current" to={AppPath.catalog}>Каталог</Link>
+              <Link className={`link main-nav__link ${location.pathname === AppPath.catalog ? 'link--current' : ''}`} to={AppPath.catalog}>Каталог</Link>
             </li>
             <li>
               <Link className="link main-nav__link" to="#">Где купить?</Link>
