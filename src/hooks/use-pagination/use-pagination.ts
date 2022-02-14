@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { GuitarWithComments, RemoteData, RequestStatus } from '../../types/types';
 import { AppPath, FIRST_PAGE } from '../../const';
-import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentFilter } from '../../store/reducer/filter-reducer/selectors';
 import { ActionCreator } from '../../store/actions';
 import { createCatalogAppUrl } from '../../utils/api';
@@ -9,7 +9,6 @@ import { createCatalogAppUrl } from '../../utils/api';
 export const usePagination = (
   guitars: RemoteData<GuitarWithComments>,
   guitarsPerPage: number,
-  isAppInitialized: boolean,
 ) => {
   const dispatch = useDispatch();
   const currentFilter = useSelector(getCurrentFilter);
@@ -18,16 +17,15 @@ export const usePagination = (
   const lastGuitarIndex = currentFilter.page * guitarsPerPage;
   const firstGuitarIndex = lastGuitarIndex - guitarsPerPage;
   const renderGuitars = guitars.data.slice(firstGuitarIndex, lastGuitarIndex);
-  const shouldResetPagination = isAppInitialized
-    && guitars.requestStatus === RequestStatus.SUCCESS
+  const shouldResetPagination = guitars.requestStatus === RequestStatus.SUCCESS
     && (currentFilter.page * guitarsPerPage) > (Math.ceil(guitars.data.length / guitarsPerPage) * guitarsPerPage);
 
   const paginate = useCallback((page: number) => {
-    dispatch(ActionCreator.setCatalogPage(page));
-    const search = createCatalogAppUrl({...currentFilter, page}).search;
+    const redirectPage = page ? page : currentPage;
+    dispatch(ActionCreator.setCatalogPage(redirectPage));
+    const search = createCatalogAppUrl({...currentFilter, page: redirectPage}).search;
     dispatch(ActionCreator.updateCatalogUrl(`${AppPath.catalog}${search}`));
-  }, [currentFilter, dispatch]);
-
+  }, [currentFilter, currentPage, dispatch]);
 
   useEffect(() => {
     if (shouldResetPagination) {
@@ -36,10 +34,10 @@ export const usePagination = (
   }, [shouldResetPagination, paginate]);
 
   useEffect(() => {
-    if (isAppInitialized) {
+    if (currentPage) {
       paginate(currentPage);
     }
-  }, [isAppInitialized, currentPage, paginate]);
+  }, [currentPage, paginate]);
 
   return {
     currentPage,

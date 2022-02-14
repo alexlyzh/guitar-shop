@@ -4,7 +4,6 @@ import { SortSettings } from './reducer/sort-reducer/sort-reducer';
 import { FilterSettings } from './reducer/filter-reducer/filter-reducer';
 
 enum ActionType {
-  initializeCatalog = 'APP / initializeCatalog',
   setSubmitting = 'APP / setSubmitting',
   redirect = 'APP / redirect',
   startLoadGuitars = 'DATA / startLoadGuitars',
@@ -24,7 +23,6 @@ enum ActionType {
 }
 
 const ActionCreator = {
-  initializeCatalog: createAction(ActionType.initializeCatalog),
 
   setSubmitting: createAction(ActionType.setSubmitting, (isSubmitting: boolean) => ({payload: isSubmitting})),
 

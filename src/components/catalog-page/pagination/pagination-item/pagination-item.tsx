@@ -9,7 +9,7 @@ type Props = {
 }
 
 function PaginationItem({className, linkText, isActive, isPage, onLinkClick}: Props): JSX.Element {
-  const testId = isActive ? 'pagination-page-active' : 'pagination-page';
+  const testId = isActive ? 'pagination-item-active' : 'pagination-item';
   return (
     <li className={className} data-testid={isPage ? testId : 'pagination-direction'}>
       <Link className="link pagination__page-link" to="#" onClick={onLinkClick}>

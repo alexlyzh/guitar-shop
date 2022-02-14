@@ -8,14 +8,6 @@ describe('Reducer: FilterContainer', () => {
       .toEqual(initialAppState);
   });
 
-  it('should initialize catalog', () => {
-    expect(appReducer(initialAppState, ActionCreator.initializeCatalog()))
-      .toEqual({
-        ...initialAppState,
-        isCatalogInitialized: true,
-      });
-  });
-
   it('should set submitting state correctly', () => {
     const isSubmitting = Boolean(getRandomInteger());
     expect(appReducer(initialAppState, ActionCreator.setSubmitting(isSubmitting)))

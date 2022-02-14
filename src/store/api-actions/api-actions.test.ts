@@ -21,23 +21,6 @@ const middlewares = [thunk.withExtraArgument(api)];
 const mockStore = configureMockStore<State, AnyAction, ThunkDispatch<State, typeof api, Action>>(middlewares);
 
 describe('Async actions', () => {
-  it('should dispatch correct actions on getting guitars price range', async () => {
-    const store = mockStore();
-    const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
-    const {minPrice, maxPrice} = parseGuitarsData(guitars);
-
-    mockApi.onGet(apiRoute.path.guitars).reply(HttpCode.OK, guitars);
-
-    expect(store.getActions()).toEqual([]);
-
-    await store.dispatch(ActionAPI.getGuitarsPriceRange());
-
-    expect(store.getActions()).toEqual([
-      ActionCreator.setPriceRange(minPrice, maxPrice),
-      ActionCreator.initializeCatalog(),
-    ]);
-  });
-
   it('should dispatch correct actions calling updateFilter', async () => {
     const filter = {
       page: FIRST_PAGE,
@@ -54,6 +37,7 @@ describe('Async actions', () => {
     });
 
     const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
+    const { minPrice, maxPrice } = parseGuitarsData(guitars);
     mockApi
       .onGet(`${createCatalogApiUrl(filter, initialSortState.currentSort).href}&${apiRoute.search.embed}=comments`)
       .reply(HttpCode.OK, guitars);
@@ -64,6 +48,7 @@ describe('Async actions', () => {
       ActionCreator.updateCatalogUrl(`${AppPath.catalog}${createCatalogAppUrl(filter).search}`),
       ActionCreator.startLoadGuitars(),
       ActionCreator.saveGuitars(guitars),
+      ActionCreator.setPriceRange(minPrice, maxPrice),
     ]);
   });
 
@@ -75,13 +60,16 @@ describe('Async actions', () => {
       strings: [Mock.guitar.stringCount],
       types: [Mock.guitar.type],
     };
+
     const store = mockStore({
       FILTER: {
         currentFilter: filter,
       },
       SORT: initialSortState,
     });
+
     const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
+    const { minPrice, maxPrice } = parseGuitarsData(guitars);
     const apiUrl = createCatalogApiUrl(filter, initialSortState.currentSort);
     mockApi
       .onGet(apiUrl.href)
@@ -92,6 +80,7 @@ describe('Async actions', () => {
     expect(store.getActions()).toEqual([
       ActionCreator.startLoadGuitars(),
       ActionCreator.saveGuitars(guitars),
+      ActionCreator.setPriceRange(minPrice, maxPrice),
     ]);
   });
 

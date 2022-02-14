@@ -71,19 +71,6 @@ const ActionAPI = {
       }
     },
 
-  getGuitarsPriceRange: (): ThunkActionResult =>
-    async (dispatch, _getState, api): Promise<void> => {
-      try {
-        const {data} = await api.get<Guitar[]>(apiRoute.path.guitars);
-        const {minPrice, maxPrice} = parseGuitarsData(data);
-        dispatch(ActionCreator.setPriceRange(minPrice, maxPrice));
-        dispatch(ActionCreator.initializeCatalog());
-      } catch (e) {
-        toast.error(AppMessage.ErrorOnGetGuitars);
-        throw e;
-      }
-    },
-
   updateFilter: (): ThunkActionResult =>
     async (dispatch, getState, _api): Promise<void> => {
       const state = getState();
@@ -102,6 +89,8 @@ const ActionAPI = {
         const endpoint = `${apiRoute.path.guitars}?${searchParams.toString()}`;
         const {data} = await api.get<GuitarWithComments[]>(endpoint);
         dispatch(ActionCreator.saveGuitars(data));
+        const { minPrice, maxPrice } = parseGuitarsData(data);
+        dispatch(ActionCreator.setPriceRange(minPrice, maxPrice));
       } catch (e) {
         dispatch(ActionCreator.setErrorLoadGuitars());
         throw e;

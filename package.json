@@ -36,6 +36,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
+    "test:coverage": "CI=true npm test -- --env=jsdom --coverage",
     "eject": "react-scripts eject",
     "eslint": "eslint --ext .tsx --ext .ts src/",
     "fix": "./node_modules/.bin/eslint src --fix"

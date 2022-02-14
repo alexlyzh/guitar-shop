@@ -1,6 +1,6 @@
-import {createReducer} from '@reduxjs/toolkit';
-import {ActionCreator} from '../../actions';
-import {FIRST_PAGE, MIN_PRICE} from '../../../const';
+import { createReducer } from '@reduxjs/toolkit';
+import { ActionCreator } from '../../actions';
+import { MIN_PRICE } from '../../../const';
 
 type FilterSettings = {
   page: number,
@@ -18,7 +18,7 @@ type FilterState = {
 const initialState: FilterState = {
   isActive: false,
   currentFilter: {
-    page: FIRST_PAGE,
+    page: 0,
     strings: [],
     types: [],
   },

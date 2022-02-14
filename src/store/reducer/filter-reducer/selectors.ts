@@ -1,6 +1,6 @@
-import {State} from '../root-reducer';
-import {createSelector} from '@reduxjs/toolkit';
-import {stringCount} from '../../../const';
+import { State } from '../root-reducer';
+import { createSelector } from '@reduxjs/toolkit';
+import { stringCount } from '../../../const';
 
 export const getFilterIsActive = (state: State) => state.FILTER.isActive;
 export const getCurrentFilter = (state: State) => state.FILTER.currentFilter;

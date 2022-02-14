@@ -47,7 +47,7 @@ describe('Component: Pagination', () => {
     expect(screen.getByRole('list')).toBeInTheDocument();
   });
 
-  it('should correctly render active pagination-page', () => {
+  it('should correctly render active pagination-item', () => {
     const cardsCount = getRandomInteger(Mock.pagination.cardsCount.twoPages, 100);
     const pagesCount = Math.ceil(cardsCount / GUITARS_PER_PAGE);
     const currentPage = getRandomInteger(FIRST_PAGE, pagesCount);
@@ -64,8 +64,8 @@ describe('Component: Pagination', () => {
         </Router>
       </Provider>);
 
-    const pages = screen.getAllByTestId(/pagination-page/);
-    const activePage = screen.getByTestId(/pagination-page-active/);
+    const pages = screen.getAllByTestId(/pagination-item/);
+    const activePage = screen.getByTestId(/pagination-item-active/);
 
     expect(pages.indexOf(activePage) + 1).toEqual(currentPage);
   });

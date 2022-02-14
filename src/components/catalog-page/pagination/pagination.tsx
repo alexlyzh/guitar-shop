@@ -1,4 +1,4 @@
-import PaginationItem from './pagination-page/pagination-item';
+import PaginationItem from './pagination-item/pagination-item';
 import { FIRST_PAGE } from '../../../const';
 
 type Props = {
