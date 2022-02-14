@@ -2,7 +2,8 @@
 
 Данный проект создан с помощью [Create React App](https://github.com/facebook/create-react-app).
 
-Задание: https://speckled-find-079.notion.site/Guitar-shop-94806e79987444fa81932a83448506c1
+Описание функциональности страницы каталога: https://www.notion.so/Guitar-shop-94806e79987444fa81932a83448506c1
+Описание страницы товара: https://www.notion.so/Guitar-Shop-1-422b9f763498474db2c74bebe6ee62f3
 
 Дока к серверу: https://github.com/alexlyzh/accelerator-guitar-shop-api
 
