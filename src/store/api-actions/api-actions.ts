@@ -97,7 +97,7 @@ const ActionAPI = {
       }
     },
 
-  getGuitarWithCommentsById: (id: number): ThunkActionResult =>
+  getGuitarById: (id: number): ThunkActionResult =>
     async (dispatch, _getState, api): Promise<void> => {
       dispatch(ActionCreator.startLoadGuitars());
       try {

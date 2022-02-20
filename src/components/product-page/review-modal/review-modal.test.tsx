@@ -26,7 +26,6 @@ describe('Component: ReviewModal', () => {
       </Provider>,
     );
 
-    expect(screen.getByLabelText('open-review-form')).toBeInTheDocument();
-    expect(screen.getByLabelText('modal')).toBeInTheDocument();
+    expect(screen.getByLabelText(/open review form/i)).toBeInTheDocument();
   });
 });

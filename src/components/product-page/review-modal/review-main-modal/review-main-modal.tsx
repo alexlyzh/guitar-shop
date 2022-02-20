@@ -1,11 +1,11 @@
+import RadioStarRating from '../../../common/radio-star-rating/radio-star-rating';
 import { useSelector } from 'react-redux';
-import { getIsSubmitting } from '../../../store/reducer/app-reducer/selectors';
-import { useFormState } from '../../../hooks/use-form-state/use-form-state';
-import { Guitar, ReviewFormState } from '../../../types/types';
-import { usePostReview } from '../../../hooks/use-post-review/use-post-review';
+import { getIsSubmitting } from '../../../../store/reducer/app-reducer/selectors';
+import { useFormState } from '../../../../hooks/use-form-state/use-form-state';
+import { Guitar, ReviewFormState } from '../../../../types/types';
+import { usePostReview } from '../../../../hooks/use-post-review/use-post-review';
 import { useCallback, useEffect } from 'react';
-import { MODAL_FADE_OUT_DURATION } from '../../../const';
-import RadioStarRating from '../../common/radio-star-rating/radio-star-rating';
+import { MODAL_FADE_OUT_DURATION } from '../../../../const';
 
 const initialState: ReviewFormState = {
   'user-name': '',
@@ -20,7 +20,7 @@ type Props = {
   onSubmitSuccess?: () => void,
 }
 
-function ReviewForm({product, isModalOpen, onSubmitSuccess}: Props): JSX.Element {
+function ReviewMainModal({product, isModalOpen, onSubmitSuccess}: Props): JSX.Element {
   const isSubmitting = useSelector(getIsSubmitting);
   const [state, setState, onFormElementChange] = useFormState<ReviewFormState>(initialState);
   const [
@@ -69,19 +69,19 @@ function ReviewForm({product, isModalOpen, onSubmitSuccess}: Props): JSX.Element
             />
           </div>
         </div>
-        <label className="form-review__label" htmlFor="advantage">Достоинства</label>
+        <label className="form-review__label form-review__label--required" htmlFor="advantage">Достоинства</label>
         <input className="form-review__input" id="advantage" name="advantage" type="text" autoComplete="off"
           value={state.advantage}
           disabled={isSubmitting}
           onChange={onFormElementChange}
         />
-        <label className="form-review__label" htmlFor="disadvantage">Недостатки</label>
+        <label className="form-review__label form-review__label--required" htmlFor="disadvantage">Недостатки</label>
         <input className="form-review__input" id="disadvantage" name="disadvantage" type="text" autoComplete="off"
           value={state.disadvantage}
           disabled={isSubmitting}
           onChange={onFormElementChange}
         />
-        <label className="form-review__label" htmlFor="review">Комментарий</label>
+        <label className="form-review__label form-review__label--required" htmlFor="review">Комментарий</label>
         <textarea className="form-review__input form-review__input--textarea" id="review" name="review" rows={10} autoComplete="off"
           value={state.review}
           onChange={onFormElementChange}
@@ -96,4 +96,4 @@ function ReviewForm({product, isModalOpen, onSubmitSuccess}: Props): JSX.Element
   );
 }
 
-export default ReviewForm;
+export default ReviewMainModal;

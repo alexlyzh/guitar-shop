@@ -1,11 +1,11 @@
-import ReviewSuccess from './review-success';
+import ReviewSuccessModal from './review-success-modal';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-describe('Component: ReviewSuccess', () => {
+describe('Component: ReviewSuccessModal', () => {
   it('should render correctly', () => {
     const handleClick = jest.fn();
-    render(<ReviewSuccess onButtonClick={handleClick} />);
+    render(<ReviewSuccessModal onButtonClick={handleClick} />);
 
     expect(screen.getByText(/Спасибо/)).toBeInTheDocument();
     expect(screen.getByText(/К покупкам/)).toBeInTheDocument();

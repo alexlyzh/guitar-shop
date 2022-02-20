@@ -2,7 +2,7 @@ type Props = {
   onButtonClick: () => void,
 }
 
-function ReviewSuccess({onButtonClick}: Props): JSX.Element {
+function ReviewSuccessModal({onButtonClick}: Props): JSX.Element {
   return (
     <>
       <svg className="modal__icon" width="26" height="20" aria-hidden="true">
@@ -20,4 +20,4 @@ function ReviewSuccess({onButtonClick}: Props): JSX.Element {
   );
 }
 
-export default ReviewSuccess;
+export default ReviewSuccessModal;

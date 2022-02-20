@@ -1,4 +1,4 @@
-import {SiteRoute} from './types/types';
+import { SiteRoute } from './types/types';
 
 const MIN_PRICE = 0;
 const MIN_CATALOG_HEIGHT = '745px';
@@ -11,6 +11,7 @@ enum AppPath {
   root = '/',
   catalog = '/catalog',
   product = '/catalog/:id',
+  cart = '/cart',
 }
 
 const siteRoutes: SiteRoute[] = [
@@ -64,9 +65,9 @@ const stringOptions: Array<number> = [4, 6, 7, 12];
 const typeOptions: Array<string> = ['acoustic', 'electric', 'ukulele'];
 
 const stringCount: Record<string, ReadonlyArray<number>> = <const>{
-  acoustic: <const> [6, 7, 12],
-  ukulele: <const> [4],
-  electric: <const> [4, 6, 7],
+  acoustic: <const>[6, 7, 12],
+  ukulele: <const>[4],
+  electric: <const>[4, 6, 7],
 };
 
 const guitarType: Record<string, Record<string, string>> = <const>{
@@ -141,7 +142,7 @@ enum HttpCode {
 
 enum AppMessage {
   ErrorOnGetGuitars = 'Что-то сломалось, попробуйте перезагрузить страницу',
-  ErrorPostingReview = 'Попробуйте заполнить все поля формы, даже необязательные',
+  ErrorPostingReview = 'Все поля формы обязательные',
   ErrorOnFilterUpdate = 'Ошибка при обновлении фильтра',
   CatalogPageHeading = 'Каталог гитар',
   CatalogFilterHeading = 'Фильтр',

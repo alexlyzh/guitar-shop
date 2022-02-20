@@ -2,6 +2,8 @@ import { ReactNode, useRef } from 'react';
 import { useTabKeyFocusTrap } from '../../../hooks/use-tab-key-focus-trap/use-tab-key-focus-trap';
 import ReactDOM from 'react-dom';
 
+const ACTIVE_CLASSNAME = 'is-active';
+
 type ModalProps = {
   children: ReactNode,
   isOpen: boolean,
@@ -13,8 +15,10 @@ function Modal({children, className, isOpen, onModalClose}: ModalProps) {
   const focusTrapRef = useRef<HTMLDivElement | null>(null);
   useTabKeyFocusTrap(focusTrapRef, isOpen);
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
   return ReactDOM.createPortal(
-    <div className={`modal ${isOpen ? 'is-active' : ''} ${className}`} aria-label="modal">
+    <div className={`modal ${ACTIVE_CLASSNAME} ${className}`} ref={modalRef} aria-label="modal window">
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={onModalClose}/>
         <div className="modal__content" ref={focusTrapRef} >

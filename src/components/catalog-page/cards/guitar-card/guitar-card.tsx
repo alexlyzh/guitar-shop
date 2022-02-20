@@ -1,6 +1,7 @@
 import StarRating from '../../../common/star-rating/star-rating';
+import CartModal from '../../../common/cart-modal/cart-modal';
 import { generatePath, Link } from 'react-router-dom';
-import { GuitarWithComments } from '../../../../types/types';
+import { GuitarWithComments, ModalType } from '../../../../types/types';
 import { AppPath } from '../../../../const';
 
 type Props = {
@@ -30,7 +31,8 @@ function GuitarCard({guitar}: Props): JSX.Element {
       </div>
       <div className="product-card__buttons">
         <Link className="button button--mini" to={generatePath(AppPath.product, {id})}>Подробнее</Link>
-        <Link className="button button--red button--mini button--add-to-cart" to="#">Купить</Link>
+        <CartModal product={guitar} type={ModalType.catalogAddToCart} />
+
       </div>
     </div>
   );

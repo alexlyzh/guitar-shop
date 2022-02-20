@@ -1,5 +1,5 @@
-import {ChangeEventHandler} from 'react';
-import {StarSpriteID} from '../../../const';
+import { ChangeEventHandler } from 'react';
+import { StarSpriteID } from '../../../const';
 
 type Props = {
   rating: string | undefined,
@@ -21,7 +21,7 @@ function RadioStarRating({rating, isDisabled = false, onInputChange, shouldShowR
         />
         <label className="rate__label" htmlFor="star-1" title="Ужасно">
           <svg width={'100%'} height={'100%'} aria-hidden="true">
-            <use xlinkHref={ (Number(rating) >= 1) ? StarSpriteID.FULL : StarSpriteID.EMPTY }/>
+            <use xlinkHref={(Number(rating) >= 1) ? StarSpriteID.FULL : StarSpriteID.EMPTY}/>
           </svg>
         </label>
         <input
@@ -32,7 +32,7 @@ function RadioStarRating({rating, isDisabled = false, onInputChange, shouldShowR
         />
         <label className="rate__label" htmlFor="star-2" title="Плохо">
           <svg width={'100%'} height={'100%'} aria-hidden="true">
-            <use xlinkHref={ (Number(rating) >= 2) ? StarSpriteID.FULL : StarSpriteID.EMPTY }/>
+            <use xlinkHref={(Number(rating) >= 2) ? StarSpriteID.FULL : StarSpriteID.EMPTY}/>
           </svg>
         </label>
         <input
@@ -43,7 +43,7 @@ function RadioStarRating({rating, isDisabled = false, onInputChange, shouldShowR
         />
         <label className="rate__label" htmlFor="star-3" title="Нормально">
           <svg width={'100%'} height={'100%'} aria-hidden="true">
-            <use xlinkHref={ (Number(rating) >= 3) ? StarSpriteID.FULL : StarSpriteID.EMPTY }/>
+            <use xlinkHref={(Number(rating) >= 3) ? StarSpriteID.FULL : StarSpriteID.EMPTY}/>
           </svg>
         </label>
         <input
@@ -54,7 +54,7 @@ function RadioStarRating({rating, isDisabled = false, onInputChange, shouldShowR
         />
         <label className="rate__label" htmlFor="star-4" title="Хорошо">
           <svg width={'100%'} height={'100%'} aria-hidden="true">
-            <use xlinkHref={ (Number(rating) >= 4) ? StarSpriteID.FULL : StarSpriteID.EMPTY }/>
+            <use xlinkHref={(Number(rating) >= 4) ? StarSpriteID.FULL : StarSpriteID.EMPTY}/>
           </svg>
         </label>
         <input
@@ -65,12 +65,12 @@ function RadioStarRating({rating, isDisabled = false, onInputChange, shouldShowR
         />
         <label className="rate__label" htmlFor="star-5" title="Отлично">
           <svg width={'100%'} height={'100%'} aria-hidden="true">
-            <use xlinkHref={ (Number(rating) >= 5) ? StarSpriteID.FULL : StarSpriteID.EMPTY }/>
+            <use xlinkHref={(Number(rating) >= 5) ? StarSpriteID.FULL : StarSpriteID.EMPTY}/>
           </svg>
         </label>
         <span className="rate__count visually-hidden">{rating}</span>
         <span className="rate__message">
-          { shouldShowRateWarning ? 'Поставьте оценку' : null }
+          {shouldShowRateWarning ? 'Поставьте оценку' : null}
         </span>
       </div>
     </>

@@ -93,7 +93,7 @@ describe('Async actions', () => {
       .onGet(generatePath(endpoint))
       .reply(HttpCode.OK, guitar);
 
-    await store.dispatch(ActionAPI.getGuitarWithCommentsById(guitar.id));
+    await store.dispatch(ActionAPI.getGuitarById(guitar.id));
 
     expect(store.getActions()).toEqual([
       ActionCreator.startLoadGuitars(),

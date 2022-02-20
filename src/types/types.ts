@@ -7,6 +7,12 @@ enum RequestStatus {
   ERROR = 'ERROR',
 }
 
+enum ModalType {
+  review = 'review',
+  productAddToCart = 'productAddToCart',
+  catalogAddToCart = 'catalogAddToCart',
+}
+
 type RemoteData<Type> = {
   requestStatus: RequestStatus,
   data: Type[],
@@ -63,7 +69,7 @@ type SiteRoute = {
   title: string,
 }
 
-export {RequestStatus};
+export { RequestStatus, ModalType };
 export type {
   RemoteData,
   RemoteDataByID,

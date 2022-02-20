@@ -12,7 +12,7 @@ export const useGuitar = (id: number) => {
 
   useEffect(() => {
     if (shouldLoadGuitar) {
-      dispatch(ActionAPI.getGuitarWithCommentsById(id));
+      dispatch(ActionAPI.getGuitarById(id));
       dispatch(ActionCreator.setFilterActivity(false));
     }
   }, [shouldLoadGuitar, id, dispatch]);

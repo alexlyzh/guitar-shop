@@ -1,14 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
-import { useModal } from '../../../hooks/use-modal/use-modal';
-import { Link } from 'react-router-dom';
-import { Guitar } from '../../../types/types';
-import { MODAL_FADE_OUT_DURATION } from '../../../const';
 import Modal from '../../common/modal/modal';
-import ReviewForm from '../review-form/review-form';
-import ReviewSuccess from '../review-success/review-success';
+import ReviewMainModal from './review-main-modal/review-main-modal';
+import ReviewSuccessModal from './review-success-modal/review-success-modal';
+import ModalOpenButton from '../../common/modal-open-button/modal-open-button';
+import { Guitar, ModalType } from '../../../types/types';
+import { useModalWithSuccess } from '../../../hooks/use-modal/use-modal-with-success/use-modal-with-success';
 
 enum ClassName {
-  review = 'modal--review',
+  main = 'modal--review',
   success = 'modal--success'
 }
 
@@ -17,32 +15,17 @@ type Props = {
 }
 
 function ReviewModal({product}: Props): JSX.Element {
-  const [isModalOpen, showModal, hideModal] = useModal();
-  const [shouldShowSuccess, setShouldShowSuccess] = useState(false);
-
-  const showSuccessForm = useCallback(() => setShouldShowSuccess(true), [setShouldShowSuccess]);
-  const hideSuccessForm = useCallback(() => setShouldShowSuccess(false), [setShouldShowSuccess]);
-
-  useEffect(() => {
-    if (!isModalOpen) {
-      setTimeout(hideSuccessForm, MODAL_FADE_OUT_DURATION);
-    }
-  }, [isModalOpen, hideSuccessForm]);
+  const {isModalOpen, hideModal, showModal, shouldShowSuccess, showSuccessForm} = useModalWithSuccess();
 
   return (
     <>
-      <Link className="button button--red-border button--big reviews__submit-button"
-        to="#"
-        onClick={showModal}
-        aria-label="open-review-form"
-      >
-        Оставить отзыв
-      </Link>
-      <Modal isOpen={isModalOpen} onModalClose={hideModal} className={shouldShowSuccess ? ClassName.success : ClassName.review}>
-        {!shouldShowSuccess
-          ? <ReviewForm isModalOpen={isModalOpen} product={product} onSubmitSuccess={showSuccessForm} />
-          : <ReviewSuccess onButtonClick={hideModal} />}
-      </Modal>
+      <ModalOpenButton type={ModalType.review} onClick={showModal} />
+      {isModalOpen ?
+        <Modal isOpen={isModalOpen} onModalClose={hideModal} className={shouldShowSuccess ? ClassName.success : ClassName.main}>
+          {!shouldShowSuccess
+            ? <ReviewMainModal isModalOpen={isModalOpen} product={product} onSubmitSuccess={showSuccessForm} />
+            : <ReviewSuccessModal onButtonClick={hideModal} />}
+        </Modal> : null}
     </>
   );
 }

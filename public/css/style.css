@@ -1986,15 +1986,12 @@ button,
 
 .form-review__label {
   display: inline-block;
-
   margin-bottom: 5px;
-
   font-size: 12px;
   line-height: 15px;
-
   color: #585757;
-
   letter-spacing: 0.02em;
+  width: fit-content;
 }
 
 .form-review__label--required {

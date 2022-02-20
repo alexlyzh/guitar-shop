@@ -6,11 +6,13 @@ import ReviewsContainer from './reviews-container/reviews-container';
 import TabContainer from './tab-container/tab-container';
 import Characteristics from './characteristics/characteristics';
 import Description from './description/description';
+import CartModal from '../common/cart-modal/cart-modal';
 import { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { AppMessage, tabLabel } from '../../const';
 import { useGuitar } from '../../hooks/use-guitar/use-guitar';
 import { getBreadcrumbRoutes, scrollToPageTop } from '../../utils/common';
+import { ModalType } from '../../types/types';
 
 type PageParams = {
   id: string,
@@ -76,7 +78,8 @@ function ProductPage({productId}: Props): JSX.Element {
             <div className="product-container__price-wrapper">
               <p className="product-container__price-info product-container__price-info--title">Цена:</p>
               <p className="product-container__price-info product-container__price-info--value">{product.price} ₽</p>
-              <Link className="button button--red button--big product-container__button" to="#">Добавить в корзину</Link>
+              <CartModal product={product} type={ModalType.productAddToCart} />
+
             </div>
           </div>
           <ReviewsContainer product={product}/>
