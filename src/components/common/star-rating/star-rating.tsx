@@ -1,4 +1,4 @@
-import { StarSpriteID } from '../../../const';
+import { StarSpriteID } from '../../../const/common';
 import {getStarRatingSpriteIDs} from '../../../utils/common';
 
 type Props = {

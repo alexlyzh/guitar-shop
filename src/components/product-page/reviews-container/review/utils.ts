@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { monthMap } from '../../../../const';
+import { monthMap } from '../../../../const/common';
 
 export const formatDate = (date: string) => {
   const month = dayjs(date).format('MMMM');

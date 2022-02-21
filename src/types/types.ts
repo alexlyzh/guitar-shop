@@ -1,4 +1,4 @@
-import { AppPath } from '../const';
+import { AppPath } from '../const/app-routes';
 
 enum RequestStatus {
   IDLE = 'IDLE',
@@ -9,8 +9,8 @@ enum RequestStatus {
 
 enum ModalType {
   review = 'review',
-  productAddToCart = 'productAddToCart',
-  catalogAddToCart = 'catalogAddToCart',
+  productCart = 'productCart',
+  catalogCart = 'catalogCart',
 }
 
 type RemoteData<Type> = {

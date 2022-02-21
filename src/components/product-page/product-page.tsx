@@ -9,7 +9,7 @@ import Description from './description/description';
 import CartModal from '../common/cart-modal/cart-modal';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { AppMessage, tabLabel } from '../../const';
+import { AppMessage, tabLabel } from '../../const/common';
 import { useGuitar } from '../../hooks/use-guitar/use-guitar';
 import { getBreadcrumbRoutes, scrollToPageTop } from '../../utils/common';
 import { ModalType } from '../../types/types';
@@ -78,7 +78,7 @@ function ProductPage({productId}: Props): JSX.Element {
             <div className="product-container__price-wrapper">
               <p className="product-container__price-info product-container__price-info--title">Цена:</p>
               <p className="product-container__price-info product-container__price-info--value">{product.price} ₽</p>
-              <CartModal product={product} type={ModalType.productAddToCart} />
+              <CartModal product={product} type={ModalType.productCart} />
 
             </div>
           </div>

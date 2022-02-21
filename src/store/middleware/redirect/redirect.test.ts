@@ -3,8 +3,8 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {redirect} from './redirect';
 import {State} from '../../reducer/root-reducer';
 import {ActionCreator} from '../../actions';
-import {AppPath} from '../../../const';
 import {Mock} from '../../../utils/mock';
+import { AppPath } from '../../../const/app-routes';
 
 const fakeHistory = {
   location: {pathname: ''},

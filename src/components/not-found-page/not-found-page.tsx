@@ -1,6 +1,6 @@
 import './not-found-page.css';
 import { Link } from 'react-router-dom';
-import { AppPath } from '../../const';
+import { AppPath } from '../../const/app-routes';
 
 function NotFoundPage(): JSX.Element {
   return (

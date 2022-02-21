@@ -5,7 +5,7 @@ import CartSuccessModal from './cart-success-modal/cart-success-modal';
 import { useHistory } from 'react-router-dom';
 import { useModalWithSuccess } from '../../../hooks/use-modal/use-modal-with-success/use-modal-with-success';
 import { Guitar, ModalType } from '../../../types/types';
-import { AppPath } from '../../../const';
+import { AppPath } from '../../../const/app-routes';
 
 enum ClassName {
   main = 'modal-cart--add',

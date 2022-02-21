@@ -1,6 +1,6 @@
 import FilterType from './filter-type';
 import {render, screen} from '@testing-library/react';
-import {guitarType} from '../../../../const';
+import {guitarType} from '../../../../const/common';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Provider} from 'react-redux';
 import {initialFilterState} from '../../../../store/reducer/filter-reducer/filter-reducer';

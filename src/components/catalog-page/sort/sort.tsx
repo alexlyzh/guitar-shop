@@ -1,4 +1,4 @@
-import {SortOrder, SortType} from '../../../const';
+import {SortOrder, SortType} from '../../../const/common';
 import {SortSettings} from '../../../store/reducer/sort-reducer/sort-reducer';
 
 type Props = {

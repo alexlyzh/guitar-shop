@@ -1,5 +1,5 @@
 import { MutableRefObject, useEffect } from 'react';
-import { KeyboardKey } from '../../const';
+import { KeyboardKey } from '../../const/common';
 
 const FOCUSABLE_ELEMENTS_SELECTOR = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 

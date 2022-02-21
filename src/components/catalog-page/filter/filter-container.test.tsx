@@ -3,7 +3,7 @@ import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {initialFilterState} from '../../../store/reducer/filter-reducer/filter-reducer';
-import {AppMessage} from '../../../const';
+import {AppMessage} from '../../../const/common';
 
 const mockStore = configureMockStore();
 

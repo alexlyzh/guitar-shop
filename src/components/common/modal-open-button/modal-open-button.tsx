@@ -1,12 +1,12 @@
 import ReviewBtn from './review-btn/review-btn';
-import ProductAddToCartBtn from './product-add-to-cart-btn/product-add-to-cart-btn';
-import CatalogAddToCartBtn from './catalog-add-to-cart-btn/catalog-add-to-cart-btn';
+import ProductCartBtn from './product-cart-btn/product-cart-btn';
+import CatalogCartBtn from './catalog-cart-btn/catalog-cart-btn';
 import { ModalType } from '../../../types/types';
 
 const buttonByModalType = {
   review: ReviewBtn,
-  productAddToCart: ProductAddToCartBtn,
-  catalogAddToCart: CatalogAddToCartBtn,
+  productCart: ProductCartBtn,
+  catalogCart: CatalogCartBtn,
 };
 
 type Props = {

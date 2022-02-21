@@ -1,6 +1,6 @@
 import {initialSortState, sortReducer} from './sort-reducer';
 import {ActionCreator} from '../../actions';
-import {SortOrder, SortType} from '../../../const';
+import {SortOrder, SortType} from '../../../const/common';
 
 describe('Reducer: Sort', () => {
   const state = initialSortState;

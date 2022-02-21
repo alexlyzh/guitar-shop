@@ -10,7 +10,7 @@ import { initialAppState } from '../../store/reducer/app-reducer/app-reducer';
 import { initialDataState } from '../../store/reducer/data-reducer/data-reducer';
 import { initialSortState } from '../../store/reducer/sort-reducer/sort-reducer';
 import { initialFilterState } from '../../store/reducer/filter-reducer/filter-reducer';
-import { AppMessage } from '../../const';
+import { AppMessage } from '../../const/common';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();

@@ -5,7 +5,7 @@ import { Action, AnyAction } from '@reduxjs/toolkit';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { State } from '../reducer/root-reducer';
 import { BASE_API_URL, createApi } from '../../api';
-import { apiRoute, AppPath, FIRST_PAGE, HttpCode, SortOrder, SortType } from '../../const';
+import { FIRST_PAGE, HttpCode, SortOrder, SortType } from '../../const/common';
 import { getMockComment, getMockCommentPost, getMockGuitar, Mock } from '../../utils/mock';
 import { ActionAPI } from './api-actions';
 import { ActionCreator } from '../actions';
@@ -13,6 +13,8 @@ import { createCatalogApiUrl, createCatalogAppUrl, embedComments, parseGuitarsDa
 import { initialSortState } from '../reducer/sort-reducer/sort-reducer';
 import { initialFilterState } from '../reducer/filter-reducer/filter-reducer';
 import { getRandomInteger } from '../../utils/common';
+import { AppPath } from '../../const/app-routes';
+import { apiRoute } from '../../const/api-routes';
 
 const api = createApi();
 const mockApi = new MockAdapter(api);

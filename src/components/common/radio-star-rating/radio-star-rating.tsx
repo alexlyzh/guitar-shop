@@ -1,5 +1,5 @@
 import { ChangeEventHandler } from 'react';
-import { StarSpriteID } from '../../../const';
+import { StarSpriteID } from '../../../const/common';
 
 type Props = {
   rating: string | undefined,

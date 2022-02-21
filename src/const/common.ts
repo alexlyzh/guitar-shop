@@ -1,60 +1,9 @@
-import { SiteRoute } from './types/types';
-
 const MIN_PRICE = 0;
 const MIN_CATALOG_HEIGHT = '745px';
 const FIRST_PAGE = 1;
 const GUITARS_PER_PAGE = 9;
 const STARS_COUNT = 5;
 const MODAL_FADE_OUT_DURATION = 600;
-
-enum AppPath {
-  root = '/',
-  catalog = '/catalog',
-  product = '/catalog/:id',
-  cart = '/cart',
-}
-
-const siteRoutes: SiteRoute[] = [
-  <const>{
-    pathname: AppPath.root,
-    title: 'Главная',
-  },
-  <const>{
-    pathname: AppPath.catalog,
-    title: 'Каталог',
-  },
-  <const>{
-    pathname: AppPath.product,
-    title: 'Товар',
-  },
-];
-
-enum AppSearchParam {
-  page = 'page',
-  priceMin = 'price_gte',
-  priceMax = 'price_lte',
-  type = 'type',
-  stringCount = 'stringCount',
-}
-
-const apiRoute = <const>{
-  path: <const>{
-    guitars: '/guitars',
-    guitar: '/guitars/:id',
-    guitarComments: '/guitars/:id/comments',
-    comments: '/comments',
-  },
-  search: <const>{
-    name: 'name_like',
-    sort: '_sort',
-    order: '_order',
-    priceMin: 'price_gte',
-    priceMax: 'price_lte',
-    stringCount: 'stringCount',
-    type: 'type',
-    embed: '_embed',
-  },
-};
 
 const debounceDelay = <const>{
   price: 700,
@@ -111,7 +60,6 @@ const screenTopOptions = <const>{
   behavior: 'smooth',
 };
 
-
 enum SortType {
   PRICE = 'price',
   RATING = 'rating',
@@ -163,11 +111,8 @@ export {
   STARS_COUNT,
   MODAL_FADE_OUT_DURATION,
   HttpCode,
-  AppPath,
-  AppSearchParam,
   AppMessage,
   StarSpriteID,
-  apiRoute,
   debounceDelay,
   KeyboardKey,
   SortType,
@@ -177,7 +122,6 @@ export {
   stringCount,
   stringOptions,
   typeOptions,
-  siteRoutes,
   tabLabel,
   monthMap,
   screenTopOptions

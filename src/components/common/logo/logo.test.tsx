@@ -2,8 +2,8 @@ import {render, screen} from '@testing-library/react';
 import Logo from './logo';
 import {createMemoryHistory} from 'history';
 import {Router, Switch, Route} from 'react-router-dom';
-import {AppPath} from '../../../const';
 import userEvent from '@testing-library/user-event';
+import { AppPath } from '../../../const/app-routes';
 
 const history = createMemoryHistory();
 

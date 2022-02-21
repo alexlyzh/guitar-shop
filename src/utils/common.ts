@@ -1,5 +1,6 @@
-import { KeyboardKey, screenTopOptions, siteRoutes, STARS_COUNT, StarSpriteID } from '../const';
+import { KeyboardKey, screenTopOptions, STARS_COUNT, StarSpriteID } from '../const/common';
 import { SiteRoute } from '../types/types';
+import { siteRoutes } from '../const/app-routes';
 
 export const isEscKeyDown = (evt: KeyboardEvent) => evt.key === KeyboardKey.ESC;
 

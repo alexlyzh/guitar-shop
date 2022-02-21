@@ -5,7 +5,7 @@ import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Sort from './sort/sort';
 import Cards from './cards/cards';
 import Pagination from './pagination/pagination';
-import { MIN_CATALOG_HEIGHT, GUITARS_PER_PAGE, AppMessage } from '../../const';
+import { MIN_CATALOG_HEIGHT, GUITARS_PER_PAGE, AppMessage } from '../../const/common';
 import { usePagination } from '../../hooks/use-pagination/use-pagination';
 import { useSort } from '../../hooks/use-sort/use-sort';
 import { useCatalogUrl } from '../../hooks/use-catalog-url/use-catalog-url';
@@ -16,13 +16,7 @@ function CatalogPage(): JSX.Element {
   useCatalogUrl();
   const {guitars, isFetchingGuitars, isErrorLoadingGuitars} = useGuitars();
   const {currentPage, renderGuitars, paginate} = usePagination(guitars, GUITARS_PER_PAGE);
-  const {
-    currentSort,
-    setTypePriceSort,
-    setTypeRatingSort,
-    setDescendingOrderSort,
-    setAscendingOrderSort,
-  } = useSort();
+  const sort = useSort();
 
   const routes = getBreadcrumbRoutes('Каталог');
 
@@ -46,11 +40,11 @@ function CatalogPage(): JSX.Element {
         <FilterContainer />
         <Sort
           isDisabled={!guitars.data.length}
-          currentSort={currentSort}
-          onAscendingOrderClick={setAscendingOrderSort}
-          onDescendingOrderClick={setDescendingOrderSort}
-          onTypePriceClick={setTypePriceSort}
-          onTypeRatingClick={setTypeRatingSort}
+          currentSort={sort.currentSort}
+          onAscendingOrderClick={sort.setAscendingOrderSort}
+          onDescendingOrderClick={sort.setDescendingOrderSort}
+          onTypePriceClick={sort.setTypePriceSort}
+          onTypeRatingClick={sort.setTypeRatingSort}
         />
         {isFetchingGuitars ? <Spinner marginTop={'10em'} /> :
           <>

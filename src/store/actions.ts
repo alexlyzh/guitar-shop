@@ -4,22 +4,22 @@ import { SortSettings } from './reducer/sort-reducer/sort-reducer';
 import { FilterSettings } from './reducer/filter-reducer/filter-reducer';
 
 enum ActionType {
-  setSubmitting = 'APP / setSubmitting',
-  redirect = 'APP / redirect',
-  startLoadGuitars = 'DATA / startLoadGuitars',
-  saveGuitars = 'DATA / saveGuitars',
-  errorLoadGuitars ='DATA / errorLoadGuitars',
-  addComment = 'DATA / addComment',
-  saveGuitar = 'DATA / saveGuitar',
-  setPriceRange = 'DATA / setPriceRange',
-  setFilterActivity = 'FILTER / setFilterActivity',
-  setFilter = 'FILTER / setFilter',
-  toggleStringCondition = 'FILTER / toggleStringCondition',
-  toggleTypeCondition = 'FILTER / toggleTypeCondition',
-  setPriceMin= 'FILTER / setPriceMin',
-  setPriceMax = 'FILTER / setPriceMax',
-  setCatalogPage = 'FILTER / setCatalogPage',
-  setSort = 'SORT / setSort',
+  setSubmitting = 'APP/setSubmitting',
+  redirect = 'APP/redirect',
+  startLoadGuitars = 'DATA/startLoadGuitars',
+  saveGuitars = 'DATA/saveGuitars',
+  errorLoadGuitars ='DATA/errorLoadGuitars',
+  addComment = 'DATA/addComment',
+  saveGuitar = 'DATA/saveGuitar',
+  setPriceRange = 'DATA/setPriceRange',
+  setFilterActivity = 'FILTER/setFilterActivity',
+  setFilter = 'FILTER/setFilter',
+  toggleStringCondition = 'FILTER/toggleStringCondition',
+  toggleTypeCondition = 'FILTER/toggleTypeCondition',
+  setPriceMin= 'FILTER/setPriceMin',
+  setPriceMax = 'FILTER/setPriceMax',
+  setCatalogPage = 'FILTER/setCatalogPage',
+  setSort = 'SORT/setSort',
 }
 
 const ActionCreator = {

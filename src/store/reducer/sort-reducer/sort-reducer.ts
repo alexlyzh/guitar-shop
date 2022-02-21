@@ -1,6 +1,6 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {ActionCreator} from '../../actions';
-import {SortOrder, SortType} from '../../../const';
+import {SortOrder, SortType} from '../../../const/common';
 
 type SortSettings = {
   type?: SortType,

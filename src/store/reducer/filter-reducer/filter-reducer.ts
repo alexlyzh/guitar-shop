@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { ActionCreator } from '../../actions';
-import { MIN_PRICE } from '../../../const';
+import { MIN_PRICE } from '../../../const/common';
 
 type FilterSettings = {
   page: number,

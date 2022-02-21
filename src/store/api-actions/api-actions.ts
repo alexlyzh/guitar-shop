@@ -2,7 +2,7 @@ import { ThunkAction } from 'redux-thunk';
 import { Comment, CommentPost, Guitar, GuitarWithComments } from '../../types/types';
 import { AxiosInstance } from 'axios';
 import { Action } from '@reduxjs/toolkit';
-import { apiRoute, AppMessage, AppPath, AppSearchParam } from '../../const';
+import { AppMessage} from '../../const/common';
 import { ActionCreator } from '../actions';
 import { State } from '../reducer/root-reducer';
 import { Dispatch, SetStateAction } from 'react';
@@ -19,6 +19,8 @@ import {
   prepareSortAction,
   sortByNameStartingWithTemplate
 } from '../../utils/api';
+import { AppPath, AppSearchParam } from '../../const/app-routes';
+import { apiRoute } from '../../const/api-routes';
 
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 

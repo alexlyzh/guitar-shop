@@ -1,8 +1,8 @@
 import Logo from '../common/logo/logo';
 import SearchForm from './search-form/search-form';
 import { Link, useLocation } from 'react-router-dom';
-import { AppPath } from '../../const';
 import { useSearch } from '../../hooks/use-search/use-search';
+import { AppPath } from '../../const/app-routes';
 
 function Header(): JSX.Element {
   const location = useLocation();

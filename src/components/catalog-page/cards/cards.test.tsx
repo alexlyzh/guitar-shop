@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { mockGuitarsWithComments } from '../../../utils/mock';
 import { GuitarWithComments, RequestStatus } from '../../../types/types';
-import { AppMessage } from '../../../const';
+import { AppMessage } from '../../../const/common';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();

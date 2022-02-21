@@ -1,10 +1,11 @@
 import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GuitarWithComments, RemoteData, RequestStatus } from '../../types/types';
-import { AppPath, FIRST_PAGE } from '../../const';
+import { FIRST_PAGE } from '../../const/common';
 import { getCurrentFilter } from '../../store/reducer/filter-reducer/selectors';
 import { ActionCreator } from '../../store/actions';
 import { createCatalogAppUrl } from '../../utils/api';
+import { AppPath } from '../../const/app-routes';
 
 export const usePagination = (
   guitars: RemoteData<GuitarWithComments>,

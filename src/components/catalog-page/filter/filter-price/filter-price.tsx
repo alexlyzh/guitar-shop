@@ -1,6 +1,6 @@
 import {ChangeEvent} from 'react';
 import {debounce} from '../../../../utils/common';
-import {debounceDelay} from '../../../../const';
+import {debounceDelay} from '../../../../const/common';
 
 type Props = {
   priceMin?: number,

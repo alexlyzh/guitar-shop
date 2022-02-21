@@ -1,5 +1,5 @@
 import FilterCheckbox from '../filter-checkbox/filter-checkbox';
-import { guitarType, typeOptions } from '../../../../const';
+import { guitarType, typeOptions } from '../../../../const/common';
 import { useTypeFilter } from '../../../../hooks/use-type-filter/use-type-filter';
 
 type Props = {

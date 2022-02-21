@@ -1,5 +1,5 @@
 import FilterString from './filter-string';
-import {stringOptions} from '../../../../const';
+import {stringOptions} from '../../../../const/common';
 import {initialFilterState} from '../../../../store/reducer/filter-reducer/filter-reducer';
 import {render, screen} from '@testing-library/react';
 import {configureMockStore} from '@jedmao/redux-mock-store';

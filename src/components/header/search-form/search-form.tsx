@@ -2,7 +2,8 @@ import SearchItem from './search-item/search-item';
 import { ChangeEvent, KeyboardEvent } from 'react';
 import { generatePath, useHistory} from 'react-router-dom';
 import { Guitar } from '../../../types/types';
-import { AppPath, KeyboardKey } from '../../../const';
+import { KeyboardKey } from '../../../const/common';
+import { AppPath } from '../../../const/app-routes';
 
 type Props = {
   search: string,

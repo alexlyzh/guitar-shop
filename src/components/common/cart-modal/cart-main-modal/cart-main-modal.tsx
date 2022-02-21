@@ -1,4 +1,4 @@
-import { guitarType } from '../../../../const';
+import { guitarType } from '../../../../const/common';
 import { Guitar } from '../../../../types/types';
 
 type Props = {

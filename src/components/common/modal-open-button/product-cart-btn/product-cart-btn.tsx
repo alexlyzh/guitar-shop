@@ -4,7 +4,7 @@ type Props = {
   onClick: () => void;
 }
 
-function ProductAddToCartBtn({onClick}: Props): JSX.Element {
+function ProductCartBtn({onClick}: Props): JSX.Element {
   return (
     <Link
       className="button button--red button--big product-container__button"
@@ -16,4 +16,4 @@ function ProductAddToCartBtn({onClick}: Props): JSX.Element {
   );
 }
 
-export default ProductAddToCartBtn;
+export default ProductCartBtn;

@@ -1,5 +1,5 @@
 import FilterCheckbox from '../filter-checkbox/filter-checkbox';
-import { stringOptions } from '../../../../const';
+import { stringOptions } from '../../../../const/common';
 import { useStringFilter } from '../../../../hooks/use-string-filter/use-string-filter';
 
 type Props = {

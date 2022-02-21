@@ -9,6 +9,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { createApi } from './api';
 import { Provider } from 'react-redux';
 import { redirect } from './store/middleware/redirect/redirect';
+import { cartAction } from './store/reducer/cart-reducer/cart-reducer';
 
 const api = createApi();
 
@@ -16,6 +17,9 @@ const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({thunk: {extraArgument: api}}).concat([redirect]),
 });
+
+store.dispatch(cartAction.add(1));
+store.dispatch(cartAction.remove(1));
 
 ReactDOM.render(
   <React.StrictMode>

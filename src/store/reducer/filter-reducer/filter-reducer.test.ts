@@ -1,6 +1,6 @@
 import {filterReducer, FilterState, initialFilterState} from './filter-reducer';
 import {ActionCreator} from '../../actions';
-import {FIRST_PAGE} from '../../../const';
+import {FIRST_PAGE} from '../../../const/common';
 import {getRandomInteger} from '../../../utils/common';
 import {Mock} from '../../../utils/mock';
 

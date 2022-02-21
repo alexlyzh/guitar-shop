@@ -1,5 +1,5 @@
 import PaginationItem from './pagination-item/pagination-item';
-import { FIRST_PAGE } from '../../../const';
+import { FIRST_PAGE } from '../../../const/common';
 
 type Props = {
   totalCards: number,

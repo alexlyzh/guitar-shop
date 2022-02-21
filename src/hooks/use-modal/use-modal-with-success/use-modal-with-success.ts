@@ -1,6 +1,6 @@
 import { useModal } from '../use-modal';
 import { useCallback, useEffect, useState } from 'react';
-import { MODAL_FADE_OUT_DURATION } from '../../../const';
+import { MODAL_FADE_OUT_DURATION } from '../../../const/common';
 
 export const useModalWithSuccess = () => {
   const [isModalOpen, showModal, hideModal] = useModal();

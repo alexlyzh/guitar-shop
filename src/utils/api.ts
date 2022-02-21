@@ -1,8 +1,10 @@
 import { SortSettings } from '../store/reducer/sort-reducer/sort-reducer';
 import { FilterSettings } from '../store/reducer/filter-reducer/filter-reducer';
-import {apiRoute, AppPath, AppSearchParam, initialSort, stringCount} from '../const';
+import {initialSort, stringCount} from '../const/common';
 import { BASE_API_URL } from '../api';
 import { Guitar } from '../types/types';
+import { AppPath, AppSearchParam } from '../const/app-routes';
+import { apiRoute } from '../const/api-routes';
 
 export const sortByNameStartingWithTemplate = (data: Guitar[], template: string) =>
   data.slice().sort((a, b) => {

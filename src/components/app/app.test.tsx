@@ -5,13 +5,14 @@ import { render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Router, generatePath } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { AppMessage, AppPath } from '../../const';
+import { AppMessage} from '../../const/common';
 import { initialAppState } from '../../store/reducer/app-reducer/app-reducer';
 import { initialDataState } from '../../store/reducer/data-reducer/data-reducer';
 import { initialSortState } from '../../store/reducer/sort-reducer/sort-reducer';
 import { initialFilterState } from '../../store/reducer/filter-reducer/filter-reducer';
 import { Mock, mockGuitarsWithComments, getMockGuitar } from '../../utils/mock';
 import { RequestStatus } from '../../types/types';
+import { AppPath } from '../../const/app-routes';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);

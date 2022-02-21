@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {getCurrentSort} from '../../store/reducer/sort-reducer/selectors';
 import {ActionAPI} from '../../store/api-actions/api-actions';
-import {SortOrder, SortType} from '../../const';
+import {SortOrder, SortType} from '../../const/common';
 
 export const useSort = () => {
   const dispatch = useDispatch();

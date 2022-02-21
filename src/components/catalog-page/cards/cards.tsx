@@ -1,7 +1,7 @@
 import GuitarCard from './guitar-card/guitar-card';
 import './cards.css';
 import { GuitarWithComments } from '../../../types/types';
-import { AppMessage } from '../../../const';
+import { AppMessage } from '../../../const/common';
 
 type Props = {
   guitars: GuitarWithComments[],

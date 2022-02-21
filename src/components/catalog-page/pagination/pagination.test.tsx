@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { FIRST_PAGE, GUITARS_PER_PAGE } from '../../../const';
+import { FIRST_PAGE, GUITARS_PER_PAGE } from '../../../const/common';
 import { getRandomInteger } from '../../../utils/common';
 
 const { pagination } = Mock;

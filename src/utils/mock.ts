@@ -1,5 +1,5 @@
 import { datatype, internet } from 'faker';
-import { GUITARS_PER_PAGE, STARS_COUNT, stringOptions, typeOptions } from '../const';
+import { GUITARS_PER_PAGE, STARS_COUNT, stringOptions, typeOptions } from '../const/common';
 import { getRandomInteger } from './common';
 import {Comment, CommentPost, GuitarWithComments, RemoteDataByID, RequestStatus} from '../types/types';
 
