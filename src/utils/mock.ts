@@ -58,7 +58,7 @@ export const getMockGuitar = (): GuitarWithComments => {
     vendorCode: datatype.string(),
     type: typeOptions[getRandomInteger(0, typeOptions.length - 1)],
     description: datatype.string(),
-    previewImg: internet.url(),
+    previewImg: 'img/guitar-1.jpg',
     stringCount: stringOptions[getRandomInteger(0, stringOptions.length - 1)],
     rating: datatype.number(STARS_COUNT),
     price: datatype.number(),

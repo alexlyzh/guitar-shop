@@ -10,6 +10,7 @@ import { createApi } from './api';
 import { Provider } from 'react-redux';
 import { redirect } from './store/middleware/redirect/redirect';
 import { cartAction } from './store/reducer/cart-reducer/cart-reducer';
+import { getMockGuitar } from './utils/mock';
 
 const api = createApi();
 
@@ -18,8 +19,11 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({thunk: {extraArgument: api}}).concat([redirect]),
 });
 
-store.dispatch(cartAction.add(1));
-store.dispatch(cartAction.remove(1));
+const guitar = getMockGuitar();
+const anotherGuitar = getMockGuitar();
+
+store.dispatch(cartAction.add(guitar));
+store.dispatch(cartAction.add(anotherGuitar));
 
 ReactDOM.render(
   <React.StrictMode>

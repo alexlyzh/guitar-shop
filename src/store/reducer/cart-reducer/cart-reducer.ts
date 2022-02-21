@@ -1,60 +1,57 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { CartItem, Guitar } from '../../../types/types';
 
 const countLimit = <const>{
   max: 99,
   min: 1,
 };
 
-type CartItem = {
-  guitarId: number,
-  count: number,
-}
-
 type CartState = {
   items: CartItem[],
+  discount: number,
 }
 
 const initialState: CartState = {
   items: [],
+  discount: 0,
 };
 
 const cartSlice = createSlice({
   name: 'CART',
   initialState,
   reducers: {
-    add: (state, action) => {
+    add: (state, action: { type: string, payload: Guitar }) => {
+      const cartItem = state.items.find((item) => item.guitar.id === action.payload.id);
+      if (cartItem) {
+        cartItem.count = Math.min(countLimit.max, cartItem.count + 1);
+        return;
+      }
       state.items.push({
-        guitarId: action.payload,
-        count: 1,
+        guitar: action.payload,
+        count: countLimit.min,
       });
     },
-    remove: (state, action) => {
-      state.items = state.items.filter((item) => item.guitarId !== action.payload);
-    },
-    incrementCount: (state, action) => {
-      for (const item of state.items) {
-        if (item.guitarId === action.payload) {
-          item.count = Math.min(countLimit.max, item.count + 1);
-          break;
+    subtract: (state, action: { type: string, payload: Guitar }) => {
+      const cartItem = state.items.find((item) => item.guitar.id === action.payload.id);
+      if (cartItem) {
+        if (cartItem.count > countLimit.min) {
+          cartItem.count = Math.min(countLimit.max, cartItem.count - 1);
+          return;
         }
+        state.items = state.items.filter((item) => item.guitar.id !== cartItem.guitar.id);
       }
     },
-    decrementCount: (state, action) => {
-      for (const item of state.items) {
-        if (item.guitarId === action.payload) {
-          item.count = item.count - 1;
-          break;
-        }
-      }
+    remove: (state, action: { type: string, payload: Guitar }) => {
+      state.items = state.items.filter((item) => item.guitar.id !== action.payload.id);
     },
-    setCount: (state, action) => {
-      const { guitarId, count } = action.payload;
-      const cartItem = state.items.find((item) => item.guitarId === guitarId);
+    setCount: (state, action: { type: string, payload: { guitar: Guitar, count: number } }) => {
+      const { guitar, count } = action.payload;
+      const cartItem = state.items.find((item) => item.guitar.id === guitar.id);
       if (cartItem) {
         cartItem.count = Math.min(countLimit.max, count);
         return;
       }
-      state.items.push({ guitarId, count: Math.min(countLimit.max, count) });
+      state.items.push({ guitar, count: Math.min(countLimit.max, count) });
     },
   },
 });

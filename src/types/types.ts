@@ -69,6 +69,11 @@ type SiteRoute = {
   title: string,
 }
 
+type CartItem = {
+  guitar: Guitar,
+  count: number,
+}
+
 export { RequestStatus, ModalType };
 export type {
   RemoteData,
@@ -78,5 +83,6 @@ export type {
   Comment,
   CommentPost,
   ReviewFormState,
-  SiteRoute
+  SiteRoute,
+  CartItem
 };

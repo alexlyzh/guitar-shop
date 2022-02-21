@@ -3,6 +3,7 @@ import SearchForm from './search-form/search-form';
 import { Link, useLocation } from 'react-router-dom';
 import { useSearch } from '../../hooks/use-search/use-search';
 import { AppPath } from '../../const/app-routes';
+import CartLink from './cart-link/cart-link';
 
 function Header(): JSX.Element {
   const location = useLocation();
@@ -31,13 +32,8 @@ function Header(): JSX.Element {
           isDropdownVisible={isDropdownVisible}
           foundGuitars={foundGuitars}
         />
+        <CartLink />
 
-        <Link className="header__cart-link" to="#" aria-label="Корзина">
-          <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
-            <use xlinkHref="#icon-basket"/>
-          </svg>
-          <span className="visually-hidden">Перейти в корзину</span><span className="header__cart-count">2</span>
-        </Link>
       </div>
     </header>
   );
