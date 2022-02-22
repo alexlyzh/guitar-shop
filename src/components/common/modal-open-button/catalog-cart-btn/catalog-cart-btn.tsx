@@ -1,17 +1,24 @@
 import { Link } from 'react-router-dom';
+import { ModalOpenBtnProps } from '../modal-open-button';
 
-type Props = {
-  onClick: () => void;
+enum Label {
+  buy = 'Купить',
+  inCart = 'В Корзине',
 }
 
-function CatalogCartBtn({onClick}: Props): JSX.Element {
+enum ClassName {
+  buy = 'button button--red button--mini button--add-to-cart',
+  inCart = 'button button--red-border button--mini button--in-cart',
+}
+
+function CatalogCartBtn({isInCart, onClick}: Omit<ModalOpenBtnProps, 'type'>): JSX.Element {
   return (
     <Link
-      className="button button--red button--mini button--add-to-cart"
+      className={isInCart ? ClassName.inCart : ClassName.buy}
       to="#"
       onClick={onClick}
     >
-      Купить
+      {isInCart ? Label.inCart : Label.buy}
     </Link>
   );
 }

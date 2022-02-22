@@ -1,10 +1,7 @@
 import { Link } from 'react-router-dom';
+import { ModalOpenBtnProps } from '../modal-open-button';
 
-type Props = {
-  onClick: () => void;
-}
-
-function ProductCartBtn({onClick}: Props): JSX.Element {
+function ProductCartBtn({onClick}: Omit<ModalOpenBtnProps, 'type'>): JSX.Element {
   return (
     <Link
       className="button button--red button--big product-container__button"

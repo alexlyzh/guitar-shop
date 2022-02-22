@@ -1,4 +1,4 @@
-import { SiteRoute } from '../types/types';
+import { Breadcrumb } from '../types/types';
 
 enum AppPath {
   root = '/',
@@ -7,24 +7,24 @@ enum AppPath {
   cart = '/cart',
 }
 
-const siteRoutes: SiteRoute[] = [
-  <const>{
+const breadcrumb: Record<AppPath, Breadcrumb> = {
+  [AppPath.root]: {
     pathname: AppPath.root,
     title: 'Главная',
   },
-  <const>{
+  [AppPath.catalog]: {
     pathname: AppPath.catalog,
     title: 'Каталог',
   },
-  <const>{
+  [AppPath.product]: {
     pathname: AppPath.product,
     title: 'Товар',
   },
-  <const>{
+  [AppPath.cart]: {
     pathname: AppPath.cart,
     title: 'Корзина',
   },
-];
+};
 
 enum AppSearchParam {
   page = 'page',
@@ -34,4 +34,4 @@ enum AppSearchParam {
   stringCount = 'stringCount',
 }
 
-export { AppPath, AppSearchParam, siteRoutes };
+export { AppPath, AppSearchParam, breadcrumb };

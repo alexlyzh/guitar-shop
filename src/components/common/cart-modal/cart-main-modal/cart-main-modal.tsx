@@ -3,9 +3,10 @@ import { Guitar } from '../../../../types/types';
 
 type Props = {
   product: Guitar,
+  onAddToCartBtnClick: () => void,
 }
 
-function CartMainModal({product}: Props): JSX.Element {
+function CartMainModal({product, onAddToCartBtnClick}: Props): JSX.Element {
   return (
     <>
       <h2 className="modal__header title title--medium">Добавить товар в корзину</h2>
@@ -22,7 +23,12 @@ function CartMainModal({product}: Props): JSX.Element {
         </div>
       </div>
       <div className="modal__button-container">
-        <button className="button button--red button--big modal__button modal__button--add">Добавить в корзину</button>
+        <button
+          className="button button--red button--big modal__button modal__button--add"
+          onClick={onAddToCartBtnClick}
+        >
+          Добавить в корзину
+        </button>
       </div>
     </>
   );

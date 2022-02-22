@@ -1,6 +1,4 @@
 import { KeyboardKey, screenTopOptions, STARS_COUNT, StarSpriteID } from '../const/common';
-import { SiteRoute } from '../types/types';
-import { siteRoutes } from '../const/app-routes';
 
 export const isEscKeyDown = (evt: KeyboardEvent) => evt.key === KeyboardKey.ESC;
 
@@ -24,18 +22,6 @@ export const getRandomInteger = (min = 0, max = 1): number => {
 };
 
 export const scrollToPageTop = () => window.scrollTo(screenTopOptions);
-
-export const getBreadcrumbRoutes = (currentPageTitle: string) => {
-  const routes: SiteRoute[] = [];
-  for (const route of siteRoutes) {
-    if (route.title === currentPageTitle) {
-      routes.push(route);
-      break;
-    }
-    routes.push(route);
-  }
-  return routes;
-};
 
 export const getStarRatingSpriteIDs = (rating: number) =>
   new Array(STARS_COUNT).fill(null).map((star, i) => {

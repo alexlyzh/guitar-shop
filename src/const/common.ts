@@ -1,9 +1,10 @@
-const MIN_PRICE = 0;
-const MIN_CATALOG_HEIGHT = '745px';
-const FIRST_PAGE = 1;
-const GUITARS_PER_PAGE = 9;
-const STARS_COUNT = 5;
-const MODAL_FADE_OUT_DURATION = 600;
+export const MIN_PRICE = 0;
+export const MIN_CATALOG_HEIGHT = '745px';
+export const FIRST_PAGE = 1;
+export const GUITARS_PER_PAGE = 9;
+export const STARS_COUNT = 5;
+export const MODAL_FADE_OUT_DURATION = 600;
+export const MODAL_OPEN_CLASSNAME = 'modal-open';
 
 const debounceDelay = <const>{
   price: 700,
@@ -104,12 +105,6 @@ enum StarSpriteID {
 }
 
 export {
-  MIN_PRICE,
-  MIN_CATALOG_HEIGHT,
-  FIRST_PAGE,
-  GUITARS_PER_PAGE,
-  STARS_COUNT,
-  MODAL_FADE_OUT_DURATION,
   HttpCode,
   AppMessage,
   StarSpriteID,

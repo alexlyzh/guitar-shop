@@ -31,7 +31,7 @@ function GuitarCard({guitar}: Props): JSX.Element {
       </div>
       <div className="product-card__buttons">
         <Link className="button button--mini" to={generatePath(AppPath.product, {id})}>Подробнее</Link>
-        <CartModal product={guitar} type={ModalType.catalogCart} />
+        <CartModal guitar={guitar} type={ModalType.catalogCart} />
 
       </div>
     </div>

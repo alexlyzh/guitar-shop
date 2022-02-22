@@ -11,8 +11,9 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { AppMessage, tabLabel } from '../../../const/common';
 import { useGuitar } from '../../../hooks/use-guitar/use-guitar';
-import { getBreadcrumbRoutes, scrollToPageTop } from '../../../utils/common';
+import { scrollToPageTop } from '../../../utils/common';
 import { ModalType } from '../../../types/types';
+import { AppPath, breadcrumb } from '../../../const/app-routes';
 
 type PageParams = {
   id: string,
@@ -22,14 +23,19 @@ type Props = {
   productId?: number | string,
 }
 
+const breadcrumbs = [
+  { ...breadcrumb[AppPath.root] },
+  { ...breadcrumb[AppPath.catalog] },
+  { ...breadcrumb[AppPath.product] },
+];
+
 function ProductPage({productId}: Props): JSX.Element {
   const params: PageParams = useParams();
   const id = Number(productId ? productId : params.id);
   const { product, isErrorLoadingGuitars, isFetchingGuitars } = useGuitar(id);
-  const routes = getBreadcrumbRoutes('Товар');
 
   if (product) {
-    routes[routes.length - 1].title = product.name;
+    breadcrumbs[breadcrumbs.length - 1].title = product.name;
   }
 
   useEffect(() => {
@@ -45,7 +51,7 @@ function ProductPage({productId}: Props): JSX.Element {
   if (isErrorLoadingGuitars) {
     return (
       <MainLayout>
-        <Breadcrumbs routes={routes} />
+        <Breadcrumbs routes={breadcrumbs} />
         <p style={{display: 'flex', justifyContent: 'center'}}>
           {AppMessage.ErrorOnGetGuitars}
         </p>
@@ -58,7 +64,7 @@ function ProductPage({productId}: Props): JSX.Element {
       {isFetchingGuitars || !product ? <Spinner marginTop={'5em'} /> :
         <>
           <h1 className="page-content__title title title--bigger" aria-label="product-page">{product.name}</h1>
-          <Breadcrumbs routes={routes} />
+          <Breadcrumbs routes={breadcrumbs} />
 
           <div className="product-container">
             <img className="product-container__img" src={product.previewImg} width="90" height="235" alt=""/>
@@ -78,7 +84,7 @@ function ProductPage({productId}: Props): JSX.Element {
             <div className="product-container__price-wrapper">
               <p className="product-container__price-info product-container__price-info--title">Цена:</p>
               <p className="product-container__price-info product-container__price-info--value">{product.price} ₽</p>
-              <CartModal product={product} type={ModalType.productCart} />
+              <CartModal guitar={product} type={ModalType.productCart} />
 
             </div>
           </div>

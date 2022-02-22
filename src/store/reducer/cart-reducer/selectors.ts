@@ -2,6 +2,7 @@ import { State } from '../root-reducer';
 import { createSelector } from '@reduxjs/toolkit';
 
 export const getCartItems = (state: State) => state.CART.items;
+export const getCartItemIds = (state: State) => state.CART.items.map((item) => item.guitar.id);
 export const getDiscount = (state: State) => state.CART.discount;
 
 export const getTotalCartPrice = createSelector(

@@ -1,8 +1,8 @@
-import { SiteRoute } from '../../../types/types';
 import { Link } from 'react-router-dom';
+import { Breadcrumb } from '../../../types/types';
 
 type Props = {
-  routes: SiteRoute[],
+  routes: Breadcrumb[],
 }
 
 export default function Breadcrumbs({routes}: Props): JSX.Element {

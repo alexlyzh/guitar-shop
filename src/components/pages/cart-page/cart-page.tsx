@@ -1,19 +1,20 @@
 import MainLayout from '../../main-layout/main-layout';
 import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
 import CartProduct from './cart-product/cart-product';
-import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { getBreadcrumbRoutes } from '../../../utils/common';
 import { getCartItems, getDiscount, getTotalCartPrice } from '../../../store/reducer/cart-reducer/selectors';
+import { AppPath, breadcrumb } from '../../../const/app-routes';
 
-const PAGE_TITLE = 'Корзина';
+const breadcrumbs = [
+  { ...breadcrumb[AppPath.root] },
+  { ...breadcrumb[AppPath.catalog] },
+  { ...breadcrumb[AppPath.cart] },
+];
 
 function CartPage(): JSX.Element {
   const cartItems = useSelector(getCartItems);
   const totalCartPrice = useSelector(getTotalCartPrice);
   const discount = useSelector(getDiscount);
-  const breadcrumbs = useMemo(() => getBreadcrumbRoutes(PAGE_TITLE)
-    .filter((breadcrumb) => !breadcrumb.pathname.includes('/:')), []);
 
   return (
     <MainLayout>

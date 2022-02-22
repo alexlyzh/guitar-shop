@@ -7,6 +7,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { mockGuitarsWithComments } from '../../../../utils/mock';
 import { GuitarWithComments, RequestStatus } from '../../../../types/types';
 import { AppMessage } from '../../../../const/common';
+import { initialCartState } from '../../../../store/reducer/cart-reducer/cart-reducer';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
@@ -22,6 +23,7 @@ describe('Component: NotFoundPage', () => {
         },
         comments,
       },
+      CART: initialCartState,
     });
 
     render(

@@ -64,14 +64,14 @@ type ReviewFormState = {
   review: string,
 }
 
-type SiteRoute = {
-  pathname: AppPath,
-  title: string,
-}
-
 type CartItem = {
   guitar: Guitar,
   count: number,
+}
+
+type Breadcrumb = {
+  pathname: AppPath,
+  title: string,
 }
 
 export { RequestStatus, ModalType };
@@ -83,6 +83,6 @@ export type {
   Comment,
   CommentPost,
   ReviewFormState,
-  SiteRoute,
-  CartItem
+  CartItem,
+  Breadcrumb
 };
