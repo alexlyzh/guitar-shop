@@ -9,7 +9,7 @@ import { getCartItems, getDiscount, getTotalCartPrice } from '../../../store/red
 const PAGE_TITLE = 'Корзина';
 
 function CartPage(): JSX.Element {
-  const cartProducts = useSelector(getCartItems);
+  const cartItems = useSelector(getCartItems);
   const totalCartPrice = useSelector(getTotalCartPrice);
   const discount = useSelector(getDiscount);
   const breadcrumbs = useMemo(() => getBreadcrumbRoutes(PAGE_TITLE)
@@ -21,7 +21,7 @@ function CartPage(): JSX.Element {
       <Breadcrumbs routes={breadcrumbs} />
 
       <div className="cart">
-        {cartProducts.map((product) => (
+        {cartItems.map((product) => (
           <CartProduct cartItem={product} key={product.guitar.id} />
         ))}
 

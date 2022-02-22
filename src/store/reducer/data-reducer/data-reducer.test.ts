@@ -1,7 +1,7 @@
 import { dataReducer, initialDataState } from './data-reducer';
 import { ActionCreator } from '../../actions';
 import { RequestStatus } from '../../../types/types';
-import { getMockGuitar, Mock } from '../../../utils/mock';
+import { getMockGuitarWithComments, Mock } from '../../../utils/mock';
 
 describe('Reducer: Data', () => {
   const state = initialDataState;
@@ -12,7 +12,7 @@ describe('Reducer: Data', () => {
   });
 
   it('should save guitar correctly', () => {
-    const newGuitar = getMockGuitar();
+    const newGuitar = getMockGuitarWithComments();
     expect(dataReducer(state, ActionCreator.saveGuitar(newGuitar)))
       .toEqual({
         ...state,
@@ -46,7 +46,7 @@ describe('Reducer: Data', () => {
   });
 
   it('should set request status "SUCCESS" with correct guitars data', () => {
-    const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
+    const guitars = Array.from({length: Mock.arrayLength}, getMockGuitarWithComments);
     expect(dataReducer(state, ActionCreator.saveGuitars(guitars)))
       .toEqual({
         ...state,

@@ -5,12 +5,13 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
 import { render, screen } from '@testing-library/react';
-import { getMockGuitar } from '../../../utils/mock';
+import { getMockGuitarWithComments } from '../../../utils/mock';
 import { RequestStatus } from '../../../types/types';
 import { initialAppState } from '../../../store/reducer/app-reducer/app-reducer';
 import { initialDataState } from '../../../store/reducer/data-reducer/data-reducer';
+import { initialCartState } from '../../../store/reducer/cart-reducer/cart-reducer';
 
-const guitar = getMockGuitar();
+const guitar = getMockGuitarWithComments();
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
 
@@ -35,6 +36,7 @@ describe('Component: ProductPage', () => {
           },
         },
       },
+      CART: initialCartState,
     });
 
     render(

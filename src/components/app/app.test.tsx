@@ -10,16 +10,17 @@ import { initialAppState } from '../../store/reducer/app-reducer/app-reducer';
 import { initialDataState } from '../../store/reducer/data-reducer/data-reducer';
 import { initialSortState } from '../../store/reducer/sort-reducer/sort-reducer';
 import { initialFilterState } from '../../store/reducer/filter-reducer/filter-reducer';
-import { Mock, mockGuitarsWithComments, getMockGuitar } from '../../utils/mock';
+import { Mock, mockGuitarsWithComments, getMockGuitarWithComments } from '../../utils/mock';
 import { RequestStatus } from '../../types/types';
 import { AppPath } from '../../const/app-routes';
+import { initialCartState } from '../../store/reducer/cart-reducer/cart-reducer';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore([thunk]);
 
 describe('Application routing', () => {
   it('should render ProductPage when navigating to "/catalog/:id"', () => {
-    const product = getMockGuitar();
+    const product = getMockGuitarWithComments();
     history.push(generatePath(AppPath.product, {id: product.id}));
 
     const modalRoot = document.createElement('div');
@@ -41,6 +42,7 @@ describe('Application routing', () => {
           },
         },
       },
+      CART: initialCartState,
     });
 
     render(
@@ -79,6 +81,7 @@ describe('Application routing', () => {
         ...initialFilterState,
         isActive: true,
       },
+      CART: initialCartState,
     });
 
     render(

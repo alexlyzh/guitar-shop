@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createMemoryHistory } from 'history';
 import { render, screen } from '@testing-library/react';
-import { getMockGuitar } from '../../../../utils/mock';
+import { getMockGuitarWithComments } from '../../../../utils/mock';
 import { initialAppState } from '../../../../store/reducer/app-reducer/app-reducer';
 
 const history = createMemoryHistory();
@@ -17,7 +17,7 @@ document.body.appendChild(modalRoot);
 describe('Component: ReviewModal', () => {
   it('should render correctly', () => {
     const store = mockStore({ APP: initialAppState });
-    const guitar = getMockGuitar();
+    const guitar = getMockGuitarWithComments();
     render(
       <Provider store={store}>
         <Router history={history} >

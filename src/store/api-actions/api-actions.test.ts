@@ -6,7 +6,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { State } from '../reducer/root-reducer';
 import { BASE_API_URL, createApi } from '../../api';
 import { FIRST_PAGE, HttpCode, SortOrder, SortType } from '../../const/common';
-import { getMockComment, getMockCommentPost, getMockGuitar, Mock } from '../../utils/mock';
+import { getMockComment, getMockCommentPost, getMockGuitarWithComments, Mock } from '../../utils/mock';
 import { ActionAPI } from './api-actions';
 import { ActionCreator } from '../actions';
 import { createCatalogApiUrl, createCatalogAppUrl, embedComments, parseGuitarsData } from '../../utils/api';
@@ -38,7 +38,7 @@ describe('Async actions', () => {
       SORT: initialSortState,
     });
 
-    const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
+    const guitars = Array.from({length: Mock.arrayLength}, getMockGuitarWithComments);
     const { minPrice, maxPrice } = parseGuitarsData(guitars);
     mockApi
       .onGet(`${createCatalogApiUrl(filter, initialSortState.currentSort).href}&${apiRoute.search.embed}=comments`)
@@ -70,7 +70,7 @@ describe('Async actions', () => {
       SORT: initialSortState,
     });
 
-    const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
+    const guitars = Array.from({length: Mock.arrayLength}, getMockGuitarWithComments);
     const { minPrice, maxPrice } = parseGuitarsData(guitars);
     const apiUrl = createCatalogApiUrl(filter, initialSortState.currentSort);
     mockApi
@@ -88,7 +88,7 @@ describe('Async actions', () => {
 
   it('should dispatch correct actions calling getGuitarWithCommentsById', async () => {
     const store = mockStore();
-    const guitar = getMockGuitar();
+    const guitar = getMockGuitarWithComments();
     const params = new URLSearchParams();
     const endpoint = `${generatePath(apiRoute.path.guitar, {id: guitar.id})}?${embedComments(params)}`;
     mockApi
@@ -139,7 +139,7 @@ describe('Async actions', () => {
 
     expect(setFoundGuitars).toBeCalledTimes(1);
     expect(setFoundGuitars).toBeCalledWith(guitars);
-    expect(setFoundGuitars).not.toBeCalledWith(getMockGuitar());
+    expect(setFoundGuitars).not.toBeCalledWith(getMockGuitarWithComments());
   });
 
   it('should dispatch correct actions on sort price ascending', async () => {
@@ -147,7 +147,7 @@ describe('Async actions', () => {
       FILTER: initialFilterState,
       SORT: initialSortState,
     });
-    const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
+    const guitars = Array.from({length: Mock.arrayLength}, getMockGuitarWithComments);
     guitars.forEach((guitar, i) => guitar.price = i);
 
     const sortUpdate = {

@@ -2,7 +2,7 @@ import ReviewMainModal from './review-main-modal';
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { getMockGuitar } from '../../../../../utils/mock';
+import { getMockGuitarWithComments } from '../../../../../utils/mock';
 import { initialAppState } from '../../../../../store/reducer/app-reducer/app-reducer';
 
 const mockStore = configureMockStore();
@@ -11,7 +11,7 @@ describe('Component: ReviewMainModal', () => {
   const store = mockStore({ APP: initialAppState });
 
   it('should render correctly', () => {
-    const guitar = getMockGuitar();
+    const guitar = getMockGuitarWithComments();
     render(
       <Provider store={store}>
         <ReviewMainModal product={guitar} />

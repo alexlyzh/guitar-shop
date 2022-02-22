@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createMemoryHistory } from 'history';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
-import { getMockGuitar } from '../../../../utils/mock';
+import { getMockGuitarWithComments } from '../../../../utils/mock';
 import { initialAppState } from '../../../../store/reducer/app-reducer/app-reducer';
 
 const mockStore = configureMockStore();
@@ -17,7 +17,7 @@ describe('Component: Reviews', () => {
   const store = mockStore({ APP: initialAppState });
 
   it('should render correctly', () => {
-    const guitar = getMockGuitar();
+    const guitar = getMockGuitarWithComments();
     render(
       <Provider store={store} >
         <Router history={history} >

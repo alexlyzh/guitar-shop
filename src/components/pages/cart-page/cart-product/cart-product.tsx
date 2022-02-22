@@ -2,6 +2,7 @@ import { CartItem } from '../../../../types/types';
 import { guitarType } from '../../../../const/common';
 import { useDispatch } from 'react-redux';
 import { cartAction } from '../../../../store/reducer/cart-reducer/cart-reducer';
+import { ChangeEvent } from 'react';
 
 type Props = {
   cartItem: CartItem,
@@ -10,6 +11,12 @@ type Props = {
 function CartProduct({cartItem}: Props): JSX.Element {
   const { guitar, count } = cartItem;
   const dispatch = useDispatch();
+  const removeFromCart = () => dispatch(cartAction.remove(guitar));
+  const increaseCartCount = () => dispatch(cartAction.add(guitar));
+  const decreaseCartCount = () => dispatch(cartAction.subtract(guitar));
+  const setCartCount = ({target}: ChangeEvent<HTMLInputElement>) => dispatch(
+    cartAction.setCount({ guitar, count: target.value }),
+  );
 
   return (
     <div className="cart-item">
@@ -17,7 +24,7 @@ function CartProduct({cartItem}: Props): JSX.Element {
         className="cart-item__close-button button-cross"
         type="button"
         aria-label="Удалить"
-        onClick={() => dispatch(cartAction.remove(guitar))}
+        onClick={removeFromCart}
       >
         <span className="button-cross__icon"/>
         <span className="cart-item__close-button-interactive-area"/>
@@ -35,17 +42,24 @@ function CartProduct({cartItem}: Props): JSX.Element {
         <button
           className="quantity__button"
           aria-label="Уменьшить количество"
-          onClick={() => dispatch(cartAction.subtract(guitar))}
+          onClick={decreaseCartCount}
         >
           <svg width="8" height="8" aria-hidden="true">
             <use xlinkHref="#icon-minus"/>
           </svg>
         </button>
-        <input className="quantity__input" type="number" value={count} id={`${guitar.id}-count`} name={`${guitar.id}-count`} min="1" max="99"/>
+        <input
+          className="quantity__input"
+          type="number"
+          value={count ? count : ''}
+          id={`${guitar.id}-count`}
+          name={`${guitar.id}-count`}
+          onChange={setCartCount}
+        />
         <button
           className="quantity__button"
           aria-label="Увеличить количество"
-          onClick={() => dispatch(cartAction.add(guitar))}
+          onClick={increaseCartCount}
         >
           <svg width="8" height="8" aria-hidden="true">
             <use xlinkHref="#icon-plus"/>

@@ -44,14 +44,15 @@ const cartSlice = createSlice({
     remove: (state, action: { type: string, payload: Guitar }) => {
       state.items = state.items.filter((item) => item.guitar.id !== action.payload.id);
     },
-    setCount: (state, action: { type: string, payload: { guitar: Guitar, count: number } }) => {
+    setCount: (state, action: { type: string, payload: { guitar: Guitar, count: string } }) => {
       const { guitar, count } = action.payload;
+      const handledCount = Math.min(countLimit.max, Number(count.replace('-', '')));
       const cartItem = state.items.find((item) => item.guitar.id === guitar.id);
       if (cartItem) {
-        cartItem.count = Math.min(countLimit.max, count);
+        cartItem.count = handledCount;
         return;
       }
-      state.items.push({ guitar, count: Math.min(countLimit.max, count) });
+      state.items.push({ guitar, count: handledCount });
     },
   },
 });

@@ -11,6 +11,7 @@ import { initialDataState } from '../../../store/reducer/data-reducer/data-reduc
 import { initialSortState } from '../../../store/reducer/sort-reducer/sort-reducer';
 import { initialFilterState } from '../../../store/reducer/filter-reducer/filter-reducer';
 import { AppMessage } from '../../../const/common';
+import { initialCartState } from '../../../store/reducer/cart-reducer/cart-reducer';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
@@ -36,6 +37,7 @@ describe('Component: CatalogPage', () => {
         ...initialFilterState,
         isActive: true,
       },
+      CART: initialCartState,
     });
 
     render(

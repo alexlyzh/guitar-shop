@@ -2,13 +2,13 @@ import GuitarCard from './guitar-card';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render, screen } from '@testing-library/react';
-import { getMockGuitar } from '../../../../../utils/mock';
+import { getMockGuitarWithComments } from '../../../../../utils/mock';
 
 const history = createMemoryHistory();
 
 describe('Component: GuitarCard', () => {
   it('should render correctly', () => {
-    const guitar = getMockGuitar();
+    const guitar = getMockGuitarWithComments();
 
     render(
       <Router history={history}>

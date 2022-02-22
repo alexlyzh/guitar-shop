@@ -1,16 +1,17 @@
-import {render, screen} from '@testing-library/react';
-import {createMemoryHistory} from 'history';
-import {Router} from 'react-router-dom';
-import {Provider} from 'react-redux';
 import Header from './header';
-import {configureMockStore} from '@jedmao/redux-mock-store';
+import { Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { render, screen } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { initialCartState } from '../../store/reducer/cart-reducer/cart-reducer';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
 
 describe('Component: Header', () => {
   it('should render correctly', () => {
-    const store = mockStore();
+    const store = mockStore({ CART: initialCartState });
 
     render(
       <Provider store={store}>

@@ -1,7 +1,7 @@
 import { datatype, internet } from 'faker';
 import { GUITARS_PER_PAGE, STARS_COUNT, stringOptions, typeOptions } from '../const/common';
 import { getRandomInteger } from './common';
-import {Comment, CommentPost, GuitarWithComments, RemoteDataByID, RequestStatus} from '../types/types';
+import { Comment, CommentPost, Guitar, GuitarWithComments, RemoteDataByID, RequestStatus } from '../types/types';
 
 export const Mock = <const> {
   arrayLength: 3,
@@ -50,7 +50,7 @@ export const Mock = <const> {
   },
 };
 
-export const getMockGuitar = (): GuitarWithComments => {
+export const getMockGuitar = (): Guitar => {
   const id = datatype.number();
   return {
     id,
@@ -62,7 +62,14 @@ export const getMockGuitar = (): GuitarWithComments => {
     stringCount: stringOptions[getRandomInteger(0, stringOptions.length - 1)],
     rating: datatype.number(STARS_COUNT),
     price: datatype.number(),
-    comments: Array.from({ length: Mock.arrayLength }, () => getMockComment(id)),
+  };
+};
+
+export const getMockGuitarWithComments = (): GuitarWithComments => {
+  const guitar = getMockGuitar();
+  return {
+    ...guitar,
+    comments: Array.from({ length: Mock.arrayLength }, () => getMockComment(guitar.id)),
   };
 };
 
@@ -87,7 +94,7 @@ export const getMockCommentPost = (guitarId: number, comment: Comment): CommentP
 });
 
 export const mockGuitarsWithComments = () => {
-  const guitars = Array.from({length: Mock.arrayLength}, getMockGuitar);
+  const guitars = Array.from({length: Mock.arrayLength}, getMockGuitarWithComments);
 
   const comments: RemoteDataByID<Comment> = {};
   guitars.forEach((guitar) => {

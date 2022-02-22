@@ -1,10 +1,10 @@
 import Characteristics from './characteristics';
 import { render, screen } from '@testing-library/react';
-import { getMockGuitar } from '../../../../utils/mock';
+import { getMockGuitarWithComments } from '../../../../utils/mock';
 
 describe('Component: Characteristics', () => {
   it('should render correctly', () => {
-    const guitar = getMockGuitar();
+    const guitar = getMockGuitarWithComments();
     render (<Characteristics product={guitar} label={'fake-label'} />);
 
     expect(screen.getByText(/Артикул/i)).toBeInTheDocument();
