@@ -34,11 +34,7 @@ const cartSlice = createSlice({
     subtract: (state, action: { type: string, payload: Guitar }) => {
       const cartItem = state.items.find((item) => item.guitar.id === action.payload.id);
       if (cartItem) {
-        if (cartItem.count > countLimit.min) {
-          cartItem.count = Math.min(countLimit.max, cartItem.count - 1);
-          return;
-        }
-        state.items = state.items.filter((item) => item.guitar.id !== cartItem.guitar.id);
+        cartItem.count = cartItem.count - 1;
       }
     },
     remove: (state, action: { type: string, payload: Guitar }) => {
@@ -63,5 +59,6 @@ const cartAction = cartSlice.actions;
 export {
   initialState as initialCartState,
   cartReducer,
-  cartAction
+  cartAction,
+  countLimit
 };

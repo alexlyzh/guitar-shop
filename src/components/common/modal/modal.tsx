@@ -18,7 +18,7 @@ function Modal({children, className, isOpen, onModalClose}: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   return ReactDOM.createPortal(
-    <div className={`modal ${ACTIVE_CLASSNAME} ${className}`} ref={modalRef} aria-label="modal window">
+    <div className={`modal ${ACTIVE_CLASSNAME} ${className ? className : ''}`} ref={modalRef} aria-label="modal window">
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={onModalClose}/>
         <div className="modal__content" ref={focusTrapRef} >

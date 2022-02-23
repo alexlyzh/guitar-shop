@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ModalOpenBtnProps } from '../modal-open-button';
+import { AppPath } from '../../../../const/app-routes';
 
 enum Label {
   buy = 'Купить',
@@ -15,7 +16,7 @@ function CatalogCartBtn({isInCart, onClick}: Omit<ModalOpenBtnProps, 'type'>): J
   return (
     <Link
       className={isInCart ? ClassName.inCart : ClassName.buy}
-      to="#"
+      to={isInCart ? AppPath.cart : '#'}
       onClick={onClick}
     >
       {isInCart ? Label.inCart : Label.buy}

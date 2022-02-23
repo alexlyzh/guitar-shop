@@ -1,8 +1,10 @@
+import CartDeleteModal from '../cart-delete-modal/cart-delete-modal';
+import { ChangeEvent } from 'react';
+import { useDispatch } from 'react-redux';
+import { useModal } from '../../../../hooks/use-modal/use-modal';
 import { CartItem } from '../../../../types/types';
 import { guitarType } from '../../../../const/common';
-import { useDispatch } from 'react-redux';
-import { cartAction } from '../../../../store/reducer/cart-reducer/cart-reducer';
-import { ChangeEvent } from 'react';
+import { cartAction, countLimit } from '../../../../store/reducer/cart-reducer/cart-reducer';
 
 type Props = {
   cartItem: CartItem,
@@ -11,20 +13,36 @@ type Props = {
 function CartProduct({cartItem}: Props): JSX.Element {
   const { guitar, count } = cartItem;
   const dispatch = useDispatch();
+  const [isDeleteModalOpen, showDeleteModal, hideDeleteModal] = useModal();
+
   const removeFromCart = () => dispatch(cartAction.remove(guitar));
   const increaseCartCount = () => dispatch(cartAction.add(guitar));
-  const decreaseCartCount = () => dispatch(cartAction.subtract(guitar));
-  const setCartCount = ({target}: ChangeEvent<HTMLInputElement>) => dispatch(
-    cartAction.setCount({ guitar, count: target.value }),
-  );
+
+  const decreaseCartCount = () => {
+    if (count === countLimit.min) {
+      showDeleteModal();
+      return;
+    }
+    dispatch(cartAction.subtract(guitar));
+  };
+
+  const setCartCount = ({target}: ChangeEvent<HTMLInputElement>) =>
+    dispatch(cartAction.setCount({ guitar, count: target.value }));
 
   return (
     <div className="cart-item">
+      <CartDeleteModal
+        guitar={guitar}
+        isOpen={isDeleteModalOpen}
+        hideModal={hideDeleteModal}
+        onRemoveBtnClick={removeFromCart}
+      />
+
       <button
         className="cart-item__close-button button-cross"
         type="button"
         aria-label="Удалить"
-        onClick={removeFromCart}
+        onClick={showDeleteModal}
       >
         <span className="button-cross__icon"/>
         <span className="cart-item__close-button-interactive-area"/>

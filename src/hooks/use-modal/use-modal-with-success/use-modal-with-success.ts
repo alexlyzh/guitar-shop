@@ -10,9 +10,13 @@ export const useModalWithSuccess = () => {
   const hideSuccessForm = useCallback(() => setShouldShowSuccess(false), [setShouldShowSuccess]);
 
   useEffect(() => {
+    let timeout: ReturnType<typeof setTimeout>;
     if (!isModalOpen) {
-      setTimeout(hideSuccessForm, MODAL_FADE_OUT_DURATION);
+      timeout = setTimeout(hideSuccessForm, MODAL_FADE_OUT_DURATION);
     }
+    return () => {
+      timeout && clearTimeout(timeout);
+    };
   }, [isModalOpen, hideSuccessForm]);
 
   return {
