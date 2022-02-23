@@ -1455,6 +1455,14 @@ button,
   padding-bottom: 3px;
 }
 
+.cart__empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+  font-size: 2em;
+}
+
 .cart__footer {
   display: flex;
   align-content: stretch;

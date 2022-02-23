@@ -1,6 +1,6 @@
 import MainLayout from '../../main-layout/main-layout';
 import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
-import CartProduct from './cart-product/cart-product';
+import CartProductList from './cart-product-list/cart-product-list';
 import { useSelector } from 'react-redux';
 import { getCartItems, getDiscount, getTotalCartPrice } from '../../../store/reducer/cart-reducer/selectors';
 import { AppPath, breadcrumb } from '../../../const/app-routes';
@@ -22,9 +22,7 @@ function CartPage(): JSX.Element {
       <Breadcrumbs routes={breadcrumbs} />
 
       <div className="cart">
-        {cartItems.map((product) => (
-          <CartProduct cartItem={product} key={product.guitar.id} />
-        ))}
+        <CartProductList cartItems={cartItems} />
 
         <div className="cart__footer">
           <div className="cart__coupon coupon">
@@ -52,7 +50,12 @@ function CartPage(): JSX.Element {
               <span className="cart__total-value-name">К оплате:</span>
               <span className="cart__total-value cart__total-value--payment">{totalCartPrice + discount} ₽</span>
             </p>
-            <button className="button button--red button--big cart__order-button">Оформить заказ</button>
+            <button
+              className="button button--red button--big cart__order-button"
+              disabled={!cartItems.length}
+            >
+              Оформить заказ
+            </button>
           </div>
         </div>
       </div>

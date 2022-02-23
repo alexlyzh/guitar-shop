@@ -3,7 +3,7 @@ import { ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../../../hooks/use-modal/use-modal';
 import { CartItem } from '../../../../types/types';
-import { guitarType } from '../../../../const/common';
+import { guitarType, MODAL_OPEN_CLASSNAME } from '../../../../const/common';
 import { cartAction, countLimit } from '../../../../store/reducer/cart-reducer/cart-reducer';
 
 type Props = {
@@ -15,7 +15,10 @@ function CartProduct({cartItem}: Props): JSX.Element {
   const dispatch = useDispatch();
   const [isDeleteModalOpen, showDeleteModal, hideDeleteModal] = useModal();
 
-  const removeFromCart = () => dispatch(cartAction.remove(guitar));
+  const removeFromCart = () => {
+    document.body.classList.remove(MODAL_OPEN_CLASSNAME);
+    dispatch(cartAction.remove(guitar));
+  };
   const increaseCartCount = () => dispatch(cartAction.add(guitar));
 
   const decreaseCartCount = () => {
