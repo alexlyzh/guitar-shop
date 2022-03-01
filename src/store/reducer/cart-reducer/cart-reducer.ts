@@ -4,11 +4,14 @@ import { apiRoute } from '../../../const/api-routes';
 import { CartItem, Discount, Guitar, RequestStatus } from '../../../types/types';
 import { api } from '../../../api';
 
-const COUPON_MULTIPLIER = 100;
-
 const countLimit = <const>{
   max: 99,
   min: 1,
+};
+
+const multiplier = <const>{
+  couponMultiplier: 100,
+  couponDivider: 10000,
 };
 
 type CartState = {
@@ -74,7 +77,7 @@ const cartSlice = createSlice({
       })
       .addCase(submitCoupon.fulfilled, (state, {payload}) => {
         state.discount = {
-          size: Math.trunc(Math.max(state.discount.size, payload) * COUPON_MULTIPLIER) / COUPON_MULTIPLIER,
+          size: Math.trunc(payload * multiplier.couponMultiplier) / multiplier.couponDivider,
           requestStatus: RequestStatus.SUCCESS,
         };
       })
