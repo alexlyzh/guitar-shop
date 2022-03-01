@@ -22,6 +22,7 @@ import {
 import { AppPath, AppSearchParam } from '../../const/app-routes';
 import { apiRoute } from '../../const/api-routes';
 
+
 type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Action>;
 
 const ActionAPI = {

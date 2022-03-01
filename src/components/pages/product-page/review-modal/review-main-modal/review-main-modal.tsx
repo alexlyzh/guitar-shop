@@ -51,7 +51,6 @@ function ReviewMainModal({product, isModalOpen, onSubmitSuccess}: Props): JSX.El
             <label className="form-review__label form-review__label--required" htmlFor="user-name">Ваше Имя</label>
             <input className="form-review__input form-review__input--name" id="user-name" name="user-name" type="text"
               autoComplete="off"
-              autoFocus
               disabled={isSubmitting}
               value={state['user-name']}
               onChange={onFormElementChange}

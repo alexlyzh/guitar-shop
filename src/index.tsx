@@ -6,11 +6,9 @@ import rootReducer from './store/reducer/root-reducer';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { configureStore } from '@reduxjs/toolkit';
-import { createApi } from './api';
+import { api } from './api';
 import { Provider } from 'react-redux';
 import { redirect } from './store/middleware/redirect/redirect';
-
-const api = createApi();
 
 const store = configureStore({
   reducer: rootReducer,

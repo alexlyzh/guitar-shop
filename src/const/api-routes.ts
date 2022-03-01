@@ -4,6 +4,7 @@ const apiRoute = <const>{
     guitar: '/guitars/:id',
     guitarComments: '/guitars/:id/comments',
     comments: '/comments',
+    coupons: '/coupons',
   },
   search: <const>{
     name: 'name_like',

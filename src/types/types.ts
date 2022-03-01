@@ -74,6 +74,11 @@ type Breadcrumb = {
   title: string,
 }
 
+type Discount = {
+  size: number,
+  requestStatus: RequestStatus,
+}
+
 export { RequestStatus, ModalType };
 export type {
   RemoteData,
@@ -84,5 +89,6 @@ export type {
   CommentPost,
   ReviewFormState,
   CartItem,
-  Breadcrumb
+  Breadcrumb,
+  Discount
 };

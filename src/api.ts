@@ -8,4 +8,6 @@ const createApi = (): AxiosInstance => axios.create({
   timeout: REQUEST_TIMEOUT,
 });
 
-export { createApi, BASE_API_URL };
+const api = createApi();
+
+export { createApi, api, BASE_API_URL };

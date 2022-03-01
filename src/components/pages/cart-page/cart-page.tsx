@@ -4,6 +4,7 @@ import CartProductList from './cart-product-list/cart-product-list';
 import { useSelector } from 'react-redux';
 import { getCartItems, getDiscount, getTotalCartPrice } from '../../../store/reducer/cart-reducer/selectors';
 import { AppPath, breadcrumb } from '../../../const/app-routes';
+import Coupon from './coupon/coupon';
 
 const breadcrumbs = [
   { ...breadcrumb[AppPath.root] },
@@ -25,18 +26,8 @@ function CartPage(): JSX.Element {
         <CartProductList cartItems={cartItems} />
 
         <div className="cart__footer">
-          <div className="cart__coupon coupon">
-            <h2 className="title title--little coupon__title">Промокод на скидку</h2>
-            <p className="coupon__info">Введите свой промокод, если он у вас есть.</p>
-            <form className="coupon__form" id="coupon-form" method="post" action="/">
-              <div className="form-input coupon__input">
-                <label className="visually-hidden">Промокод</label>
-                <input type="text" placeholder="Введите промокод" id="coupon" name="coupon"/>
-                <p className="form-input__message form-input__message--success">Промокод принят</p>
-              </div>
-              <button className="button button--big coupon__button">Применить</button>
-            </form>
-          </div>
+          <Coupon discount={discount} />
+
           <div className="cart__total-info">
             <p className="cart__total-item">
               <span className="cart__total-value-name">Всего:</span>
@@ -44,11 +35,15 @@ function CartPage(): JSX.Element {
             </p>
             <p className="cart__total-item">
               <span className="cart__total-value-name">Скидка:</span>
-              <span className={`cart__total-value ${discount !== 0 ? 'cart__total-value--bonus' : ''}`}>{discount} ₽</span>
+              <span className={`cart__total-value ${discount.size !== 0 ? 'cart__total-value--bonus' : ''}`}>
+                {discount.size * totalCartPrice} ₽
+              </span>
             </p>
             <p className="cart__total-item">
               <span className="cart__total-value-name">К оплате:</span>
-              <span className="cart__total-value cart__total-value--payment">{totalCartPrice + discount} ₽</span>
+              <span className="cart__total-value cart__total-value--payment">
+                {Math.max(0, totalCartPrice - totalCartPrice * discount.size)} ₽
+              </span>
             </p>
             <button
               className="button button--red button--big cart__order-button"

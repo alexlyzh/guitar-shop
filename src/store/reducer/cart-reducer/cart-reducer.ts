@@ -1,5 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { CartItem, Guitar } from '../../../types/types';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { generatePath } from 'react-router-dom';
+import { apiRoute } from '../../../const/api-routes';
+import { CartItem, Discount, Guitar, RequestStatus } from '../../../types/types';
+import { api } from '../../../api';
+
+const COUPON_MULTIPLIER = 100;
 
 const countLimit = <const>{
   max: 99,
@@ -8,13 +13,24 @@ const countLimit = <const>{
 
 type CartState = {
   items: CartItem[],
-  discount: number,
+  discount: Discount,
 }
 
 const initialState: CartState = {
   items: [],
-  discount: 0,
+  discount: {
+    size: 0,
+    requestStatus: RequestStatus.IDLE,
+  },
 };
+
+const submitCoupon = createAsyncThunk(
+  'CART/submitCoupon',
+  async (coupon: string) => {
+    const {data} = await api.post<number>(generatePath(apiRoute.path.coupons), { coupon });
+    return data;
+  },
+);
 
 const cartSlice = createSlice({
   name: 'CART',
@@ -51,6 +67,21 @@ const cartSlice = createSlice({
       state.items.push({ guitar, count: handledCount });
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(submitCoupon.pending, (state) => {
+        state.discount.requestStatus = RequestStatus.PENDING;
+      })
+      .addCase(submitCoupon.fulfilled, (state, {payload}) => {
+        state.discount = {
+          size: Math.trunc(Math.max(state.discount.size, payload) * COUPON_MULTIPLIER) / COUPON_MULTIPLIER,
+          requestStatus: RequestStatus.SUCCESS,
+        };
+      })
+      .addCase(submitCoupon.rejected, (state) => {
+        state.discount.requestStatus = RequestStatus.ERROR;
+      });
+  },
 });
 
 const cartReducer = cartSlice.reducer;
@@ -60,5 +91,6 @@ export {
   initialState as initialCartState,
   cartReducer,
   cartAction,
-  countLimit
+  countLimit,
+  submitCoupon
 };
