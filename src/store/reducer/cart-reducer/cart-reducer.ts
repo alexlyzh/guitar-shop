@@ -23,6 +23,7 @@ const initialState: CartState = {
   items: [],
   discount: {
     size: 0,
+    coupon: '',
     requestStatus: RequestStatus.IDLE,
   },
 };
@@ -31,7 +32,10 @@ const submitCoupon = createAsyncThunk(
   'CART/submitCoupon',
   async (coupon: string) => {
     const {data} = await api.post<number>(generatePath(apiRoute.path.coupons), { coupon });
-    return data;
+    return {
+      size: Math.trunc(data * multiplier.couponMultiplier) / multiplier.couponDivider,
+      coupon,
+    };
   },
 );
 
@@ -77,7 +81,8 @@ const cartSlice = createSlice({
       })
       .addCase(submitCoupon.fulfilled, (state, {payload}) => {
         state.discount = {
-          size: Math.trunc(payload * multiplier.couponMultiplier) / multiplier.couponDivider,
+          size: payload.size,
+          coupon: payload.coupon,
           requestStatus: RequestStatus.SUCCESS,
         };
       })

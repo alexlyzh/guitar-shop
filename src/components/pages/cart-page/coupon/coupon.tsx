@@ -21,7 +21,7 @@ type Props = {
 
 function Coupon({ discount }: Props): JSX.Element {
   const dispatch = useDispatch();
-  const [coupon, setCoupon] = useState<string>('');
+  const [coupon, setCoupon] = useState<string>(discount.coupon);
   const changeCoupon = ({target}: ChangeEvent<HTMLInputElement>) => setCoupon(target.value.toLowerCase());
   const submitCartCoupon = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

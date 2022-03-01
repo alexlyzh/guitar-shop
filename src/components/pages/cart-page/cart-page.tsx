@@ -16,6 +16,7 @@ function CartPage(): JSX.Element {
   const cartItems = useSelector(getCartItems);
   const totalCartPrice = useSelector(getTotalCartPrice);
   const discount = useSelector(getDiscount);
+  const shouldHighlightDiscount = Boolean(totalCartPrice) && discount.size !== 0 ;
 
   return (
     <MainLayout>
@@ -35,8 +36,8 @@ function CartPage(): JSX.Element {
             </p>
             <p className="cart__total-item">
               <span className="cart__total-value-name">Скидка:</span>
-              <span className={`cart__total-value ${discount.size !== 0 ? 'cart__total-value--bonus' : ''}`}>
-                {discount.size * totalCartPrice} ₽
+              <span className={`cart__total-value ${shouldHighlightDiscount ? 'cart__total-value--bonus' : ''}`}>
+                {- discount.size * totalCartPrice} ₽
               </span>
             </p>
             <p className="cart__total-item">

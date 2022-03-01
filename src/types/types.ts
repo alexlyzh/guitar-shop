@@ -76,6 +76,7 @@ type Breadcrumb = {
 
 type Discount = {
   size: number,
+  coupon: string,
   requestStatus: RequestStatus,
 }
 
