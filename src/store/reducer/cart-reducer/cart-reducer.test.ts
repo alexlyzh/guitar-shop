@@ -1,6 +1,7 @@
-import { cartReducer, cartAction, initialCartState, countLimit } from './cart-reducer';
+import { cartReducer, cartAction, initialCartState, countLimit, submitCoupon } from './cart-reducer';
 import { getMockGuitar } from '../../../utils/mock';
 import { getRandomInteger } from '../../../utils/common';
+import { RequestStatus } from '../../../types/types';
 
 const guitar = getMockGuitar();
 
@@ -79,7 +80,7 @@ describe('Reducer: cartReducer', () => {
   });
 
   it('should set guitar count in cart correctly', () => {
-    const randomCount = getRandomInteger(1,99).toString();
+    const randomCount = getRandomInteger(1, 99).toString();
     const initialState = {...initialCartState };
 
     expect(cartReducer(initialState, cartAction.setCount({
@@ -92,6 +93,45 @@ describe('Reducer: cartReducer', () => {
           guitar,
           count: Number(randomCount),
         }],
+      });
+  });
+
+  it('should set discount.requestStatus PENDING when submitCoupon is pending', () => {
+    expect(cartReducer(initialCartState, { type: submitCoupon.pending.type }))
+      .toEqual({
+        ...initialCartState,
+        discount: {
+          ...initialCartState.discount,
+          requestStatus: RequestStatus.PENDING,
+        },
+      });
+  });
+
+  it('should set discount requestStatus = SUCCESS, size & coupon when submitCoupon is fulfilled', () => {
+    const payload = { size: 0.25, coupon: 'some' };
+
+    const updatedState = {
+      ...initialCartState,
+      discount: {
+        ...payload,
+        requestStatus: RequestStatus.SUCCESS,
+      },
+    };
+
+    const action = { type: submitCoupon.fulfilled.type, payload };
+
+    const nextState = cartReducer(initialCartState, action);
+    expect(nextState).toEqual(updatedState);
+  });
+
+  it('should set discount.requestStatus ERROR when submitCoupon is rejected', () => {
+    expect(cartReducer(initialCartState, { type: submitCoupon.rejected.type }))
+      .toEqual({
+        ...initialCartState,
+        discount: {
+          ...initialCartState.discount,
+          requestStatus: RequestStatus.ERROR,
+        },
       });
   });
 });
