@@ -19,7 +19,7 @@ type CartState = {
   discount: Discount,
 }
 
-const initialState: CartState = {
+const initialState: Readonly<CartState> = {
   items: [],
   discount: {
     size: 0,
