@@ -55,7 +55,7 @@ export const getMockGuitar = (): Guitar => {
   return {
     id,
     name: internet.userName(),
-    vendorCode: datatype.string(),
+    vendorCode: internet.userName(),
     type: typeOptions[getRandomInteger(0, typeOptions.length - 1)],
     description: datatype.string(),
     previewImg: 'img/guitar-1.jpg',

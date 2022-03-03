@@ -1,9 +1,9 @@
 import CatalogCartBtn from './catalog-cart-btn';
+import userEvent from '@testing-library/user-event';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render, screen } from '@testing-library/react';
 import { getRandomInteger } from '../../../../utils/common';
-import userEvent from '@testing-library/user-event';
 
 describe('Component: CatalogCartBtn', () => {
   it('should render and call onClick', () => {
