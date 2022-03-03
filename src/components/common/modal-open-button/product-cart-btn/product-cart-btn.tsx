@@ -6,6 +6,8 @@ function ProductCartBtn({onClick}: Omit<ModalOpenBtnProps, 'type'>): JSX.Element
     <Link
       className="button button--red button--big product-container__button"
       to="#"
+      aria-label="open cart modal"
+      role="modal-open-button"
       onClick={onClick}
     >
       Добавить в корзину

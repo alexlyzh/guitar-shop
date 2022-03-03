@@ -1,6 +1,6 @@
+import ReactDOM from 'react-dom';
 import { ReactNode, useRef } from 'react';
 import { useTabKeyFocusTrap } from '../../../hooks/use-tab-key-focus-trap/use-tab-key-focus-trap';
-import ReactDOM from 'react-dom';
 
 const ACTIVE_CLASSNAME = 'is-active';
 

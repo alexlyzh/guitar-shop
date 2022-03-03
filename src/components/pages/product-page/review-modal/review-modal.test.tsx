@@ -6,6 +6,7 @@ import { createMemoryHistory } from 'history';
 import { render, screen } from '@testing-library/react';
 import { getMockGuitarWithComments } from '../../../../utils/mock';
 import { initialAppState } from '../../../../store/reducer/app-reducer/app-reducer';
+import userEvent from '@testing-library/user-event';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
@@ -26,6 +27,10 @@ describe('Component: ReviewModal', () => {
       </Provider>,
     );
 
-    expect(screen.getByLabelText(/open review form/i)).toBeInTheDocument();
+    const modalOpenBtn = screen.getByLabelText(/open review modal/i);
+    expect(modalOpenBtn).toBeInTheDocument();
+
+    userEvent.click(modalOpenBtn);
+    expect(screen.getByText(new RegExp(`${guitar.name}`, 'i'))).toBeInTheDocument();
   });
 });

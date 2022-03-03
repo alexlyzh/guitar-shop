@@ -9,7 +9,7 @@ export type ModalOpenBtnProps = {
   onClick?: () => void,
 }
 
-const buttonByModalType = {
+export const buttonByModalType = {
   review: ReviewBtn,
   productCart: ProductCartBtn,
   catalogCart: CatalogCartBtn,

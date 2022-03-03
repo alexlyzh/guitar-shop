@@ -6,7 +6,8 @@ function ReviewBtn({onClick}: Omit<ModalOpenBtnProps, 'type'>): JSX.Element {
     <Link
       className="button button--red-border button--big reviews__submit-button"
       to="#"
-      aria-label="open review form"
+      aria-label="open review modal"
+      role="modal-open-button"
       onClick={onClick}
     >
       Оставить отзыв

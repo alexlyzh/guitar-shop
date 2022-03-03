@@ -17,6 +17,8 @@ function CatalogCartBtn({isInCart, onClick}: Omit<ModalOpenBtnProps, 'type'>): J
     <Link
       className={isInCart ? ClassName.inCart : ClassName.buy}
       to={isInCart ? AppPath.cart : '#'}
+      aria-label="open cart modal"
+      role="modal-open-button"
       onClick={onClick}
     >
       {isInCart ? Label.inCart : Label.buy}
