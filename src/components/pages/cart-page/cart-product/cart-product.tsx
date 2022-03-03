@@ -33,11 +33,11 @@ function CartProduct({cartItem}: Props): JSX.Element {
     dispatch(cartAction.setCount({ guitar, count: target.value }));
 
   return (
-    <div className="cart-item">
+    <div className="cart-item" aria-label="cart product">
       <CartDeleteModal
         guitar={guitar}
         isOpen={isDeleteModalOpen}
-        hideModal={hideDeleteModal}
+        onHideModalBtnClick={hideDeleteModal}
         onRemoveBtnClick={removeFromCart}
       />
 

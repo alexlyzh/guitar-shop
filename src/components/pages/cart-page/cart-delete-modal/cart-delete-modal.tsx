@@ -5,17 +5,17 @@ import { guitarType } from '../../../../const/common';
 type Props = {
   guitar: Guitar,
   isOpen: boolean,
-  hideModal: () => void,
+  onHideModalBtnClick: () => void,
   onRemoveBtnClick: () => void,
 }
 
-function CartDeleteModal({guitar, isOpen, hideModal, onRemoveBtnClick}: Props): JSX.Element | null {
+function CartDeleteModal({guitar, isOpen, onHideModalBtnClick, onRemoveBtnClick}: Props): JSX.Element | null {
   if (!isOpen) {
     return null;
   }
 
   return (
-    <Modal isOpen={isOpen} onModalClose={hideModal}>
+    <Modal isOpen={isOpen} onModalClose={onHideModalBtnClick}>
       <h2 className="modal__header title title--medium title--red">Удалить этот товар?</h2>
       <div className="modal__info">
         <img className="modal__img" src={guitar.previewImg} width="67" height="137" alt="Честер bass"/>
@@ -31,7 +31,7 @@ function CartDeleteModal({guitar, isOpen, hideModal, onRemoveBtnClick}: Props): 
         <button className="button button--small modal__button" onClick={onRemoveBtnClick}>Удалить товар</button>
         <button
           className="button button--black-border button--small modal__button modal__button--right"
-          onClick={hideModal}
+          onClick={onHideModalBtnClick}
         >
           Продолжить покупки
         </button>
