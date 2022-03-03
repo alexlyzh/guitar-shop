@@ -11,7 +11,7 @@ function CartLink(): JSX.Element {
         <use xlinkHref="#icon-basket"/>
       </svg>
       <span className="visually-hidden">Перейти в корзину</span>
-      {totalCartCount ? <span className="header__cart-count">{totalCartCount}</span> : null}
+      {totalCartCount ? <span className="header__cart-count" aria-label="items in cart">{totalCartCount}</span> : null}
     </Link>
   );
 }
