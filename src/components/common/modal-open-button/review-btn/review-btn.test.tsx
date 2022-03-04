@@ -12,7 +12,7 @@ describe('Component: CatalogCartBtn', () => {
 
     render(
       <Router history={createMemoryHistory()}>
-        <ReviewBtn isInCart={isInCart} onClick={onClick} />
+        <ReviewBtn isInCart={isInCart} onLinkClick={onClick} />
       </Router>,
     );
 

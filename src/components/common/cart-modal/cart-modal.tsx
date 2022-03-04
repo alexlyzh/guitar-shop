@@ -57,7 +57,7 @@ function CartModal({guitar, type}: Props): JSX.Element {
 
   return (
     <>
-      <ModalOpenButton type={type} isInCart={isInCart} onClick={onModalOpenBtnClick} />
+      <ModalOpenButton type={type} isInCart={isInCart} onLinkClick={onModalOpenBtnClick} />
       {isModalOpen ?
         <Modal isOpen={isModalOpen} onModalClose={hideModal} className={shouldShowSuccess ? ClassName.success : ClassName.main}>
           {!shouldShowSuccess

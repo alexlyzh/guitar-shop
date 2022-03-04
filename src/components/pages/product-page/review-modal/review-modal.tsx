@@ -19,7 +19,7 @@ function ReviewModal({product}: Props): JSX.Element {
 
   return (
     <>
-      <ModalOpenButton type={ModalType.review} onClick={showModal} />
+      <ModalOpenButton type={ModalType.review} onLinkClick={showModal} />
       {isModalOpen ?
         <Modal isOpen={isModalOpen} onModalClose={hideModal} className={shouldShowSuccess ? ClassName.success : ClassName.main}>
           {!shouldShowSuccess

@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import { ModalOpenBtnProps } from '../modal-open-button';
 
-function ProductCartBtn({onClick}: Omit<ModalOpenBtnProps, 'type'>): JSX.Element {
+function ProductCartBtn({onLinkClick}: Omit<ModalOpenBtnProps, 'type'>): JSX.Element {
   return (
     <Link
       className="button button--red button--big product-container__button"
       to="#"
       aria-label="open cart modal"
       role="modal-open-button"
-      onClick={onClick}
+      onClick={onLinkClick}
     >
       Добавить в корзину
     </Link>

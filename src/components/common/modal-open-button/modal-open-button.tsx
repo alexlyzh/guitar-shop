@@ -6,7 +6,7 @@ import { ModalType } from '../../../types/types';
 export type ModalOpenBtnProps = {
   type: ModalType,
   isInCart?: boolean,
-  onClick?: () => void,
+  onLinkClick?: () => void,
 }
 
 export const buttonByModalType = {
@@ -15,7 +15,7 @@ export const buttonByModalType = {
   catalogCart: CatalogCartBtn,
 };
 
-export default function ModalOpenButton({type, isInCart, onClick}: ModalOpenBtnProps): JSX.Element {
+export default function ModalOpenButton({type, isInCart, onLinkClick}: ModalOpenBtnProps): JSX.Element {
   const Button = buttonByModalType[type];
-  return <Button isInCart={isInCart} onClick={onClick} />;
+  return <Button isInCart={isInCart} onLinkClick={onLinkClick} />;
 }

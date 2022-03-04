@@ -13,23 +13,23 @@ type Props = {
 function CartProduct({cartItem}: Props): JSX.Element {
   const { guitar, count } = cartItem;
   const dispatch = useDispatch();
-  const [isDeleteModalOpen, showDeleteModal, hideDeleteModal] = useModal();
+  const [isDeleteModalOpen, handleDeleteModalShow, handleDeleteModalHide] = useModal();
 
-  const removeFromCart = () => {
+  const handleCartItemRemove = () => {
     document.body.classList.remove(MODAL_OPEN_CLASSNAME);
     dispatch(cartAction.remove(guitar));
   };
-  const increaseCartCount = () => dispatch(cartAction.add(guitar));
+  const handleCartCountIncrease = () => dispatch(cartAction.add(guitar));
 
-  const decreaseCartCount = () => {
+  const handleCartCountDecrease = () => {
     if (count === countLimit.min) {
-      showDeleteModal();
+      handleDeleteModalShow();
       return;
     }
     dispatch(cartAction.subtract(guitar));
   };
 
-  const setCartCount = ({target}: ChangeEvent<HTMLInputElement>) =>
+  const handleCartCountChange = ({target}: ChangeEvent<HTMLInputElement>) =>
     dispatch(cartAction.setCount({ guitar, count: target.value }));
 
   return (
@@ -37,15 +37,15 @@ function CartProduct({cartItem}: Props): JSX.Element {
       <CartDeleteModal
         guitar={guitar}
         isOpen={isDeleteModalOpen}
-        onHideModalBtnClick={hideDeleteModal}
-        onRemoveBtnClick={removeFromCart}
+        onHideModalBtnClick={handleDeleteModalHide}
+        onRemoveBtnClick={handleCartItemRemove}
       />
 
       <button
         className="cart-item__close-button button-cross"
         type="button"
         aria-label="Удалить"
-        onClick={showDeleteModal}
+        onClick={handleDeleteModalShow}
       >
         <span className="button-cross__icon"/>
         <span className="cart-item__close-button-interactive-area"/>
@@ -63,7 +63,7 @@ function CartProduct({cartItem}: Props): JSX.Element {
         <button
           className="quantity__button"
           aria-label="Уменьшить количество"
-          onClick={decreaseCartCount}
+          onClick={handleCartCountDecrease}
         >
           <svg width="8" height="8" aria-hidden="true">
             <use xlinkHref="#icon-minus"/>
@@ -75,12 +75,12 @@ function CartProduct({cartItem}: Props): JSX.Element {
           value={count ? count : ''}
           id={`${guitar.id}-count`}
           name={`${guitar.id}-count`}
-          onChange={setCartCount}
+          onChange={handleCartCountChange}
         />
         <button
           className="quantity__button"
           aria-label="Увеличить количество"
-          onClick={increaseCartCount}
+          onClick={handleCartCountIncrease}
         >
           <svg width="8" height="8" aria-hidden="true">
             <use xlinkHref="#icon-plus"/>

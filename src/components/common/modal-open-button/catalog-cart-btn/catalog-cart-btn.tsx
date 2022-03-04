@@ -12,14 +12,14 @@ enum ClassName {
   inCart = 'button button--red-border button--mini button--in-cart',
 }
 
-function CatalogCartBtn({isInCart, onClick}: Omit<ModalOpenBtnProps, 'type'>): JSX.Element {
+function CatalogCartBtn({isInCart, onLinkClick}: Omit<ModalOpenBtnProps, 'type'>): JSX.Element {
   return (
     <Link
       className={isInCart ? ClassName.inCart : ClassName.buy}
       to={isInCart ? AppPath.cart : '#'}
       aria-label="open cart modal"
       role="modal-open-button"
-      onClick={onClick}
+      onClick={onLinkClick}
     >
       {isInCart ? Label.inCart : Label.buy}
     </Link>
