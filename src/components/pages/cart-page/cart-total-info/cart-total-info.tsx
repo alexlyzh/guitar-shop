@@ -17,7 +17,7 @@ function CartTotalInfo({cartItems, totalCartPrice, discount, shouldHighlightDisc
       <p className="cart__total-item">
         <span className="cart__total-value-name">Скидка:</span>
         <span className={`cart__total-value ${shouldHighlightDiscount ? 'cart__total-value--bonus' : ''}`}>
-          {-discount.size * totalCartPrice} ₽
+          {-Math.round(discount.size * totalCartPrice)} ₽
         </span>
       </p>
       <p className="cart__total-item">

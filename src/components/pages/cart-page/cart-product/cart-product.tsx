@@ -32,6 +32,12 @@ function CartProduct({cartItem}: Props): JSX.Element {
   const handleCartCountChange = ({target}: ChangeEvent<HTMLInputElement>) =>
     dispatch(cartAction.setCount({ guitar, count: target.value }));
 
+  const handleCartCountBlur = ({target}: ChangeEvent<HTMLInputElement>) => {
+    if (target.value === '') {
+      dispatch(cartAction.setCount({ guitar, count: countLimit.min.toString() }));
+    }
+  };
+
   return (
     <div className="cart-item" aria-label="cart product">
       <CartDeleteModal
@@ -76,6 +82,7 @@ function CartProduct({cartItem}: Props): JSX.Element {
           id={`${guitar.id}-count`}
           name={`${guitar.id}-count`}
           onChange={handleCartCountChange}
+          onBlur={handleCartCountBlur}
         />
         <button
           className="quantity__button"

@@ -87,7 +87,11 @@ const cartSlice = createSlice({
         };
       })
       .addCase(submitCoupon.rejected, (state) => {
-        state.discount.requestStatus = RequestStatus.ERROR;
+        state.discount = {
+          size: 0,
+          coupon: '',
+          requestStatus: RequestStatus.ERROR,
+        };
       });
   },
 });

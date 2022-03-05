@@ -26,7 +26,7 @@ describe('Component: CartTotalInfo', () => {
     );
 
     expect(screen.getByText(new RegExp(`${totalCartPrice}`))).toBeInTheDocument();
-    expect(screen.getByText(new RegExp(`${-discount.size * totalCartPrice}`))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`${-Math.round(discount.size * totalCartPrice)}`))).toBeInTheDocument();
     expect(screen.getByText(new RegExp(`${Math.max(0, totalCartPrice - totalCartPrice * discount.size)}`))).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /оформить заказ/i })).toBeInTheDocument();
   });
